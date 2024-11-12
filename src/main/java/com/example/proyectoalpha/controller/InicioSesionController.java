@@ -78,4 +78,16 @@ public class InicioSesionController {
         }
     }
 
+    private void menuAtleta(Usuario usuario) {
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/MenuAtleta.fxml"));
+            Parent root = loader.load();
+
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
+
 }
