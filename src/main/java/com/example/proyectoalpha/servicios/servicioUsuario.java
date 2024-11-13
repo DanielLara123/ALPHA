@@ -52,4 +52,9 @@ public class servicioUsuario {
                 .findFirst()
                 .orElse(null);
     }
+
+    public boolean emailEstaRegistrado(String correo) {
+        return usuarios.stream().anyMatch(user -> user.getCorreo().equals(correo));
+    }
+
 }

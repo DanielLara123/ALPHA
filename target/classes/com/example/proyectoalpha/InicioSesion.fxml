@@ -14,12 +14,12 @@
                   <Label fx:id="LblMessage" alignment="CENTER" prefHeight="17.0" prefWidth="476.0" textAlignment="CENTER" textFill="WHITE" />
                   <TextField fx:id="LblCorreo" promptText="Correo electrónico" />
                   <PasswordField fx:id="LblContrasena" promptText="Contraseña" />
-                  <Button fx:id="BtnContinuar" mnemonicParsing="false" prefHeight="47.0" prefWidth="183.0" text="Continuar">
+                  <Button fx:id="BtnContinuar" mnemonicParsing="false" prefHeight="47.0" prefWidth="183.0" stylesheets="@ModeloAlpha.css" text="Continuar">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="BtnNoTienesCuenta" mnemonicParsing="false" prefHeight="25.0" prefWidth="468.0" text="¿No tienes cuenta? Regístrate">
+                  <Button fx:id="BtnNoTienesCuenta" mnemonicParsing="false" prefHeight="25.0" prefWidth="468.0" stylesheets="@ModeloAlpha.css" text="¿No tienes cuenta? Regístrate">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -42,7 +42,7 @@
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="43.0" prefWidth="131.0" text="Volver" textAlignment="CENTER" />
+                        <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="43.0" prefWidth="131.0" stylesheets="@ModeloAlpha.css" text="Volver" textAlignment="CENTER" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="169.0" prefWidth="649.0">
