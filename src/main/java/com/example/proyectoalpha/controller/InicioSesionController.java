@@ -49,7 +49,7 @@ public class InicioSesionController {
         Usuario usuario = servicioUsuario.loginUsuario(correo, contrasena);
         if (usuario != null) {
             System.out.println("Login successful");
-            // Proceed to the next view
+            menuAtleta(usuario);
         } else {
             System.out.println("Invalid email or password");
         }
@@ -80,9 +80,15 @@ public class InicioSesionController {
 
     private void menuAtleta(Usuario usuario) {
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/MenuAtleta.fxml"));
-            Parent root = loader.load();
+            FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/MenuAtleta.fxml"));
+            Parent root2 = loader2.load();
 
+            MenuAtletaController menuAtletaController = loader2.getController();
+            //menuAtletaController.setTipoUsuario(tipoUsuario);
+
+            Stage stage2 = (Stage) BtnContinuar.getScene().getWindow();
+            stage2.setScene(new Scene(root2));
+            stage2.show();
         }
         catch (IOException e){
             e.printStackTrace();
