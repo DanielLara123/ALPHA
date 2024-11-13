@@ -63,6 +63,16 @@ public class RegistroController {
             return;
         }
 
+        if (!correo.endsWith("@gmail.com")) {
+            LblMessage.setText("El correo debe terminar en @gmail.com");
+            return;
+        }
+
+        if (servicioUsuario.emailEstaRegistrado(correo)) {
+            LblMessage.setText("El correo ya está registrado");
+            return;
+        }
+
         if (!"Atleta".equals(tipoUsuario)) {
             LblMessage.setText("Solo los atletas pueden registrarse");
             return;

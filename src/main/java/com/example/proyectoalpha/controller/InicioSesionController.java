@@ -90,9 +90,6 @@ public class InicioSesionController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/TipoUsuario.fxml"));
             Parent root = loader.load();
-
-            TipoUsuarioController tipoUsuarioController = loader.getController();
-
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
