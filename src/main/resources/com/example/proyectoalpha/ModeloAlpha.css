@@ -1,18 +1,18 @@
-parent{
+.parent{
     -fx-background-color: #000000;
 }
-label{
+.label{
     -fx-text-fill: #efb810;
 }
-label:hover{
+.label:hover{
     -fx-underline: true;
 }
-button{
+.button{
     -fx-background-color: #293133;
     -fx-text-fill: #efb810;
     -fx-background-radius: 10px;
 }
-button:hover{
+.button:hover{
     -fx-background-color: #efb810;
     -fx-text-fill: #293133;
     -fx-border-color: #efb810;
