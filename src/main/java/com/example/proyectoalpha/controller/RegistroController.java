@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -30,6 +31,12 @@ public class RegistroController {
     @FXML
     private PasswordField LblRepiteContrasena;
 
+    @FXML
+    private Label LblMessage;
+
+    @FXML
+    private Button BtnVolver;
+
     private servicioUsuario servicioUsuario;
     private String tipoUsuario;
 
@@ -39,6 +46,7 @@ public class RegistroController {
 
         BtnContinuar.setOnAction(event -> manejarContinuar());
         BtnYaTienesCuenta.setOnAction(event -> manejarYaTienesCuenta());
+        BtnVolver.setOnAction(event -> manejarVolver());
     }
 
     public void setTipoUsuario(String tipoUsuario) {
@@ -50,8 +58,13 @@ public class RegistroController {
         String contrasena = LblContrasena.getText();
         String repiteContrasena = LblRepiteContrasena.getText();
 
+        if (correo.isEmpty() || contrasena.isEmpty() || repiteContrasena.isEmpty()) {
+            LblMessage.setText("Necesitas llenar todos los campos");
+            return;
+        }
+
         if (!"Atleta".equals(tipoUsuario)) {
-            System.out.println("Only Atleta type users can register");
+            LblMessage.setText("Solo los atletas pueden registrarse");
             return;
         }
 
@@ -61,9 +74,27 @@ public class RegistroController {
             usuario.setContrasena(contrasena);
             usuario.setTipoUsuario(tipoUsuario);
             servicioUsuario.registrarUsuario(usuario);
-            System.out.println("User registered successfully");
+            LblMessage.setText("Usuario registrado correctamente");
+
+            // Load MostrarTexto.fxml and set the message
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/MostrarTexto.fxml"));
+                Parent root = loader.load();
+
+                // Get the controller and set the message
+                MostrarTextoController mostrarTextoController = loader.getController();
+                mostrarTextoController.setMessage("Usuario registrado correctamente");
+                mostrarTextoController.setTipoUsuario(tipoUsuario);
+
+                // Show the new scene
+                Stage stage = (Stage) BtnContinuar.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
-            System.out.println("Passwords do not match");
+            LblMessage.setText("Las contraseñas no coinciden");
         }
     }
 
@@ -71,7 +102,22 @@ public class RegistroController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/InicioSesion.fxml"));
             Parent root = loader.load();
+            InicioSesionController inicioSesionController = loader.getController();
+            inicioSesionController.setTipoUsuario(tipoUsuario);
             Stage stage = (Stage) BtnYaTienesCuenta.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void manejarVolver() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/TipoUsuario.fxml"));
+            Parent root = loader.load();
+            TipoUsuarioController tipoUsuarioController = loader.getController();
+            Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {

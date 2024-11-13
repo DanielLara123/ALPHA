@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -27,6 +28,12 @@ public class InicioSesionController {
     @FXML
     private TextField LblCorreo;
 
+    @FXML
+    private Label LblMessage;
+
+    @FXML
+    private Button BtnVolver;
+
     private servicioUsuario servicioUsuario;
     private String tipoUsuario;
 
@@ -36,6 +43,7 @@ public class InicioSesionController {
 
         BtnContinuar.setOnAction(event -> manejarContinuar());
         BtnNoTienesCuenta.setOnAction(event -> manejarNoTienesCuenta());
+        BtnVolver.setOnAction(event -> manejarVolver());
     }
 
     public void setTipoUsuario(String tipoUsuario) {
@@ -48,10 +56,10 @@ public class InicioSesionController {
 
         Usuario usuario = servicioUsuario.loginUsuario(correo, contrasena);
         if (usuario != null) {
-            System.out.println("Login successful");
+            LblMessage.setText("Login correcto");
             // Proceed to the next view
         } else {
-            System.out.println("Invalid email or password");
+            LblMessage.setText("Correo o contraseña incorrectos");
         }
     }
 
@@ -59,7 +67,7 @@ public class InicioSesionController {
     private void manejarNoTienesCuenta() {
 
         if (!"Atleta".equals(tipoUsuario)) {
-            System.out.println("Only Atleta type users can register");
+            LblMessage.setText("Solo los atletas pueden registrarse");
             return;
         }
 
@@ -78,4 +86,18 @@ public class InicioSesionController {
         }
     }
 
+    private void manejarVolver() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/TipoUsuario.fxml"));
+            Parent root = loader.load();
+
+            TipoUsuarioController tipoUsuarioController = loader.getController();
+
+            Stage stage = (Stage) BtnVolver.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
