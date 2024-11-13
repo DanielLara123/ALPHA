@@ -57,7 +57,7 @@ public class InicioSesionController {
         Usuario usuario = servicioUsuario.loginUsuario(correo, contrasena);
         if (usuario != null) {
             LblMessage.setText("Login correcto");
-            // Proceed to the next view
+            MenuAtleta();
         } else {
             LblMessage.setText("Correo o contraseña incorrectos");
         }
@@ -90,11 +90,27 @@ public class InicioSesionController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/TipoUsuario.fxml"));
             Parent root = loader.load();
+
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void MenuAtleta(){
+        BtnContinuar.setOnAction(event -> {
+            try {
+                FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/com/example/ProyectoAlpha/MenuAtleta.fxml"));
+                Parent root = loader2.load();
+
+                Stage stage = (Stage) BtnContinuar.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
