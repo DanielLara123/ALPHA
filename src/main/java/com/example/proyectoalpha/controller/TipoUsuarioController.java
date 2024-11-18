@@ -3,6 +3,8 @@ package com.example.proyectoalpha.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.example.proyectoalpha.controller.RegistroInicioSesion.InicioSesionController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -40,7 +42,7 @@ public class TipoUsuarioController {
 
     private void loadInicioSesion(String tipoUsuario) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/InicioSesion.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/RegistroInicioSesion/InicioSesion.fxml"));
             Parent root = loader.load();
 
             InicioSesionController inicioSesionController = loader.getController();
