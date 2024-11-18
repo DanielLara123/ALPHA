@@ -56,8 +56,19 @@ public class InicioSesionController {
 
         Usuario usuario = servicioUsuario.loginUsuario(correo, contrasena);
         if (usuario != null) {
-            LblMessage.setText("Login correcto");
-            MenuAtleta();
+
+            if(tipoUsuario.equalsIgnoreCase("atleta")){
+                MenuAtleta();
+            }
+            else if(tipoUsuario.equalsIgnoreCase("medico")){
+                MenuMedico();
+            }
+            else if(tipoUsuario.equalsIgnoreCase("administrador")){
+                //MenuAdministrador();
+            }
+            else {
+                //MenuEntrenador();
+            }
         } else {
             LblMessage.setText("Correo o contraseña incorrectos");
         }
@@ -100,17 +111,29 @@ public class InicioSesionController {
     }
 
     private void MenuAtleta(){
-        BtnContinuar.setOnAction(event -> {
-            try {
-                FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/com/example/ProyectoAlpha/MenuAtleta.fxml"));
-                Parent root = loader2.load();
 
-                Stage stage = (Stage) BtnContinuar.getScene().getWindow();
-                stage.setScene(new Scene(root));
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        try {
+            FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/com/example/ProyectoAlpha/MenuAtleta.fxml"));
+            Parent root = loader2.load();
+
+            Stage stage = (Stage) BtnContinuar.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void MenuMedico(){
+        try {
+            FXMLLoader loader3 = new FXMLLoader(getClass().getResource("/com/example/ProyectoAlpha/MenuMedico.fxml"));
+            Parent root2 = loader3.load();
+
+            Stage stage = (Stage) BtnContinuar.getScene().getWindow();
+            stage.setScene(new Scene(root2));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
