@@ -20,3 +20,11 @@
     -fx-border-style: solid;
     -fx-border-radius: 10px;
 }
+.textfield{
+    -fx-background-color: #293133;
+    -fx-text-fill: #efb810;
+}
+.textfield:focused{
+    -fx-background-color: #efb810;
+    -fx-text-fill: #293133;
+}
