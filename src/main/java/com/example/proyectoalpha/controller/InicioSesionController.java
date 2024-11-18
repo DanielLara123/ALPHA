@@ -54,20 +54,22 @@ public class InicioSesionController {
         String correo = LblCorreo.getText();
         String contrasena = LblContrasena.getText();
 
+
         Usuario usuario = servicioUsuario.loginUsuario(correo, contrasena);
         if (usuario != null) {
+            if (!usuario.getTipoUsuario().equalsIgnoreCase(tipoUsuario)) {
+                LblMessage.setText("Tipo de usuario incorrecto");
+                return;
+            }
 
-            if(tipoUsuario.equalsIgnoreCase("atleta")){
+            if (tipoUsuario.equalsIgnoreCase("atleta")) {
                 MenuAtleta();
-            }
-            else if(tipoUsuario.equalsIgnoreCase("medico")){
+            } else if (tipoUsuario.equalsIgnoreCase("medico")) {
                 MenuMedico();
-            }
-            else if(tipoUsuario.equalsIgnoreCase("administrador")){
-                //MenuAdministrador();
-            }
-            else {
-                //MenuEntrenador();
+            } else if (tipoUsuario.equalsIgnoreCase("administrador")) {
+                // MenuAdministrador();
+            } else {
+                // MenuEntrenador();
             }
         } else {
             LblMessage.setText("Correo o contraseña incorrectos");
