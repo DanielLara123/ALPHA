@@ -1,6 +1,7 @@
 package com.example.proyectoalpha.controller.RegistroInicioSesion;
 
 import com.example.proyectoalpha.clases.Usuario;
+import com.example.proyectoalpha.controller.Administrador.MenuAdminController;
 import com.example.proyectoalpha.servicios.servicioUsuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -63,7 +64,7 @@ public class InicioSesionController {
                 } else if (tipoUsuario.equalsIgnoreCase("medico")) {
                     MenuMedico();
                 } else if (tipoUsuario.equalsIgnoreCase("administrador")) {
-                    // MenuAdministrador();
+                    MenuAdministrador();
                 } else {
                     // MenuEntrenador();
                 }
@@ -131,6 +132,19 @@ public class InicioSesionController {
 
             Stage stage = (Stage) BtnContinuar.getScene().getWindow();
             stage.setScene(new Scene(root2));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void MenuAdministrador(){
+        try {
+            FXMLLoader loader4 = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/MenuAdministrador.fxml"));
+            Parent root3 = loader4.load();
+
+            Stage stage = (Stage) BtnContinuar.getScene().getWindow();
+            stage.setScene(new Scene(root3));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
