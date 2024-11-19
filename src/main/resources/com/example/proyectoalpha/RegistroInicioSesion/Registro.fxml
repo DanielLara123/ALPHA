@@ -12,9 +12,9 @@
             <VBox alignment="CENTER" prefHeight="212.0" prefWidth="467.0" BorderPane.alignment="CENTER">
                <children>
                   <Label fx:id="LblMessage" alignment="CENTER" prefHeight="17.0" prefWidth="484.0" textAlignment="CENTER" textFill="WHITE" />
-                  <TextField fx:id="LblCorreo" prefHeight="25.0" prefWidth="491.0" promptText="Correo electrónico" styleClass="label" stylesheets="@../../../../css/ModeloAlpha.css" />
-                  <PasswordField fx:id="LblContrasena" promptText="Contraseña" styleClass="label" stylesheets="@../../../../css/ModeloAlpha.css" />
-                  <PasswordField fx:id="LblRepiteContrasena" promptText="Repite la contraseña" styleClass="label" stylesheets="@../../../../css/ModeloAlpha.css" />
+                  <TextField fx:id="LblCorreo" prefHeight="25.0" prefWidth="491.0" promptText="Correo electrónico" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" />
+                  <PasswordField fx:id="LblContrasena" promptText="Contraseña" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" />
+                  <PasswordField fx:id="LblRepiteContrasena" promptText="Repite la contraseña" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" />
                   <Button fx:id="BtnContinuar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="47.0" prefWidth="183.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Continuar" textAlignment="CENTER" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets top="20.0" />
