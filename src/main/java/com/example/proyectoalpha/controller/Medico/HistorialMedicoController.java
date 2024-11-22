@@ -36,10 +36,15 @@ public class HistorialMedicoController {
     private Button BtnMostrar;
 
     @FXML
-    private Label LblUrgencia;
+    private Button BtnEmergencia;
 
     @FXML
     private Button BtnVolver;
 
-}
+    @FXML
+    private void initialize(){
+        BtnMostrar.setOnAction(event -> {
 
+        });
+    }
+}
