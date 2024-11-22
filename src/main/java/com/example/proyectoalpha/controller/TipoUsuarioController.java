@@ -55,4 +55,8 @@ public class TipoUsuarioController {
             e.printStackTrace();
         }
     }
+
+    private void colocarImagenBotones(){
+        URL linkNuevo = getClass().getResource("/com/example/proyectoalpha/ImagenBotones.fxml");
+    }
 }
