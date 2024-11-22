@@ -2,8 +2,9 @@ package com.example.proyectoalpha.clases;
 
 public class Usuario {
     private String email;
-    private String Contrasena;
-    private String TipoUsuario;
+    private String contrasena;
+    private String tipoUsuario;
+    private String dni;
 
     // Getters and setters
     public String getCorreo() {
@@ -15,18 +16,27 @@ public class Usuario {
     }
 
     public String getContrasena() {
-        return Contrasena;
+        return contrasena;
     }
 
     public void setContrasena(String contrasena) {
-        this.Contrasena = contrasena;
+        this.contrasena = contrasena;
     }
 
     public String getTipoUsuario() {
-        return TipoUsuario;
+        return tipoUsuario;
     }
 
     public void setTipoUsuario(String tipoUsuario) {
-        this.TipoUsuario = tipoUsuario;
+        this.tipoUsuario = tipoUsuario;
     }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
 }

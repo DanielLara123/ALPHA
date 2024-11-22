@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.ConfirmacionController">
+   <children>
+      <BorderPane layoutX="217.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <Label fx:id="LblMessage" alignment="CENTER" prefHeight="129.0" prefWidth="279.0" stylesheets="@../../../css/ModeloAlpha.css" textAlignment="CENTER" textFill="WHITE" BorderPane.alignment="CENTER" />
+         </center>
+         <top>
+            <ImageView fitHeight="74.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="TOP_RIGHT">
+               <image>
+                  <Image url="@../../../images/LogoAlpha.png" />
+               </image>
+            </ImageView>
+         </top>
+         <bottom>
+            <HBox alignment="CENTER" prefHeight="147.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="BtnSi" mnemonicParsing="false" prefHeight="50.0" prefWidth="111.0" stylesheets="@../../../css/ModeloAlpha.css" text="SI">
+                     <HBox.margin>
+                        <Insets right="100.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="BtnNo" mnemonicParsing="false" prefHeight="50.0" prefWidth="111.0" stylesheets="@../../../css/ModeloAlpha.css" text="NO" />
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>
