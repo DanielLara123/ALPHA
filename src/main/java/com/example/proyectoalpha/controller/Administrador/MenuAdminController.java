@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class MenuAdminController {
@@ -34,6 +36,7 @@ public class MenuAdminController {
         BtnGestionUsuarios.setOnAction(event -> manejarGestionUsuarios());
         BtnControlAfluencia.setOnAction(event -> manejarControlAfluencia());
 
+        colocarImagenBotones();
     }
 
 
@@ -72,5 +75,16 @@ public class MenuAdminController {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    private void colocarImagenBotones(){
+        URL gestionUsuarios = getClass().getResource("/images/FotoGestionUsuarios.png");
+        URL controlAfluencia = getClass().getResource("/images/FotoControlAfluencia.png");
+
+        Image imagenGestionUsuarios = new Image(String.valueOf(gestionUsuarios), 200, 200, false, true);
+        Image imagenControlAfluencia = new Image(String.valueOf(controlAfluencia), 200, 200, false, true);
+
+        BtnControlAfluencia.setGraphic(new ImageView(imagenControlAfluencia));
+        BtnGestionUsuarios.setGraphic(new ImageView(imagenGestionUsuarios));
     }
 }
