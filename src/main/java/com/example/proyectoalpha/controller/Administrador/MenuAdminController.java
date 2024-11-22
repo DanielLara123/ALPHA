@@ -64,7 +64,7 @@ public class MenuAdminController {
 
     private void manejarControlAfluencia() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/ControlAfluencia.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/ControlAfluencia.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) BtnControlAfluencia.getScene().getWindow();
             stage.setScene(new Scene(root));
