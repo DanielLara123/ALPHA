@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Administrador.VerUsuariosController">
    <children>
       <BorderPane layoutX="188.0" layoutY="108.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -84,7 +83,7 @@
          <bottom>
             <VBox alignment="CENTER" prefHeight="161.0" prefWidth="742.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="LblMensaje" prefHeight="35.0" prefWidth="464.0" />
+                  <Label fx:id="LblMensaje" prefHeight="35.0" prefWidth="464.0" stylesheets="@../../../../css/ModeloAlpha.css" />
                   <Button fx:id="BtnContinuar" mnemonicParsing="false" prefHeight="63.0" prefWidth="107.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Continuar" />
                </children>
             </VBox>

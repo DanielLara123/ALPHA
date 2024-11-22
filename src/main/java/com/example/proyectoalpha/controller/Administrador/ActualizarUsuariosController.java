@@ -1,11 +1,18 @@
 package com.example.proyectoalpha.controller.Administrador;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import com.example.proyectoalpha.servicios.servicioUsuario;
 
 public class ActualizarUsuariosController {
 
@@ -27,9 +34,60 @@ public class ActualizarUsuariosController {
     @FXML
     private Label LblMensaje;
 
+    private servicioUsuario servicioUsuario;
+
     @FXML
     void initialize() {
+        servicioUsuario = new servicioUsuario();
 
+        BtnContinuar.setOnAction(event -> manejarContinuar());
+        BtnVolver.setOnAction(event -> manejarVolver());
     }
 
+    private void manejarContinuar() {
+        String correo = FieldCorreo.getText();
+
+        if (correo.isEmpty()) {
+            LblMensaje.setText("El campo correo es obligatorio");
+            return;
+        }
+
+        if (!servicioUsuario.emailEstaRegistrado(correo)) {
+            LblMensaje.setText("El correo no está registrado");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/NuevosDatosUsuario.fxml"));
+            Parent root = loader.load();
+            NuevosDatosUsuarioController datosController = loader.getController();
+            datosController.setCorreo(correo);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+            if (datosController.isDatosConfirmados()) {
+                LblMensaje.setText("Usuario actualizado correctamente");
+            } else {
+                LblMensaje.setText("Actualización de usuario cancelada");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            LblMensaje.setText("Error al mostrar la ventana de datos");
+        }
+    }
+
+    private void manejarVolver() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/GestionUsuarios.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) BtnVolver.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            LblMensaje.setText("Error al volver al menú");
+        }
+    }
 }

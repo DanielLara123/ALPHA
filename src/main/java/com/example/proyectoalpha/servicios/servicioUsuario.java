@@ -57,4 +57,28 @@ public class servicioUsuario {
         return usuarios.stream().anyMatch(user -> user.getCorreo().equals(correo));
     }
 
+    public void eliminarUsuario(String correo) {
+        usuarios.removeIf(user -> user.getCorreo().equals(correo));
+        guardarUsuarios();
+    }
+
+    public void actualizarUsuario(String correo, String nuevoCorreo, String nuevaContrasena) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getCorreo().equals(correo)) {
+                usuario.setCorreo(nuevoCorreo);
+                usuario.setContrasena(nuevaContrasena);
+                break;
+            }
+        }
+        guardarUsuarios();
+    }
+
+    public Usuario obtenerUsuarioPorCorreo(String correo) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getCorreo().equals(correo)) {
+                return usuario;
+            }
+        }
+        return null;
+    }
 }

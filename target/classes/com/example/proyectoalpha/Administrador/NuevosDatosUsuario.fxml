@@ -6,9 +6,9 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Administrador.CrearUsuarioController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Administrador.NuevosDatosUsuarioController">
    <children>
-      <BorderPane layoutX="158.0" layoutY="78.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane layoutX="168.0" layoutY="88.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <VBox prefHeight="134.0" prefWidth="742.0" BorderPane.alignment="CENTER">
                <children>
@@ -28,7 +28,7 @@
                            <children>
                               <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                                  <image>
-                                    <Image url="@../../../../images/CreacionDePerfiles.png" />
+                                    <Image url="@../../../../images/EdicionPerfiles.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -44,11 +44,20 @@
                         </HBox>
                      </children>
                   </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="84.0" fitWidth="390.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../images/IntroduzcaNuevosDatos.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </top>
          <center>
-            <VBox alignment="CENTER" prefHeight="334.0" prefWidth="742.0" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="222.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
                   <HBox alignment="CENTER" prefHeight="80.0" prefWidth="742.0">
                      <children>
@@ -68,14 +77,14 @@
                            </image>
                         </ImageView>
                         <ChoiceBox fx:id="FieldRol" prefWidth="150.0" styleClass="button" stylesheets="@../../../../css/ModeloAlpha.css">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="Atleta" />
-                                    <String fx:value="Entrenador" />
-                                    <String fx:value="Médico" />
-                                    <String fx:value="Administrador" />
-                                </FXCollections>
-                            </items>
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="Atleta" />
+                                 <String fx:value="Entrenador" />
+                                 <String fx:value="Médico" />
+                                 <String fx:value="Administrador" />
+                              </FXCollections>
+                           </items>
                         </ChoiceBox>
                      </children>
                   </HBox>
@@ -105,7 +114,7 @@
          <bottom>
             <VBox alignment="CENTER" prefHeight="161.0" prefWidth="742.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="LblMensaje" alignment="CENTER" prefHeight="35.0" prefWidth="464.0" textAlignment="CENTER" textFill="WHITE" />
+                  <Label fx:id="LblMensaje" alignment="CENTER" prefHeight="35.0" prefWidth="464.0" stylesheets="@../../../../css/ModeloAlpha.css" textAlignment="CENTER" textFill="WHITE" />
                   <Button fx:id="BtnContinuar" mnemonicParsing="false" prefHeight="63.0" prefWidth="107.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Continuar" />
                </children>
             </VBox>
