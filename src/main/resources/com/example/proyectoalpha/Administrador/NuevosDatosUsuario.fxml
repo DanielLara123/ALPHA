@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Administrador.NuevosDatosUsuarioController">
+   <children>
+      <BorderPane layoutX="168.0" layoutY="88.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <VBox prefHeight="134.0" prefWidth="742.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="68.0" prefWidth="101.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Volver">
+                                 <styleClass>
+                                    <String fx:value="button" />
+                                    <String fx:value="button" />
+                                 </styleClass>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="342.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                                 <image>
+                                    <Image url="@../../../../images/EdicionPerfiles.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                        <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <ImageView fitHeight="64.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../images/LogoAlpha.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="84.0" fitWidth="390.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../images/IntroduzcaNuevosDatos.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </top>
+         <center>
+            <VBox alignment="CENTER" prefHeight="222.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="80.0" prefWidth="742.0">
+                     <children>
+                        <ImageView fitHeight="55.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../images/Correo.png" />
+                           </image>
+                        </ImageView>
+                        <TextField fx:id="FieldCorreo" prefHeight="25.0" prefWidth="193.0" promptText="Introduce correo del usuario" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="55.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../images/Rol.png" />
+                           </image>
+                        </ImageView>
+                        <ChoiceBox fx:id="FieldRol" prefWidth="150.0" styleClass="button" stylesheets="@../../../../css/ModeloAlpha.css">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="Atleta" />
+                                 <String fx:value="Entrenador" />
+                                 <String fx:value="Médico" />
+                                 <String fx:value="Administrador" />
+                              </FXCollections>
+                           </items>
+                        </ChoiceBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="38.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../images/Contraseña.png" />
+                           </image>
+                        </ImageView>
+                        <TextField fx:id="FieldContrasena" prefHeight="25.0" prefWidth="190.0" promptText="Introduce contraseña del usuario" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="55.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../images/DNI.png" />
+                           </image>
+                        </ImageView>
+                        <TextField fx:id="FieldDni" prefHeight="25.0" prefWidth="164.0" promptText="Introduce DNI del usuario" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </center>
+         <bottom>
+            <VBox alignment="CENTER" prefHeight="161.0" prefWidth="742.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="LblMensaje" alignment="CENTER" prefHeight="35.0" prefWidth="464.0" stylesheets="@../../../../css/ModeloAlpha.css" textAlignment="CENTER" textFill="WHITE" />
+                  <Button fx:id="BtnContinuar" mnemonicParsing="false" prefHeight="63.0" prefWidth="107.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Continuar" />
+               </children>
+            </VBox>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>

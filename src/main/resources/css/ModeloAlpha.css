@@ -4,9 +4,7 @@
 .label{
     -fx-text-fill: #efb810;
 }
-.label:hover{
-    -fx-underline: true;
-}
+
 .button{
     -fx-background-color: #293133;
     -fx-text-fill: #efb810;
