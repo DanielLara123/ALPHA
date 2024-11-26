@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Administrador.GestionUsuariosController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Administrador.GestionUsuariosController">
    <children>
       <BorderPane layoutX="200.0" layoutY="71.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -18,7 +23,7 @@
                      <children>
                         <HBox>
                            <children>
-                              <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="57.0" prefWidth="103.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Volver" />
+                              <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="16.0" prefWidth="0.0" stylesheets="@../../../../css/ModeloAlpha.css" />
                            </children>
                         </HBox>
                         <HBox alignment="TOP_RIGHT" HBox.hgrow="ALWAYS">
@@ -45,22 +50,44 @@
             </VBox>
          </top>
          <center>
-            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <GridPane prefHeight="206.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Button fx:id="BtnCrearUsuario" mnemonicParsing="false" prefHeight="78.0" prefWidth="116.0" text="Crear Usuario" />
-                        <Button fx:id="BtnEliminarUsuario" mnemonicParsing="false" prefHeight="79.0" prefWidth="116.0" text="Eliminar Usuario" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Button fx:id="BtnVerUsuarios" mnemonicParsing="false" prefHeight="84.0" prefWidth="114.0" text="Ver Usuarios" />
-                        <Button fx:id="BtnActualizarUsuarios" mnemonicParsing="false" prefHeight="84.0" prefWidth="113.0" text="Actualizar Usuarios" />
-                     </children>
-                  </HBox>
+                  <Button fx:id="BtnCrearUsuario" mnemonicParsing="false" prefHeight="78.0" prefWidth="116.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.halignment="CENTER" />
+                  <Button fx:id="BtnActualizarUsuarios" mnemonicParsing="false" prefHeight="84.0" prefWidth="113.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                  <Button fx:id="BtnVerUsuarios" mnemonicParsing="false" prefHeight="84.0" prefWidth="114.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                  <Button fx:id="BtnEliminarUsuario" mnemonicParsing="false" prefHeight="79.0" prefWidth="116.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                  <Label stylesheets="@../../../../css/ModeloAlpha.css" text="Crear Usuario" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="100.0" layoutY="73.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Eliminar Usuario" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="100.0" layoutY="73.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Actualizar Usuario" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="100.0" layoutY="73.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Ver Usuarios" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
                </children>
-            </VBox>
+            </GridPane>
          </center>
       </BorderPane>
    </children>

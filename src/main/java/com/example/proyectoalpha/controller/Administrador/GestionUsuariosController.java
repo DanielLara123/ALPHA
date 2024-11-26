@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class GestionUsuariosController {
@@ -42,6 +44,7 @@ public class GestionUsuariosController {
         BtnEliminarUsuario.setOnAction(event -> manejarEliminarUsuario());
         BtnVerUsuarios.setOnAction(event -> manejarVerUsuarios());
 
+        colocarImagenBotones();
     }
 
     private void manejarVerUsuarios() {
@@ -102,5 +105,27 @@ public class GestionUsuariosController {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    private void colocarImagenBotones(){
+        URL addUsuario = getClass().getResource("/images/FotoAñadirUsuario.png");
+        URL eliminarUsuario = getClass().getResource("/images/FotoEliminarUsuario.png");
+        URL verUsuario = getClass().getResource("/images/FotoVerUsuarios.png");
+        URL actualizarUsuario = getClass().getResource("/images/FotoActualizarUsuario.png");
+        URL volver = getClass().getResource("/images/VolverAtras.png");
+
+
+        Image imagenAdd = new Image(String.valueOf(addUsuario), 200, 200, false, true);
+        Image imagenEliminar = new Image(String.valueOf(eliminarUsuario), 200, 200, false, true);
+        Image imagenVer = new Image(String.valueOf(verUsuario), 200, 200, false, true);
+        Image imagenActualizar = new Image(String.valueOf(actualizarUsuario), 200, 200, false, true);
+        Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
+
+        BtnCrearUsuario.setGraphic(new ImageView(imagenAdd));
+        BtnEliminarUsuario.setGraphic(new ImageView(imagenEliminar));
+        BtnVerUsuarios.setGraphic(new ImageView(imagenVer));
+        BtnActualizarUsuarios.setGraphic(new ImageView(imagenActualizar));
+        BtnVolver.setGraphic(new ImageView(imagenVolver));
+
     }
 }

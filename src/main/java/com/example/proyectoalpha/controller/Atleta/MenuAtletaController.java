@@ -1,11 +1,16 @@
 package com.example.proyectoalpha.controller.Atleta;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class MenuAtletaController {
@@ -49,8 +54,15 @@ public class MenuAtletaController {
     @FXML
     private Label LblRutinas;
 
-@FXML
+    @FXML
     private void initialize(){
+        BtnConfiguracion.setOnAction(event -> manejarConfiguracion());
+        BtnVolver.setOnAction(event -> manejarCerrarSesion());
+        BtnNotificaciones.setOnAction(event -> manejarNotificaciones());
+        BtnEjercicios.setOnAction(event -> manejarEjercicios());
+        BtnLogros.setOnAction(event -> manejarLogros());
+        BtnRutinas.setOnAction(event -> manejarRutinas());
+        BtnMisDatos.setOnAction(event -> manejarMisDatos());
         colocarImagenBotones();
     }
 
@@ -80,5 +92,89 @@ public class MenuAtletaController {
         BtnNotificaciones.setGraphic(new ImageView(imagenNotificaciones));
         BtnVolver.setGraphic(new ImageView(imagenVolver));
 
+    }
+
+    private void manejarConfiguracion(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/ConfiguracionUsuario.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) BtnConfiguracion.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void manejarRutinas(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/RutinasUsuario.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) BtnRutinas.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void manejarNotificaciones(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/NotificacionesUsuario.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) BtnNotificaciones.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void manejarMisDatos(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/MisDatosUsuario.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) BtnMisDatos.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void manejarLogros(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/LogrosUsuario.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) BtnLogros.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void manejarEjercicios(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/EjerciciosUsuario.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) BtnEjercicios.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void manejarCerrarSesion(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/TipoUsuario.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) BtnVolver.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }
