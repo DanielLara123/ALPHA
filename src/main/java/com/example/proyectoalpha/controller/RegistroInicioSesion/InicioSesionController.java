@@ -66,7 +66,7 @@ public class InicioSesionController {
                 } else if (tipoUsuario.equalsIgnoreCase("administrador")) {
                     MenuAdministrador();
                 } else {
-                    // MenuEntrenador();
+                    MenuEntrenador();
                 }
             } else {
                 LblMessage.setText("Tipo de usuario incorrecto");
@@ -141,6 +141,19 @@ public class InicioSesionController {
     private void MenuAdministrador(){
         try {
             FXMLLoader loader4 = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/MenuAdministrador.fxml"));
+            Parent root3 = loader4.load();
+
+            Stage stage = (Stage) BtnContinuar.getScene().getWindow();
+            stage.setScene(new Scene(root3));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void MenuEntrenador(){
+        try {
+            FXMLLoader loader4 = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Entrenador/MenuEntrenador.fxml"));
             Parent root3 = loader4.load();
 
             Stage stage = (Stage) BtnContinuar.getScene().getWindow();
