@@ -61,6 +61,8 @@ public class MenuAtletaController {
         URL logros = getClass().getResource("/images/LogrosAtleta.png");
         URL rutinas = getClass().getResource("/images/RutinasAtleta.png");
         URL notificaciones = getClass().getResource("/images/NotificacionesAtleta.png");
+        URL volver = getClass().getResource("/images/VolverAtras.png");
+
 
         Image imagenDatos = new Image(String.valueOf(misDatos), 200, 200, false, true);
         Image imagenConfiguracion = new Image(String.valueOf(configuracion), 200, 200, false, true);
@@ -68,6 +70,7 @@ public class MenuAtletaController {
         Image imagenLogros = new Image(String.valueOf(logros), 200, 200, false, true);
         Image imagenRutinas = new Image(String.valueOf(rutinas), 200, 200, false, true);
         Image imagenNotificaciones = new Image(String.valueOf(notificaciones), 200, 200, false, true);
+        Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
 
         BtnMisDatos.setGraphic(new ImageView(imagenDatos));
         BtnConfiguracion.setGraphic(new ImageView(imagenConfiguracion));
@@ -75,5 +78,7 @@ public class MenuAtletaController {
         BtnLogros.setGraphic(new ImageView(imagenLogros));
         BtnRutinas.setGraphic(new ImageView(imagenRutinas));
         BtnNotificaciones.setGraphic(new ImageView(imagenNotificaciones));
+        BtnVolver.setGraphic(new ImageView(imagenVolver));
+
     }
 }

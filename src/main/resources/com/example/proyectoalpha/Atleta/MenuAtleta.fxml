@@ -45,7 +45,7 @@
                         <Image url="@../../../../images/LogoAlpha.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="51.0" prefWidth="74.0" text="Volver" GridPane.valignment="TOP" />
+                  <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" GridPane.valignment="TOP" />
                   <Label fx:id="LblMisDatos" text="Mis Datos" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <font>
                         <Font size="20.0" />
