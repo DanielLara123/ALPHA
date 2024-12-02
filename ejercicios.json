@@ -1,0 +1,88 @@
+{
+  "ejercicios": {
+    "pecho": [
+      "Press de banca plano",
+      "Press inclinado con barra",
+      "Press declinado con mancuernas",
+      "Aperturas con mancuernas",
+      "Fondos en paralelas"
+    ],
+    "espalda": [
+      "Dominadas",
+      "Remo con barra",
+      "Remo con mancuernas",
+      "Jalón al pecho",
+      "Pullover con polea"
+    ],
+    "hombro": [
+      "Press militar",
+      "Elevaciones laterales",
+      "Elevaciones frontales",
+      "Pájaro con mancuernas",
+      "Encogimientos para trapecio"
+    ],
+    "abdominales": [
+      "Crunch en el suelo",
+      "Plancha abdominal",
+      "Elevaciones de piernas colgado",
+      "Bicicleta abdominal",
+      "Rodillo abdominal"
+    ],
+    "biceps": [
+      "Curl con barra",
+      "Curl alterno con mancuernas",
+      "Curl de martillo",
+      "Curl concentrado",
+      "Curl en predicador"
+    ],
+    "triceps": [
+      "Extensiones de tríceps con barra",
+      "Patada trasera con mancuernas",
+      "Fondos en banco",
+      "Jalón de tríceps en polea",
+      "Extensiones por encima de la cabeza con mancuernas"
+    ],
+    "cuadriceps": [
+      "Sentadilla con barra",
+      "Prensa de piernas",
+      "Extensiones de pierna",
+      "Zancadas",
+      "Sentadilla búlgara"
+    ],
+    "gemelos": [
+      "Elevaciones de talones de pie",
+      "Elevaciones de talones sentado",
+      "Saltos con peso",
+      "Paseo del granjero en puntillas",
+      "Elevaciones de talones en prensa"
+    ],
+    "femoral": [
+      "Peso muerto rumano",
+      "Curl de piernas acostado",
+      "Hip thrust",
+      "Puente de glúteos",
+      "Sentadilla sumo"
+    ],
+    "aductor": [
+      "Apertura de piernas en máquina",
+      "Sentadilla sumo con barra",
+      "Step lateral",
+      "Puente de glúteos con banda elástica",
+      "Zancada lateral"
+    ],
+    "abductor": [
+      "Cierre de piernas en máquina",
+      "Elevaciones laterales de cadera",
+      "Sentadillas con banda elástica",
+      "Abducción con polea",
+      "Patada lateral con banda"
+    ],
+    "antebrazo": [
+      "Curl de muñeca con barra",
+      "Curl inverso con barra",
+      "Curl de muñeca con mancuernas",
+      "Rotación de muñeca con disco",
+      "Prensión con pinzas de resistencia"
+    ]
+  }
+}
