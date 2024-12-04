@@ -12,17 +12,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="454.0" prefWidth="659.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.RegistroInicioSesion.RegistroController">
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.RegistroInicioSesion.RegistroController">
    <children>
       <BorderPane prefHeight="454.0" prefWidth="659.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
-            <VBox alignment="CENTER" prefHeight="212.0" prefWidth="467.0" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="396.0" prefWidth="923.0" BorderPane.alignment="CENTER">
                <children>
                   <Label fx:id="LblMessage" alignment="CENTER" prefHeight="17.0" prefWidth="484.0" stylesheets="@../../../../css/ModeloAlpha.css" textAlignment="CENTER" textFill="WHITE" />
-                  <TextField fx:id="LblCorreo" prefHeight="25.0" prefWidth="491.0" promptText="Correo electrónico" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" />
-                  <PasswordField fx:id="LblContrasena" promptText="Contraseña" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" />
-                  <PasswordField fx:id="LblRepiteContrasena" promptText="Repite la contraseña" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" />
-                  <Button fx:id="BtnContinuar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="47.0" prefWidth="183.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Continuar" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                  <TextField fx:id="LblCorreo" prefHeight="39.0" prefWidth="888.0" promptText="Correo electrónico" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" />
+                  <PasswordField fx:id="LblContrasena" prefHeight="40.0" prefWidth="890.0" promptText="Contraseña" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" />
+                  <PasswordField fx:id="LblRepiteContrasena" prefHeight="47.0" prefWidth="887.0" promptText="Repite la contraseña" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" />
+                  <Button fx:id="BtnContinuar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="68.0" prefWidth="183.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Continuar" textAlignment="CENTER" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
@@ -34,7 +34,7 @@
                   </Button>
                </children>
                <BorderPane.margin>
-                  <Insets left="100.0" right="100.0" />
+                  <Insets left="200.0" right="200.0" />
                </BorderPane.margin>
             </VBox>
          </bottom>
@@ -51,9 +51,9 @@
          <top>
             <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox prefHeight="55.0" prefWidth="659.0">
+                  <HBox prefHeight="69.0" prefWidth="1080.0">
                      <children>
-                        <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="44.0" prefWidth="131.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Volver" />
+                        <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="69.0" prefWidth="120.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Volver" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="181.0" prefWidth="659.0">
