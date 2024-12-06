@@ -1,5 +1,6 @@
 package com.example.proyectoalpha.controller.Atleta;
 
+import com.example.proyectoalpha.clases.Atleta.Ejercicio;
 import com.example.proyectoalpha.servicios.ServicioEjercicios;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -58,11 +59,15 @@ public class EjerciciosUsuarioController {
 
     void manejarBuscar(){
         String categoria = TxtBusqueda.getText().toLowerCase(); // Convertir a minúsculas para evitar problemas
-        List<String> ejercicios = servicioEjercicios.obtenerEjercicios(categoria);
+        List<Ejercicio> ejercicios = servicioEjercicios.obtenerEjercicios(categoria);
 
         if (!ejercicios.isEmpty()) {
+            // Convertir la lista de Ejercicio a una lista de String
+            List<String> nombresEjercicios = ejercicios.stream()
+                    .map(Ejercicio::getNombre)
+                    .toList();
             // Actualizar los labels con los ejercicios encontrados
-            actualizarLabels(ejercicios);
+            actualizarLabels(nombresEjercicios);
         } else {
             // Mostrar mensaje si no se encuentran ejercicios
             actualizarLabels(List.of("No se encontraron ejercicios para esta categoría"));

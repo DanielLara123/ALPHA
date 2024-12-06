@@ -12,8 +12,8 @@ public class Rutina {
         this.ejercicios = new ArrayList<>();
     }
 
-    public void agregarEjercicio(String nombre, int duracion, int series, int repeticiones) {
-        Ejercicio ejercicio = new Ejercicio(nombre, duracion, series, repeticiones);
+    public void agregarEjercicio(String nombre,String grupoMuscular, int descanso, int series, int repeticiones) {
+        Ejercicio ejercicio = new Ejercicio(nombre, grupoMuscular, descanso, series, repeticiones);
         ejercicios.add(ejercicio);
     }
 

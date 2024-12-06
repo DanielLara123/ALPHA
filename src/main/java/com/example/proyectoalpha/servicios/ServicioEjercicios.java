@@ -1,5 +1,6 @@
 package com.example.proyectoalpha.servicios;
 
+import com.example.proyectoalpha.clases.Atleta.Ejercicio;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -10,7 +11,7 @@ import java.util.*;
 public class ServicioEjercicios {
     private static final String EJERCICIOS_FILE = "ejercicios.json";
 
-    private Map<String, List<String>> ejercicios;
+    private Map<String, List<Ejercicio>> ejercicios;
 
     // Constructor
     public ServicioEjercicios() {
@@ -24,9 +25,7 @@ public class ServicioEjercicios {
         try {
             File file = new File(EJERCICIOS_FILE);
             if (file.exists()) {
-                Map<String, Map<String, List<String>>> jsonData =
-                        mapper.readValue(file, new TypeReference<>() {});
-                ejercicios = jsonData.getOrDefault("ejercicios", new HashMap<>());
+                ejercicios = mapper.readValue(file, new TypeReference<Map<String, List<Ejercicio>>>() {});
             } else {
                 System.out.println("El archivo " + EJERCICIOS_FILE + " no existe. Se inicializará vacío.");
             }
@@ -40,9 +39,7 @@ public class ServicioEjercicios {
     public void guardarEjercicios() {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            Map<String, Map<String, List<String>>> jsonData = new HashMap<>();
-            jsonData.put("ejercicios", ejercicios); // Encapsular en el nivel superior "ejercicios"
-            mapper.writeValue(new File(EJERCICIOS_FILE), jsonData);
+            mapper.writeValue(new File(EJERCICIOS_FILE), ejercicios);
             System.out.println("Ejercicios guardados en el archivo.");
         } catch (IOException e) {
             e.printStackTrace();
@@ -51,10 +48,10 @@ public class ServicioEjercicios {
     }
 
     // Método para añadir un ejercicio a una categoría
-    public void agregarEjercicio(String categoria, String ejercicio) {
+    public void agregarEjercicio(String categoria, Ejercicio ejercicio) {
         if (ejercicios.containsKey(categoria)) {
             ejercicios.get(categoria).add(ejercicio);
-            System.out.println("Ejercicio añadido a " + categoria + ": " + ejercicio);
+            System.out.println("Ejercicio añadido a " + categoria + ": " + ejercicio.getNombre());
             guardarEjercicios(); // Guardar cambios
         } else {
             System.out.println("Categoría no válida: " + categoria);
@@ -62,21 +59,21 @@ public class ServicioEjercicios {
     }
 
     // Método para obtener los ejercicios de una categoría
-    public List<String> obtenerEjercicios(String categoria) {
+    public List<Ejercicio> obtenerEjercicios(String categoria) {
         return ejercicios.getOrDefault(categoria, new ArrayList<>());
     }
 
     // Método para mostrar todos los ejercicios
     public void mostrarTodos() {
-        for (Map.Entry<String, List<String>> entry : ejercicios.entrySet()) {
+        for (Map.Entry<String, List<Ejercicio>> entry : ejercicios.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
     }
 
     // Método opcional para eliminar un ejercicio
-    public void eliminarEjercicio(String categoria, String ejercicio) {
+    public void eliminarEjercicio(String categoria, Ejercicio ejercicio) {
         if (ejercicios.containsKey(categoria) && ejercicios.get(categoria).remove(ejercicio)) {
-            System.out.println("Ejercicio eliminado de " + categoria + ": " + ejercicio);
+            System.out.println("Ejercicio eliminado de " + categoria + ": " + ejercicio.getNombre());
             guardarEjercicios(); // Guardar cambios
         } else {
             System.out.println("No se pudo encontrar el ejercicio o categoría.");

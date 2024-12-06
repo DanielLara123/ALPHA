@@ -2,13 +2,15 @@ package com.example.proyectoalpha.clases.Atleta;
 
 public class Ejercicio {
     private String nombre;
-    private int duracion;
+    private String grupoMuscular;
+    private int descanso;
     private int series;
     private int repeticiones;
 
-    public Ejercicio(String nombre, int duracion, int series, int repeticiones) {
+    public Ejercicio(String nombre, String grupoMuscular, int descanso, int series, int repeticiones) {
         this.nombre = nombre;
-        this.duracion = duracion;
+        this.grupoMuscular = grupoMuscular;
+        this.descanso = descanso;
         this.series = series;
         this.repeticiones = repeticiones;
     }
@@ -18,7 +20,7 @@ public class Ejercicio {
     }
 
     public int getDuracion() {
-        return duracion;
+        return descanso;
     }
 
     public int getSeries() {
