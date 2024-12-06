@@ -25,7 +25,14 @@ public class ServicioEjercicios {
         try {
             File file = new File(EJERCICIOS_FILE);
             if (file.exists()) {
+                // Leer el archivo JSON y mapearlo a un Map<String, List<Ejercicio>>
                 ejercicios = mapper.readValue(file, new TypeReference<Map<String, List<Ejercicio>>>() {});
+                if (ejercicios == null || ejercicios.isEmpty()) {
+                    System.out.println("El archivo JSON está vacío o no contiene datos válidos.");
+                    ejercicios = new HashMap<>();
+                } else {
+                    System.out.println("Ejercicios cargados correctamente: " + ejercicios);
+                }
             } else {
                 System.out.println("El archivo " + EJERCICIOS_FILE + " no existe. Se inicializará vacío.");
             }
@@ -68,6 +75,13 @@ public class ServicioEjercicios {
         for (Map.Entry<String, List<Ejercicio>> entry : ejercicios.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
+    }
+
+    public Map<String, List<Ejercicio>> obtenerMapaEjercicios() {
+        if (ejercicios == null) {
+            ejercicios = new HashMap<>();
+        }
+        return ejercicios;
     }
 
     // Método opcional para eliminar un ejercicio

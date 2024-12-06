@@ -1,5 +1,7 @@
 package com.example.proyectoalpha.controller.Entrenador;
 
+import com.example.proyectoalpha.clases.Atleta.Ejercicio;
+import com.example.proyectoalpha.servicios.ServicioEjercicios;
 import com.example.proyectoalpha.servicios.ServicioRutinas;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -10,6 +12,7 @@ import javafx.scene.control.Alert.AlertType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RutinasEntrenadorController {
 
@@ -19,7 +22,8 @@ public class RutinasEntrenadorController {
     @FXML
     private ListView<HBox> listViewDias;
 
-    private final ServicioRutinas servicioRutinas = new ServicioRutinas(); // Instancia del servicio
+    private final ServicioRutinas servicioRutinas = new ServicioRutinas(); // Servicio para rutinas
+    private final ServicioEjercicios servicioEjercicios = new ServicioEjercicios(); // Servicio para ejercicios
     private int contadorDias = 1; // Contador para los días
 
     @FXML
@@ -54,18 +58,74 @@ public class RutinasEntrenadorController {
     }
 
     private void onAnadirEjercicio(HBox diaContainer) {
-        TextInputDialog dialogoEjercicio = new TextInputDialog("Nuevo ejercicio");
+        Dialog<ButtonType> dialogoEjercicio = new Dialog<>();
         dialogoEjercicio.setTitle("Añadir Ejercicio");
-        dialogoEjercicio.setHeaderText("Escribe el nombre del ejercicio:");
-        dialogoEjercicio.setContentText("Nombre del ejercicio:");
 
-        dialogoEjercicio.showAndWait().ifPresent(nombreEjercicio -> {
-            VBox ejerciciosContainer = (VBox) diaContainer.getChildren().get(2);
+        VBox contenido = new VBox();
+        contenido.setSpacing(10);
+        contenido.setStyle("-fx-padding: 10;");
 
-            Label nuevoEjercicio = new Label(nombreEjercicio);
-            nuevoEjercicio.setStyle("-fx-text-fill: gold; -fx-font-size: 12px;");
+        // Obtener los grupos musculares del mapa `ejercicios`
+        Map<String, List<Ejercicio>> ejerciciosMap = servicioEjercicios.obtenerMapaEjercicios();
+        if (ejerciciosMap == null || ejerciciosMap.isEmpty()) {
+            Alert alerta = new Alert(AlertType.ERROR, "No hay datos de ejercicios disponibles.");
+            alerta.show();
+            return;
+        }
 
-            ejerciciosContainer.getChildren().add(nuevoEjercicio);
+        List<String> gruposMusculares = new ArrayList<>(ejerciciosMap.keySet());
+
+        // Menú desplegable para seleccionar grupo muscular
+        ChoiceBox<String> choiceBoxGruposMusculares = new ChoiceBox<>();
+        choiceBoxGruposMusculares.getItems().add("Selecciona un grupo muscular"); // Placeholder
+        choiceBoxGruposMusculares.getItems().addAll(gruposMusculares);
+        choiceBoxGruposMusculares.getSelectionModel().selectFirst(); // Seleccionar el placeholder al inicio
+
+        // Menú desplegable para seleccionar ejercicio
+        ChoiceBox<Ejercicio> choiceBoxEjercicios = new ChoiceBox<>();
+        choiceBoxEjercicios.getItems().add(
+                new Ejercicio("Selecciona un ejercicio", "placeholder", 0, 0, 0)
+        ); // Placeholder
+        choiceBoxEjercicios.getSelectionModel().selectFirst(); // Seleccionar el placeholder al inicio
+
+        // Actualizar la lista de ejercicios al seleccionar un grupo muscular
+        choiceBoxGruposMusculares.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (!"Selecciona un grupo muscular".equals(newValue)) {
+                choiceBoxEjercicios.getItems().clear();
+                List<Ejercicio> ejercicios = ejerciciosMap.get(newValue);
+                if (ejercicios != null && !ejercicios.isEmpty()) {
+                    choiceBoxEjercicios.getItems().addAll(ejercicios);
+                } else {
+                    choiceBoxEjercicios.getItems().add(
+                            new Ejercicio("No hay ejercicios disponibles", "placeholder", 0, 0, 0)
+                    );
+                }
+            }
+        });
+
+        contenido.getChildren().addAll(
+                new Label("Selecciona un grupo muscular:"), choiceBoxGruposMusculares,
+                new Label("Selecciona un ejercicio:"), choiceBoxEjercicios
+        );
+
+        dialogoEjercicio.getDialogPane().setContent(contenido);
+        dialogoEjercicio.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+        dialogoEjercicio.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                Ejercicio ejercicioSeleccionado = choiceBoxEjercicios.getValue();
+                if (ejercicioSeleccionado != null && !"Selecciona un ejercicio".equals(ejercicioSeleccionado.getNombre())) {
+                    VBox ejerciciosContainer = (VBox) diaContainer.getChildren().get(2);
+
+                    Label nuevoEjercicio = new Label(ejercicioSeleccionado.getNombre());
+                    nuevoEjercicio.setStyle("-fx-text-fill: gold; -fx-font-size: 12px;");
+
+                    ejerciciosContainer.getChildren().add(nuevoEjercicio);
+                } else {
+                    Alert alerta = new Alert(AlertType.WARNING, "Por favor, selecciona un ejercicio válido.");
+                    alerta.show();
+                }
+            }
         });
     }
 

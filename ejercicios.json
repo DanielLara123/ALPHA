@@ -72,5 +72,227 @@
       "series": 4,
       "repeticiones": 12
     }
+  ],
+  "abdominales": [
+    {
+      "nombre": "Crunch en el suelo",
+      "grupoMuscular": "abdominales",
+      "descanso": 30,
+      "series": 4,
+      "repeticiones": 20
+    },
+    {
+      "nombre": "Plancha abdominal",
+      "grupoMuscular": "abdominales",
+      "descanso": 30,
+      "series": 4,
+      "repeticiones": 60
+    },
+    {
+      "nombre": "Elevaciones de piernas colgado",
+      "grupoMuscular": "abdominales",
+      "descanso": 30,
+      "series": 4,
+      "repeticiones": 15
+    },
+    {
+      "nombre": "Bicicleta abdominal",
+      "grupoMuscular": "abdominales",
+      "descanso": 30,
+      "series": 4,
+      "repeticiones": 20
+    },
+    {
+      "nombre": "Rodillo abdominal",
+      "grupoMuscular": "abdominales",
+      "descanso": 30,
+      "series": 4,
+      "repeticiones": 15
+    }
+  ],
+  "biceps": [
+    {
+      "nombre": "Curl con barra",
+      "grupoMuscular": "biceps",
+      "descanso": 60,
+      "series": 4,
+      "repeticiones": 10
+    },
+    {
+      "nombre": "Curl alterno con mancuernas",
+      "grupoMuscular": "biceps",
+      "descanso": 60,
+      "series": 4,
+      "repeticiones": 12
+    },
+    {
+      "nombre": "Curl de martillo",
+      "grupoMuscular": "biceps",
+      "descanso": 60,
+      "series": 4,
+      "repeticiones": 12
+    },
+    {
+      "nombre": "Curl concentrado",
+      "grupoMuscular": "biceps",
+      "descanso": 60,
+      "series": 4,
+      "repeticiones": 10
+    },
+    {
+      "nombre": "Curl en predicador",
+      "grupoMuscular": "biceps",
+      "descanso": 60,
+      "series": 4,
+      "repeticiones": 10
+    }
+  ],
+  "triceps": [
+    {
+      "nombre": "Jalón de tríceps con polea",
+      "grupoMuscular": "triceps",
+      "descanso": 60,
+      "series": 4,
+      "repeticiones": 12
+    },
+    {
+      "nombre": "Extensiones por encima de la cabeza",
+      "grupoMuscular": "triceps",
+      "descanso": 60,
+      "series": 4,
+      "repeticiones": 12
+    },
+    {
+      "nombre": "Fondos en banco",
+      "grupoMuscular": "triceps",
+      "descanso": 60,
+      "series": 4,
+      "repeticiones": 15
+    },
+    {
+      "nombre": "Patada trasera con mancuernas",
+      "grupoMuscular": "triceps",
+      "descanso": 60,
+      "series": 4,
+      "repeticiones": 10
+    },
+    {
+      "nombre": "Copa a dos manos",
+      "grupoMuscular": "triceps",
+      "descanso": 60,
+      "series": 4,
+      "repeticiones": 12
+    }
+  ],
+  "antebrazo": [
+    {
+      "nombre": "Curl de muñeca con barra",
+      "grupoMuscular": "antebrazo",
+      "descanso": 30,
+      "series": 4,
+      "repeticiones": 15
+    },
+    {
+      "nombre": "Curl inverso con barra",
+      "grupoMuscular": "antebrazo",
+      "descanso": 30,
+      "series": 4,
+      "repeticiones": 15
+    },
+    {
+      "nombre": "Curl de muñeca con mancuernas",
+      "grupoMuscular": "antebrazo",
+      "descanso": 30,
+      "series": 4,
+      "repeticiones": 15
+    },
+    {
+      "nombre": "Rotación de muñeca con disco",
+      "grupoMuscular": "antebrazo",
+      "descanso": 30,
+      "series": 4,
+      "repeticiones": 12
+    },
+    {
+      "nombre": "Prensión con pinzas de resistencia",
+      "grupoMuscular": "antebrazo",
+      "descanso": 30,
+      "series": 4,
+      "repeticiones": 20
+    }
+  ],
+  "hombro": [
+    {
+      "nombre": "Press militar",
+      "grupoMuscular": "hombro",
+      "descanso": 60,
+      "series": 4,
+      "repeticiones": 10
+    },
+    {
+      "nombre": "Elevaciones laterales",
+      "grupoMuscular": "hombro",
+      "descanso": 60,
+      "series": 4,
+      "repeticiones": 12
+    },
+    {
+      "nombre": "Elevaciones frontales",
+      "grupoMuscular": "hombro",
+      "descanso": 60,
+      "series": 4,
+      "repeticiones": 12
+    },
+    {
+      "nombre": "Pájaro con mancuernas",
+      "grupoMuscular": "hombro",
+      "descanso": 60,
+      "series": 4,
+      "repeticiones": 15
+    },
+    {
+      "nombre": "Encogimientos para trapecio",
+      "grupoMuscular": "hombro",
+      "descanso": 60,
+      "series": 4,
+      "repeticiones": 12
+    }
+  ],
+  "cuadriceps": [
+    {
+      "nombre": "Sentadilla con barra",
+      "grupoMuscular": "cuadriceps",
+      "descanso": 90,
+      "series": 4,
+      "repeticiones": 10
+    },
+    {
+      "nombre": "Prensa de piernas",
+      "grupoMuscular": "cuadriceps",
+      "descanso": 90,
+      "series": 4,
+      "repeticiones": 10
+    },
+    {
+      "nombre": "Zancadas",
+      "grupoMuscular": "cuadriceps",
+      "descanso": 90,
+      "series": 4,
+      "repeticiones": 10
+    },
+    {
+      "nombre": "Sentadilla frontal",
+      "grupoMuscular": "cuadriceps",
+      "descanso": 90,
+      "series": 4,
+      "repeticiones": 10
+    },
+    {
+      "nombre": "Extensiones de piernas",
+      "grupoMuscular": "cuadriceps",
+      "descanso": 90,
+      "series": 4,
+      "repeticiones": 10
+    }
   ]
 }
