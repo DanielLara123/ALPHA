@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Entrenador.RutinasEntrenadorController" spacing="10" alignment="TOP_CENTER" style="-fx-background-color: black; -fx-padding: 20;">
+    <!-- Título -->
+    <Label text="CREACIÓN DE RUTINAS" style="-fx-text-fill: gold; -fx-font-size: 24px; -fx-font-weight: bold;" />
+
+    <!-- Campo para el nombre de la rutina -->
+    <Label text="Introduce el nombre de la rutina" style="-fx-text-fill: gold; -fx-font-size: 16px;" />
+    <TextField fx:id="nombreRutinaField" promptText="Nombre de la rutina" style="-fx-background-color: #000000; -fx-text-fill: gold;" />
+
+    <!-- Lista de días y ejercicios -->
+    <ListView fx:id="listViewDias" style="-fx-background-color: #222; -fx-border-color: gold; -fx-border-width: 1;" />
+
+    <!-- Botones para añadir días y crear -->
+    <Button text="+ Añadir día" onAction="#onAnadirDia" style="-fx-background-color: transparent; -fx-border-color: gold; -fx-text-fill: gold; -fx-padding: 10 20;" />
+    <Button text="Crear" onAction="#onCrearRutina" style="-fx-background-color: gold; -fx-text-fill: black; -fx-padding: 10 20; -fx-font-weight: bold;" />
+</VBox>
