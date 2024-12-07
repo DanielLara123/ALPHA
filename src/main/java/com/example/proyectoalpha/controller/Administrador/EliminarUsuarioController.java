@@ -12,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import com.example.proyectoalpha.servicios.servicioUsuario;
 import com.example.proyectoalpha.controller.ConfirmacionController;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 
@@ -42,7 +44,8 @@ public class EliminarUsuarioController {
        servicioUsuario = new servicioUsuario();
 
        BtnContinuar.setOnAction(event -> manejarContinuar());
-         BtnVolver.setOnAction(event -> manejarVolver());
+       BtnVolver.setOnAction(event -> manejarVolver());
+       colocarImagenBotones();
     }
 
     private void manejarContinuar() {
@@ -90,6 +93,14 @@ public class EliminarUsuarioController {
             ex.printStackTrace();
             LblMensaje.setText("Error al volver al menú");
         }
+    }
+
+    private void colocarImagenBotones() {
+        URL volver = getClass().getResource("/images/VolverAtras.png");
+
+        Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
+
+        BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 
 }

@@ -16,7 +16,7 @@
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="68.0" prefWidth="101.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Volver">
+                              <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="39.0" prefWidth="9.0" stylesheets="@../../../../css/ModeloAlpha.css">
                                  <styleClass>
                                     <String fx:value="button" />
                                     <String fx:value="button" />

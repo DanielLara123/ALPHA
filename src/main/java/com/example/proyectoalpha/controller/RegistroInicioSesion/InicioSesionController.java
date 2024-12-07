@@ -2,6 +2,7 @@ package com.example.proyectoalpha.controller.RegistroInicioSesion;
 
 import com.example.proyectoalpha.clases.Usuario;
 import com.example.proyectoalpha.controller.Administrador.MenuAdminController;
+import com.example.proyectoalpha.controller.Atleta.MenuAtletaController;
 import com.example.proyectoalpha.servicios.servicioUsuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,7 +61,7 @@ public class InicioSesionController {
         if (usuario != null) {
             if (usuario.getTipoUsuario().equalsIgnoreCase(tipoUsuario)) {
                 if (tipoUsuario.equalsIgnoreCase("atleta")) {
-                    MenuAtleta();
+                    MenuAtleta(usuario);
                 } else if (tipoUsuario.equalsIgnoreCase("medico")) {
                     MenuMedico();
                 } else if (tipoUsuario.equalsIgnoreCase("administrador")) {
@@ -111,11 +112,13 @@ public class InicioSesionController {
         }
     }
 
-    private void MenuAtleta(){
-
+    private void MenuAtleta(Usuario usuario){
         try {
             FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/MenuAtleta.fxml"));
             Parent root = loader2.load();
+
+            MenuAtletaController controller = loader2.getController();
+            controller.setDatosUsuario(usuario.getDni(), usuario.getCorreo(), usuario.getContrasena());
 
             Stage stage = (Stage) BtnContinuar.getScene().getWindow();
             stage.setScene(new Scene(root));

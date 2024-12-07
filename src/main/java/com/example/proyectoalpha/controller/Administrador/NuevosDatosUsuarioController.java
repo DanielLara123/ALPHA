@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import com.example.proyectoalpha.controller.ConfirmacionController;
 import com.example.proyectoalpha.servicios.servicioUsuario;
@@ -54,6 +56,7 @@ public class NuevosDatosUsuarioController {
 
         BtnContinuar.setOnAction(event -> manejarContinuar());
         BtnVolver.setOnAction(event -> manejarVolver());
+        colocarImagenBotones();
     }
 
     public void setCorreo(String correo) {
@@ -104,5 +107,13 @@ public class NuevosDatosUsuarioController {
 
     private void closeWindow() {
         BtnVolver.getScene().getWindow().hide();
+    }
+
+    private void colocarImagenBotones() {
+        URL volver = getClass().getResource("/images/VolverAtras.png");
+
+        Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
+
+        BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 }
