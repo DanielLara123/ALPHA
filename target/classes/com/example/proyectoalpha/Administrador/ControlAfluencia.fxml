@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Administrador.ControlAfluenciaController">
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Administrador.ControlAfluenciaController">
    <children>
       <BorderPane layoutX="168.0" layoutY="88.0" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -16,12 +17,15 @@
                         <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="342.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                              <ImageView fitHeight="119.0" fitWidth="356.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                                  <image>
                                     <Image url="@../../../../images/ControlAfluencia.png" />
                                  </image>
                               </ImageView>
                            </children>
+                           <HBox.margin>
+                              <Insets top="50.0" />
+                           </HBox.margin>
                         </HBox>
                         <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
@@ -36,7 +40,10 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="LblHora" alignment="CENTER" prefHeight="47.0" prefWidth="179.0" stylesheets="@../../../../css/ModeloAlpha.css" />
+                        <Label fx:id="LblHora" alignment="CENTER" contentDisplay="CENTER" prefHeight="63.0" prefWidth="212.0" stylesheets="@../../../../css/ModeloAlpha.css">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
                      </children>
                   </HBox>
                </children>
@@ -52,14 +59,14 @@
          <center>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="LblAforoActual" alignment="CENTER" contentDisplay="CENTER" prefHeight="67.0" prefWidth="228.0" stylesheets="@../../../../css/ModeloAlpha.css">
+                  <Label fx:id="LblAforoActual" alignment="CENTER" contentDisplay="CENTER" prefHeight="67.0" prefWidth="363.0" stylesheets="@../../../../css/ModeloAlpha.css" textAlignment="CENTER">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="LblPorcentajeAforo" alignment="CENTER" prefHeight="55.0" prefWidth="448.0" stylesheets="@../../../../css/ModeloAlpha.css">
+                  <Label fx:id="LblPorcentajeAforo" alignment="CENTER" contentDisplay="CENTER" prefHeight="91.0" prefWidth="606.0" stylesheets="@../../../../css/ModeloAlpha.css" textAlignment="CENTER">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="24.0" />
                      </font>
                   </Label>
                </children>
