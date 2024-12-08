@@ -4,20 +4,31 @@ import com.example.proyectoalpha.clases.Atleta.Ejercicio;
 import com.example.proyectoalpha.servicios.ServicioEjercicios;
 import com.example.proyectoalpha.servicios.ServicioRutinas;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RutinasEntrenadorController {
+public class CrearRutinasController {
 
     @FXML
     private TextField nombreRutinaField;
+
+    @FXML
+    private Button BtnVolver;
 
     @FXML
     private ListView<HBox> listViewDias;
@@ -25,6 +36,12 @@ public class RutinasEntrenadorController {
     private final ServicioRutinas servicioRutinas = new ServicioRutinas(); // Servicio para rutinas
     private final ServicioEjercicios servicioEjercicios = new ServicioEjercicios(); // Servicio para ejercicios
     private int contadorDias = 1; // Contador para los días
+
+    @FXML
+    private void initialize(){
+        colocarImagenBotones();
+        BtnVolver.setOnAction(e -> manejarVolver());
+    }
 
     @FXML
     private void onAnadirDia() {
@@ -168,5 +185,26 @@ public class RutinasEntrenadorController {
 
         Alert alerta = new Alert(AlertType.INFORMATION, "Rutina guardada exitosamente en rutinas.json.");
         alerta.show();
+    }
+
+    private void manejarVolver() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Entrenador/OpcionesRutinas.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) BtnVolver.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void colocarImagenBotones(){
+        URL volver = getClass().getResource("/images/VolverAtras.png");
+
+        Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
+
+        BtnVolver.setGraphic(new ImageView(imagenVolver));
+
     }
 }

@@ -34,7 +34,7 @@ public class MenuEntrenadorController {
 
     void manejarPlanes(){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Entrenador/RutinasEntrenador.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Entrenador/OpcionesRutinas.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) BtnPlanes.getScene().getWindow();
             stage.setScene(new Scene(root));
