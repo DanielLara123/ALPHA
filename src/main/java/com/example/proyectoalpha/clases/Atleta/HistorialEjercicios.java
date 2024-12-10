@@ -12,8 +12,8 @@ public class HistorialEjercicios {
         this.historial = new ArrayList<>();
     }
 
-    public void agregarEjercicioRealizado(String nombre, int duracion, int series, int repeticiones, String fecha) {
-        EjercicioRealizado ejercicio = new EjercicioRealizado(nombre, duracion, series, repeticiones, fecha);
+    public void agregarEjercicioRealizado(String nombre, String grupoMuscular, int duracion, int series, int repeticiones, String fecha) {
+        EjercicioRealizado ejercicio = new EjercicioRealizado(nombre, grupoMuscular, duracion, series, repeticiones, fecha);
         historial.add(ejercicio);
     }
 
@@ -28,8 +28,8 @@ public class HistorialEjercicios {
     public static class EjercicioRealizado extends Ejercicio {
         private String fecha;
 
-        public EjercicioRealizado(String nombre, int duracion, int series, int repeticiones, String fecha) {
-            super(nombre, duracion, series, repeticiones);
+        public EjercicioRealizado(String nombre, String grupoMuscular, int duracion, int series, int repeticiones, String fecha) {
+            super(nombre, grupoMuscular, duracion, series, repeticiones);
             this.fecha = fecha;
         }
 

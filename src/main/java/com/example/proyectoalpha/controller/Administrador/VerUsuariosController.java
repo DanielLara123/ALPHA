@@ -10,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import com.example.proyectoalpha.servicios.servicioUsuario;
@@ -43,6 +45,7 @@ public class VerUsuariosController {
 
         BtnContinuar.setOnAction(event -> manejarVerUsuario());
         BtnVolver.setOnAction(event -> manejarVolver());
+        colocarImagenBotones();
     }
 
     private void manejarVerUsuario() {
@@ -85,5 +88,13 @@ public class VerUsuariosController {
             e.printStackTrace();
             LblMensaje.setText("Error al volver al menú principal");
         }
+    }
+
+    private void colocarImagenBotones() {
+        URL volver = getClass().getResource("/images/VolverAtras.png");
+
+        Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
+
+        BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 }

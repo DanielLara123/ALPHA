@@ -54,6 +54,10 @@ public class MenuAtletaController {
     @FXML
     private Label LblRutinas;
 
+    private String dniUsuario;
+    private String correoUsuario;
+    private String contrasenaUsuario;
+
     @FXML
     private void initialize(){
         BtnConfiguracion.setOnAction(event -> manejarConfiguracion());
@@ -94,6 +98,12 @@ public class MenuAtletaController {
 
     }
 
+    public void setDatosUsuario(String dni, String correo, String contrasena) {
+        dniUsuario = dni;
+        correoUsuario = correo;
+        contrasenaUsuario = contrasena;
+    }
+
     private void manejarConfiguracion(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/ConfiguracionUsuario.fxml"));
@@ -130,10 +140,14 @@ public class MenuAtletaController {
         }
     }
 
-    private void manejarMisDatos(){
+    private void manejarMisDatos() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/MisDatosUsuario.fxml"));
             Parent root = loader.load();
+
+            MisDatosUsuarioController controller = loader.getController();
+            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+
             Stage stage = (Stage) BtnMisDatos.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

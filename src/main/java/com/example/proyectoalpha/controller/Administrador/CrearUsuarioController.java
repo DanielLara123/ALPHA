@@ -16,6 +16,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import com.example.proyectoalpha.servicios.servicioUsuario;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class CrearUsuarioController {
@@ -55,6 +57,7 @@ public class CrearUsuarioController {
 
         BtnContinuar.setOnAction(event -> manejarContinuar());
         BtnVolver.setOnAction(event -> manejarVolver());
+        colocarImagenBotones();
     }
 
 
@@ -116,6 +119,14 @@ public class CrearUsuarioController {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    private void colocarImagenBotones() {
+        URL volver = getClass().getResource("/images/VolverAtras.png");
+
+        Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
+
+        BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 
 }
