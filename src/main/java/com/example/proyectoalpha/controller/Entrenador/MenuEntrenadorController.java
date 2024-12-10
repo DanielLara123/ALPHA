@@ -29,6 +29,7 @@ public class MenuEntrenadorController {
     @FXML
     void initialize() {
         BtnPlanes.setOnAction(event -> manejarPlanes());
+        BtnCerrarSesion.setOnAction(event -> manejarCerrarSesion());
         colocarImagenBotones();
     }
 
@@ -43,6 +44,19 @@ public class MenuEntrenadorController {
             ex.printStackTrace();
         }
     }
+
+    void manejarCerrarSesion(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/TipoUsuario.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) BtnCerrarSesion.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private void colocarImagenBotones(){
         URL PlanesDeEntrenamiento = getClass().getResource("/images/PlanesDeEntrenamiento.png");
         URL MonitoreoDeClientes = getClass().getResource("/images/MonitoreoDeClientes.png");
