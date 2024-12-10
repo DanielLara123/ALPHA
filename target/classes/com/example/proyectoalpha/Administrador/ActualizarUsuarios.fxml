@@ -6,7 +6,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Administrador.ActualizarUsuariosController">
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Administrador.ActualizarUsuariosController">
    <children>
       <BorderPane layoutX="168.0" layoutY="88.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -16,7 +16,7 @@
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="68.0" prefWidth="101.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Volver">
+                              <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="34.0" prefWidth="0.0" stylesheets="@../../../../css/ModeloAlpha.css">
                                  <styleClass>
                                     <String fx:value="button" />
                                     <String fx:value="button" />
@@ -48,7 +48,7 @@
             </VBox>
          </top>
          <center>
-            <VBox alignment="CENTER" prefHeight="334.0" prefWidth="742.0" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="470.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="73.0" fitWidth="311.0" pickOnBounds="true" preserveRatio="true">
                      <image>
