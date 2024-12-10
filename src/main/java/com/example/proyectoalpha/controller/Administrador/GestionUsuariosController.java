@@ -37,7 +37,6 @@ public class GestionUsuariosController {
 
     @FXML
     void initialize() {
-
         BtnActualizarUsuarios.setOnAction(event -> manejarActualizarUsuarios());
         BtnVolver.setOnAction(event -> manejarVolver());
         BtnCrearUsuario.setOnAction(event -> manejarCrearUsuario());
@@ -48,58 +47,30 @@ public class GestionUsuariosController {
     }
 
     private void manejarVerUsuarios() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/VerUsuarios.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) BtnVerUsuarios.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        cargarEscena("/com/example/proyectoalpha/Administrador/VerUsuarios.fxml", BtnVerUsuarios);
     }
 
     private void manejarEliminarUsuario() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/EliminarUsuario.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) BtnEliminarUsuario.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        cargarEscena("/com/example/proyectoalpha/Administrador/EliminarUsuario.fxml", BtnEliminarUsuario);
     }
 
     private void manejarCrearUsuario() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/CrearUsuario.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) BtnCrearUsuario.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        cargarEscena("/com/example/proyectoalpha/Administrador/CrearUsuario.fxml", BtnCrearUsuario);
     }
 
     private void manejarActualizarUsuarios() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/ActualizarUsuarios.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) BtnActualizarUsuarios.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        cargarEscena("/com/example/proyectoalpha/Administrador/ActualizarUsuarios.fxml", BtnActualizarUsuarios);
     }
 
     private void manejarVolver() {
+        cargarEscena("/com/example/proyectoalpha/Administrador/MenuAdministrador.fxml", BtnVolver);
+    }
+
+    private void cargarEscena(String rutaFXML, Button boton) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/MenuAdministrador.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(rutaFXML));
             Parent root = loader.load();
-            Stage stage = (Stage) BtnVolver.getScene().getWindow();
+            Stage stage = (Stage) boton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException ex) {
@@ -107,25 +78,21 @@ public class GestionUsuariosController {
         }
     }
 
-    private void colocarImagenBotones(){
-        URL addUsuario = getClass().getResource("/images/FotoAñadirUsuario.png");
-        URL eliminarUsuario = getClass().getResource("/images/FotoEliminarUsuario.png");
-        URL verUsuario = getClass().getResource("/images/FotoVerUsuarios.png");
-        URL actualizarUsuario = getClass().getResource("/images/FotoActualizarUsuario.png");
-        URL volver = getClass().getResource("/images/VolverAtras.png");
+    private void colocarImagenBotones() {
+        colocarImagenBoton(BtnCrearUsuario, "/images/FotoAñadirUsuario.png", 200, 200);
+        colocarImagenBoton(BtnEliminarUsuario, "/images/FotoEliminarUsuario.png", 200, 200);
+        colocarImagenBoton(BtnVerUsuarios, "/images/FotoVerUsuarios.png", 200, 200);
+        colocarImagenBoton(BtnActualizarUsuarios, "/images/FotoActualizarUsuario.png", 200, 200);
+        colocarImagenBoton(BtnVolver, "/images/VolverAtras.png", 50, 50);
+    }
 
-
-        Image imagenAdd = new Image(String.valueOf(addUsuario), 200, 200, false, true);
-        Image imagenEliminar = new Image(String.valueOf(eliminarUsuario), 200, 200, false, true);
-        Image imagenVer = new Image(String.valueOf(verUsuario), 200, 200, false, true);
-        Image imagenActualizar = new Image(String.valueOf(actualizarUsuario), 200, 200, false, true);
-        Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
-
-        BtnCrearUsuario.setGraphic(new ImageView(imagenAdd));
-        BtnEliminarUsuario.setGraphic(new ImageView(imagenEliminar));
-        BtnVerUsuarios.setGraphic(new ImageView(imagenVer));
-        BtnActualizarUsuarios.setGraphic(new ImageView(imagenActualizar));
-        BtnVolver.setGraphic(new ImageView(imagenVolver));
-
+    private void colocarImagenBoton(Button boton, String rutaImagen, int ancho, int alto) {
+        URL urlImagen = getClass().getResource(rutaImagen);
+        if (urlImagen != null) {
+            Image imagen = new Image(urlImagen.toString(), ancho, alto, false, true);
+            boton.setGraphic(new ImageView(imagen));
+        } else {
+            System.err.println("Error al cargar la imagen: " + rutaImagen);
+        }
     }
 }

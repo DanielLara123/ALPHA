@@ -3,14 +3,23 @@ package com.example.proyectoalpha.controller.Entrenador;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.TextAlignment;
+import com.example.proyectoalpha.servicios.LinkedList;
+import javafx.stage.Stage;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -24,18 +33,27 @@ public class ListaRutinasController {
     @FXML
     private Button btnEliminar;
 
+    @FXML
+    private Button BtnVolver;
+
     private Map<String, Map<String, Object>> rutinas;
+    private LinkedList<String> rutinaNombres;
     private static final String JSON_PATH = "rutinas.json";
 
     @FXML
     public void initialize() {
         // Inicializar datos
+        BtnVolver.setOnAction(event -> manejarVolver());
         rutinas = new HashMap<>();
+        rutinaNombres = new LinkedList<>();
         cargarRutinas();
 
         // Cargar los nombres de rutinas en la lista
-        ObservableList<String> rutinaNombres = FXCollections.observableArrayList(rutinas.keySet());
-        listViewRutinas.setItems(rutinaNombres);
+        ObservableList<String> observableRutinas = FXCollections.observableArrayList();
+        for (int i = 0; i < rutinaNombres.size(); i++) {
+            observableRutinas.add(rutinaNombres.obtener(i));
+        }
+        listViewRutinas.setItems(observableRutinas);
 
         // Personalizar las celdas del ListView
         listViewRutinas.setCellFactory(param -> new ListCell<>() {
@@ -90,6 +108,7 @@ public class ListaRutinasController {
                 rutina.put("dias", dias);
 
                 rutinas.put(nombre, rutina);
+                rutinaNombres.insertarCabeza(nombre); // Añadir a la lista enlazada
             }
         } catch (Exception e) {
             mostrarError("Error al cargar las rutinas: " + e.getMessage());
@@ -104,6 +123,9 @@ public class ListaRutinasController {
 
             // Eliminar del archivo JSON
             guardarRutinasEnJson();
+
+            // Eliminar de la lista enlazada
+            rutinaNombres.eliminarPorValor(selectedRutina);
 
             // Actualizar la lista
             listViewRutinas.getItems().remove(selectedRutina);
@@ -164,4 +186,17 @@ public class ListaRutinasController {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
+
+    private void manejarVolver() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Entrenador/OpcionesRutinas.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) BtnVolver.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }

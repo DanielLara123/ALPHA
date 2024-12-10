@@ -52,7 +52,7 @@
          <bottom>
             <VBox alignment="CENTER" prefHeight="161.0" prefWidth="742.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="63.0" prefWidth="107.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Volver" />
+                  <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="63.0" prefWidth="17.0" stylesheets="@../../../../css/ModeloAlpha.css" />
                </children>
             </VBox>
          </bottom>

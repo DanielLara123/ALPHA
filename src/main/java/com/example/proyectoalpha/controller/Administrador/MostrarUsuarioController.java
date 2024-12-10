@@ -29,9 +29,12 @@ public class MostrarUsuarioController {
         colocarImagenBotones();
     }
 
-
     public void setUsuario(Usuario usuario) {
-        LblMessage.setText("Correo: " + usuario.getCorreo() + "\nContraseña: " + usuario.getContrasena() + "\nRol: " + usuario.getTipoUsuario() + "\nDNI: " + usuario.getDni());
+        if (usuario != null) {
+            LblMessage.setText("Correo: " + usuario.getCorreo() + "\nContraseña: " + usuario.getContrasena() + "\nRol: " + usuario.getTipoUsuario() + "\nDNI: " + usuario.getDni());
+        } else {
+            LblMessage.setText("Usuario no encontrado");
+        }
     }
 
     private void closeWindow() {
@@ -41,8 +44,11 @@ public class MostrarUsuarioController {
     private void colocarImagenBotones() {
         URL volver = getClass().getResource("/images/VolverAtras.png");
 
-        Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
-
-        BtnVolver.setGraphic(new ImageView(imagenVolver));
+        if (volver != null) {
+            Image imagenVolver = new Image(volver.toString(), 50, 50, false, true);
+            BtnVolver.setGraphic(new ImageView(imagenVolver));
+        } else {
+            LblMessage.setText("Error al cargar la imagen de volver");
+        }
     }
 }

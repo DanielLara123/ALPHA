@@ -3,6 +3,7 @@ package com.example.proyectoalpha.controller.Administrador;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 import com.example.proyectoalpha.clases.Usuario;
 import com.example.proyectoalpha.controller.ConfirmacionController;
@@ -60,7 +61,6 @@ public class CrearUsuarioController {
         colocarImagenBotones();
     }
 
-
     private void manejarContinuar() {
         String correo = FieldCorreo.getText();
         String contrasena = FieldContrasena.getText();
@@ -68,45 +68,48 @@ public class CrearUsuarioController {
         String tipoUsuario = FieldRol.getValue();
 
         if (correo.isEmpty() || contrasena.isEmpty() || tipoUsuario.isEmpty()) {
-            LblMensaje.setText("Los campos correo, contraseña y rol son obligatorios");
-            return;
-        }
-
-        if(servicioUsuario.emailEstaRegistrado(correo)){
+            LblMensaje.setText("Rellena todos los campos antes de continuar");
+        } else if (servicioUsuario.emailEstaRegistrado(correo)) {
             LblMensaje.setText("El correo ya está registrado");
-            return;
-        }
-
-        if(!correo.endsWith("@gmail.com")){
+        } else if (!correo.endsWith("@gmail.com")) {
             LblMensaje.setText("El correo debe terminar en @gmail.com");
-            return;
-        }
+        } else if (!validarFormatoDni(dni)) {
+            LblMensaje.setText("El formato del DNI es incorrecto");
+        } else if (servicioUsuario.dniEstaRegistrado(dni)) {
+            LblMensaje.setText("El DNI ya está registrado");
+        } else {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Confirmacion.fxml"));
+                Parent root = loader.load();
+                ConfirmacionController confirmacionController = loader.getController();
+                confirmacionController.setMensaje("¿Estás seguro de que desea crear el usuario?");
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.showAndWait();
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Confirmacion.fxml"));
-            Parent root = loader.load();
-            ConfirmacionController confirmacionController = loader.getController();
-            confirmacionController.setMensaje("¿Estás seguro de que desea crear el usuario?");
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
+                if (confirmacionController.estaConfirmado()) {
+                    Usuario nuevoUsuario = new Usuario();
+                    nuevoUsuario.setCorreo(correo);
+                    nuevoUsuario.setContrasena(contrasena);
+                    nuevoUsuario.setDni(dni);
+                    nuevoUsuario.setTipoUsuario(tipoUsuario);
 
-            if (confirmacionController.estaConfirmado()) {
-                Usuario nuevoUsuario = new Usuario();
-                nuevoUsuario.setCorreo(correo);
-                nuevoUsuario.setContrasena(contrasena);
-                nuevoUsuario.setDni(dni);
-                nuevoUsuario.setTipoUsuario(tipoUsuario);
-
-                servicioUsuario.registrarUsuario(nuevoUsuario);
-                LblMensaje.setText("Usuario creado correctamente");
-            } else {
-                LblMensaje.setText("Creación de usuario cancelada");
+                    servicioUsuario.registrarUsuario(nuevoUsuario);
+                    LblMensaje.setText("Usuario creado correctamente");
+                } else {
+                    LblMensaje.setText("Creación de usuario cancelada");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                LblMensaje.setText("Error al mostrar la confirmación");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            LblMensaje.setText("Error al mostrar la confirmación");
         }
+    }
+
+    private boolean validarFormatoDni(String dni) {
+        // Ejemplo de DNI: 12345678Z
+        String dniPattern = "^[0-9]{8}[A-Z]$";
+        return Pattern.matches(dniPattern, dni);
     }
 
     private void manejarVolver() {
@@ -124,9 +127,11 @@ public class CrearUsuarioController {
     private void colocarImagenBotones() {
         URL volver = getClass().getResource("/images/VolverAtras.png");
 
-        Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
-
-        BtnVolver.setGraphic(new ImageView(imagenVolver));
+        if (volver != null) {
+            Image imagenVolver = new Image(volver.toString(), 50, 50, false, true);
+            BtnVolver.setGraphic(new ImageView(imagenVolver));
+        } else {
+            LblMensaje.setText("Error al cargar la imagen de volver");
+        }
     }
-
 }

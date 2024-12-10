@@ -49,31 +49,29 @@ public class VerUsuariosController {
     }
 
     private void manejarVerUsuario() {
-        String correo = FieldCorreo.getText();
+        String correo = FieldCorreo.getText().trim();
 
         if (correo.isEmpty()) {
             LblMensaje.setText("El campo correo es obligatorio");
-            return;
-        }
-
-        Usuario usuario = servicioUsuario.obtenerUsuarioPorCorreo(correo);
-        if (usuario == null) {
-            LblMensaje.setText("El correo no está registrado");
-            return;
-        }
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/MostrarUsuario.fxml"));
-            Parent root = loader.load();
-            MostrarUsuarioController mostrarUsuarioController = loader.getController();
-            mostrarUsuarioController.setUsuario(usuario);
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-            LblMensaje.setText("Error al mostrar la ventana de usuario");
+        } else {
+            Usuario usuario = servicioUsuario.obtenerUsuarioPorCorreo(correo);
+            if (usuario == null) {
+                LblMensaje.setText("El correo no está registrado");
+            } else {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/MostrarUsuario.fxml"));
+                    Parent root = loader.load();
+                    MostrarUsuarioController mostrarUsuarioController = loader.getController();
+                    mostrarUsuarioController.setUsuario(usuario);
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.showAndWait();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    LblMensaje.setText("Error al mostrar la ventana de usuario");
+                }
+            }
         }
     }
 
@@ -93,8 +91,11 @@ public class VerUsuariosController {
     private void colocarImagenBotones() {
         URL volver = getClass().getResource("/images/VolverAtras.png");
 
-        Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
-
-        BtnVolver.setGraphic(new ImageView(imagenVolver));
+        if (volver != null) {
+            Image imagenVolver = new Image(volver.toString(), 50, 50, false, true);
+            BtnVolver.setGraphic(new ImageView(imagenVolver));
+        } else {
+            LblMensaje.setText("Error al cargar la imagen de volver");
+        }
     }
 }

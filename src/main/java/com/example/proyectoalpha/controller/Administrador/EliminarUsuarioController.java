@@ -53,32 +53,28 @@ public class EliminarUsuarioController {
 
         if (correo.isEmpty()) {
             LblMensaje.setText("Por favor, ingrese un correo");
-            return;
-        }
-
-        if (!servicioUsuario.emailEstaRegistrado(correo)) {
+        }else if (!servicioUsuario.emailEstaRegistrado(correo)) {
             LblMensaje.setText("El correo ingresado no está registrado");
-            return;
-        }
+        } else {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Confirmacion.fxml"));
+                Parent root = loader.load();
+                ConfirmacionController confirmacionController = loader.getController();
+                confirmacionController.setMensaje("¿Está seguro de que quiere eliminar el usuario?");
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.showAndWait();
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Confirmacion.fxml"));
-            Parent root = loader.load();
-            ConfirmacionController confirmacionController = loader.getController();
-            confirmacionController.setMensaje("¿Está seguro de que quiere eliminar el usuario?");
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
-
-            if (confirmacionController.estaConfirmado()) {
-                servicioUsuario.eliminarUsuario(correo);
-                LblMensaje.setText("Usuario eliminado correctamente");
-            } else {
-                LblMensaje.setText("Eliminación de usuario cancelada");
+                if (confirmacionController.estaConfirmado()) {
+                    servicioUsuario.eliminarUsuario(correo);
+                    LblMensaje.setText("Usuario eliminado correctamente");
+                } else {
+                    LblMensaje.setText("Eliminación de usuario cancelada");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                LblMensaje.setText("Error al mostrar la confirmación");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            LblMensaje.setText("Error al mostrar la confirmación");
         }
     }
 
@@ -98,9 +94,12 @@ public class EliminarUsuarioController {
     private void colocarImagenBotones() {
         URL volver = getClass().getResource("/images/VolverAtras.png");
 
-        Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
-
-        BtnVolver.setGraphic(new ImageView(imagenVolver));
+        if (volver != null) {
+            Image imagenVolver = new Image(volver.toString(), 50, 50, false, true);
+            BtnVolver.setGraphic(new ImageView(imagenVolver));
+        } else {
+            LblMensaje.setText("Error al cargar la imagen de volver");
+        }
     }
 
 }
