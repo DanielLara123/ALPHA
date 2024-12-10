@@ -62,14 +62,14 @@ public class servicioUsuario {
         guardarUsuarios();
     }
 
-    public void actualizarUsuario(String correo, String nuevoCorreo, String nuevaContrasena) {
-        for (Usuario usuario : usuarios) {
-            if (usuario.getCorreo().equals(correo)) {
-                usuario.setCorreo(nuevoCorreo);
-                usuario.setContrasena(nuevaContrasena);
-                break;
-            }
-        }
+    public void actualizarUsuario(String correo, String nuevoCorreo, String nuevaContrasena, String nuevoDni) {
+        usuarios.stream()
+                .filter(usuario -> usuario.getCorreo().equals(correo))
+                .forEach(usuario -> {
+                    usuario.setCorreo(nuevoCorreo);
+                    usuario.setContrasena(nuevaContrasena);
+                    usuario.setDni(nuevoDni);
+                });
         guardarUsuarios();
     }
 
@@ -81,4 +81,11 @@ public class servicioUsuario {
         }
         return null;
     }
+
+    public boolean dniEstaRegistrado(String dni) {
+        return usuarios.stream()
+                .anyMatch(usuario -> usuario.getDni() != null && usuario.getDni().equals(dni));
+    }
+
+
 }

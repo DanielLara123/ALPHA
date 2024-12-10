@@ -12,6 +12,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class ControlAfluenciaController {
@@ -38,6 +40,7 @@ public class ControlAfluenciaController {
     void initialize() {
         BtnVolver.setOnAction(event -> manejarVolver());
         actualizarAforo();
+        colocarImagenBotones();
     }
 
     private void manejarVolver() {
@@ -54,7 +57,7 @@ public class ControlAfluenciaController {
     }
 
     private void actualizarAforo() {
-        // Logic to update the labels with the current capacity and percentage
+        // Lógica para obtener el aforo actual y la capacidad máxima
         int aforoActual = obtenerAforoActual();
         int capacidadMaxima = obtenerCapacidadMaxima();
         int porcentajeAforo = (aforoActual * 100) / capacidadMaxima;
@@ -65,12 +68,23 @@ public class ControlAfluenciaController {
     }
 
     private int obtenerAforoActual() {
-        // Reemplazar con la lógica real para obtener el aforo actual
+        // De momento, devolvemos un valor fijo
         return 50;
     }
 
     private int obtenerCapacidadMaxima() {
-        // Reemplazar con la lógica real para obtener la capacidad máxima
+        // De momento, devolvemos un valor fijo
         return 100;
+    }
+
+    private void colocarImagenBotones() {
+        URL volver = getClass().getResource("/images/VolverAtras.png");
+
+        if (volver != null) {
+            Image imagenVolver = new Image(volver.toString(), 50, 50, false, true);
+            BtnVolver.setGraphic(new ImageView(imagenVolver));
+        } else {
+            System.out.println("No se encontró la imagen");
+        }
     }
 }

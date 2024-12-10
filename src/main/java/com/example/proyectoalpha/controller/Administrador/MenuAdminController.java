@@ -31,7 +31,6 @@ public class MenuAdminController {
 
     @FXML
     void initialize() {
-
         BtnCerrarSesion.setOnAction(event -> manejarCerrarSesion());
         BtnGestionUsuarios.setOnAction(event -> manejarGestionUsuarios());
         BtnControlAfluencia.setOnAction(event -> manejarControlAfluencia());
@@ -39,37 +38,23 @@ public class MenuAdminController {
         colocarImagenBotones();
     }
 
-
     private void manejarCerrarSesion() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/TipoUsuario.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) BtnCerrarSesion.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        cargarEscena("/com/example/proyectoalpha/TipoUsuario.fxml", BtnCerrarSesion);
     }
 
     private void manejarGestionUsuarios() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/GestionUsuarios.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) BtnGestionUsuarios.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        cargarEscena("/com/example/proyectoalpha/Administrador/GestionUsuarios.fxml", BtnGestionUsuarios);
     }
-
 
     private void manejarControlAfluencia() {
+        cargarEscena("/com/example/proyectoalpha/Administrador/ControlAfluencia.fxml", BtnControlAfluencia);
+    }
+
+    private void cargarEscena(String rutaFXML, Button boton) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/ControlAfluencia.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(rutaFXML));
             Parent root = loader.load();
-            Stage stage = (Stage) BtnControlAfluencia.getScene().getWindow();
+            Stage stage = (Stage) boton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException ex) {
@@ -77,14 +62,18 @@ public class MenuAdminController {
         }
     }
 
-    private void colocarImagenBotones(){
-        URL gestionUsuarios = getClass().getResource("/images/FotoGestionUsuarios.png");
-        URL controlAfluencia = getClass().getResource("/images/FotoControlAfluencia.png");
+    private void colocarImagenBotones() {
+        colocarImagenBoton(BtnGestionUsuarios, "/images/FotoGestionUsuarios.png", 200, 200);
+        colocarImagenBoton(BtnControlAfluencia, "/images/FotoControlAfluencia.png", 200, 200);
+    }
 
-        Image imagenGestionUsuarios = new Image(String.valueOf(gestionUsuarios), 200, 200, false, true);
-        Image imagenControlAfluencia = new Image(String.valueOf(controlAfluencia), 200, 200, false, true);
-
-        BtnControlAfluencia.setGraphic(new ImageView(imagenControlAfluencia));
-        BtnGestionUsuarios.setGraphic(new ImageView(imagenGestionUsuarios));
+    private void colocarImagenBoton(Button boton, String rutaImagen, int ancho, int alto) {
+        URL urlImagen = getClass().getResource(rutaImagen);
+        if (urlImagen != null) {
+            Image imagen = new Image(urlImagen.toString(), ancho, alto, false, true);
+            boton.setGraphic(new ImageView(imagen));
+        } else {
+            System.err.println("Error al cargar la imagen: " + rutaImagen);
+        }
     }
 }

@@ -77,7 +77,7 @@
          <bottom>
             <VBox alignment="CENTER" prefHeight="161.0" prefWidth="742.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="LblMensaje" prefHeight="35.0" prefWidth="464.0" stylesheets="@../../../../css/ModeloAlpha.css" />
+                  <Label fx:id="LblMensaje" alignment="CENTER" prefHeight="35.0" prefWidth="464.0" stylesheets="@../../../../css/ModeloAlpha.css" textAlignment="CENTER" />
                   <Button fx:id="BtnContinuar" mnemonicParsing="false" prefHeight="63.0" prefWidth="107.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Continuar" />
                </children>
             </VBox>
