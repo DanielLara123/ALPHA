@@ -41,7 +41,7 @@
                   <Button fx:id="BtnMonitoreo" mnemonicParsing="false" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                   <Button fx:id="BtnPlanes" mnemonicParsing="false" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                   <Button fx:id="BtnAlertas" mnemonicParsing="false" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                  <Label prefWidth="200.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Monitorización De Salud" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="246.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Monitorización De Salud" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>

@@ -33,6 +33,7 @@ public class MisDatosUsuarioController {
         colocarImagenBotones();
     }
 
+    // Setea los datos del usuario en los labels
     public void setDatosUsuario(String dni, String correo, String contrasena) {
         LblSetDni.setText(dni);
         LblSetCorreo.setText(correo);

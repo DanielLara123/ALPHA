@@ -108,6 +108,10 @@ public class MenuAtletaController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/ConfiguracionUsuario.fxml"));
             Parent root = loader.load();
+
+            ConfiguracionUsuarioController controller = loader.getController();
+            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+
             Stage stage = (Stage) BtnConfiguracion.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
