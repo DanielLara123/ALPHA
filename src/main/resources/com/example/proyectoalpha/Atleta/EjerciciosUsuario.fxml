@@ -2,8 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,7 +10,6 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Atleta.EjerciciosUsuarioController">
    <children>
@@ -34,29 +32,25 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="TxtBusqueda" alignment="CENTER" promptText="Grupo muscular" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </TextField>
                   <Button fx:id="BtnVolver" mnemonicParsing="false" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.halignment="LEFT" GridPane.valignment="TOP" />
-                  <ImageView fx:id="ImgAlpha" fitHeight="51.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+                  <ImageView fitHeight="51.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                      <image>
                         <Image url="@../../../../images/ALPHA.png" />
                      </image></ImageView>
-                  <Label fx:id="LblEjercicio2" alignment="CENTER" prefHeight="21.0" prefWidth="333.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                  <Label fx:id="LblEjercicio5" alignment="CENTER" layoutX="177.0" layoutY="125.0" prefHeight="21.0" prefWidth="333.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
-                  <Label fx:id="LblEjercicio3" alignment="CENTER" layoutX="177.0" layoutY="125.0" prefHeight="21.0" prefWidth="333.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-                  <Label fx:id="LblEjercicio4" alignment="CENTER" layoutX="177.0" layoutY="125.0" prefHeight="21.0" prefWidth="333.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
-                  <Label fx:id="LblEjercicio1" alignment="CENTER" layoutX="177.0" layoutY="125.0" prefHeight="21.0" prefWidth="333.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                  <Button fx:id="BtnBuscar" mnemonicParsing="false" stylesheets="@../../../../css/ModeloAlpha.css" text="Buscar" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <Button fx:id="BtnBuscar" mnemonicParsing="false" prefHeight="46.0" prefWidth="90.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Buscar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                      <GridPane.margin>
-                        <Insets left="25.0" />
+                        <Insets />
                      </GridPane.margin>
                   </Button>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                      <image>
                         <Image url="@../../../../images/TituloEjercicios.png" />
+                     </image>
+                  </ImageView>
+                  <ChoiceBox fx:id="ChoiceGrupoMuscular" prefWidth="150.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                  <ImageView fitHeight="227.0" fitWidth="389.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../../../../images/SeleccioneGrupoMuscular.png" />
                      </image>
                   </ImageView>
                </children>

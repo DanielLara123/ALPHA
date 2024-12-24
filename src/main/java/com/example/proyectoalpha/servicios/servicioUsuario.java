@@ -1,6 +1,7 @@
 package com.example.proyectoalpha.servicios;
 
 import com.example.proyectoalpha.clases.Usuario;
+import com.example.proyectoalpha.clases.Atleta.Ejercicio;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -87,5 +88,26 @@ public class servicioUsuario {
                 .anyMatch(usuario -> usuario.getDni() != null && usuario.getDni().equals(dni));
     }
 
+    public void asignarRutinasAUsuario(String dni, List<Ejercicio> rutinas) {
+        Usuario usuario = obtenerUsuarioPorDni(dni);
+        if (usuario != null) {
+            usuario.setRutinas(rutinas);
+            guardarUsuarios();
+        }
+    }
 
+    public List<Ejercicio> obtenerRutinasDeUsuario(String dni) {
+        Usuario usuario = obtenerUsuarioPorDni(dni);
+        if (usuario != null) {
+            return usuario.getRutinas();
+        }
+        return new ArrayList<>();
+    }
+
+    private Usuario obtenerUsuarioPorDni(String dni) {
+        return usuarios.stream()
+                .filter(usuario -> usuario.getDni().equals(dni))
+                .findFirst()
+                .orElse(null);
+    }
 }

@@ -124,6 +124,10 @@ public class MenuAtletaController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/RutinasUsuario.fxml"));
             Parent root = loader.load();
+
+            RutinasUsuarioController controller = loader.getController();
+            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+
             Stage stage = (Stage) BtnRutinas.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -176,6 +180,10 @@ public class MenuAtletaController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/EjerciciosUsuario.fxml"));
             Parent root = loader.load();
+
+            EjerciciosUsuarioController controller = loader.getController();
+            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+
             Stage stage = (Stage) BtnEjercicios.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

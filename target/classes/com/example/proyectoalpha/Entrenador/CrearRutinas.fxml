@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" prefHeight="665.0" prefWidth="622.0" spacing="10" style="-fx-background-color: black; -fx-padding: 20;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Entrenador.CrearRutinasController">
+<VBox alignment="TOP_CENTER" prefHeight="665.0" prefWidth="622.0" spacing="10" style="-fx-background-color: black; -fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Entrenador.CrearRutinasController">
    <AnchorPane prefHeight="32.0" prefWidth="0.0" VBox.vgrow="NEVER">
       <children>
          <Button fx:id="BtnVolver" alignment="TOP_LEFT" layoutX="14.0" layoutY="3.0" mnemonicParsing="false" stylesheets="@../../../../css/ModeloAlpha.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -26,7 +26,7 @@
     <TextField fx:id="nombreRutinaField" promptText="Nombre de la rutina" style="-fx-background-color: #000000; -fx-text-fill: gold;" />
 
     <!-- Lista de días y ejercicios -->
-    <ListView fx:id="listViewDias" style="-fx-background-color: #222; -fx-border-color: gold; -fx-border-width: 1;" />
+    <ListView fx:id="listViewDias" style="-fx-background-color: #222; -fx-border-color: gold; -fx-border-width: 1;" stylesheets="@../../../../css/ModeloAlpha.css" />
 
     <!-- Botones para añadir días y crear -->
     <Button onAction="#onAnadirDia" style="-fx-background-color: transparent; -fx-border-color: gold; -fx-text-fill: gold; -fx-padding: 10 20;" text="+ Añadir día" />

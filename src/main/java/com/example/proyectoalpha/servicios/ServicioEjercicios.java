@@ -93,4 +93,9 @@ public class ServicioEjercicios {
             System.out.println("No se pudo encontrar el ejercicio o categoría.");
         }
     }
+
+    // Método para obtener todos los grupos musculares
+    public Set<String> obtenerGruposMusculares() {
+        return ejercicios.keySet();
+    }
 }

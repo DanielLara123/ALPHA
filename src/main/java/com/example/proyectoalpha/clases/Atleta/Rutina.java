@@ -1,28 +1,41 @@
 package com.example.proyectoalpha.clases.Atleta;
 
 import java.util.List;
-import java.util.ArrayList;
 
 public class Rutina {
-    private Atleta atleta;
+    private String nombre;
     private List<Ejercicio> ejercicios;
+    private String autor;
 
-    public Rutina(Atleta atleta) {
-        this.atleta = atleta;
-        this.ejercicios = new ArrayList<>();
+    // Constructor
+    public Rutina(String nombre, List<Ejercicio> ejercicios, String autor) {
+        this.nombre = nombre;
+        this.ejercicios = ejercicios;
+        this.autor = autor;
     }
 
-    public void agregarEjercicio(String nombre,String grupoMuscular, int descanso, int series, int repeticiones) {
-        Ejercicio ejercicio = new Ejercicio(nombre, grupoMuscular, descanso, series, repeticiones);
-        ejercicios.add(ejercicio);
+    // Getters and setters
+    public String getNombre() {
+        return nombre;
     }
 
-    public void eliminarEjercicio(String nombre) {
-        ejercicios.removeIf(ejercicio -> ejercicio.getNombre().equals(nombre));
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public List<Ejercicio> listarEjercicios() {
-        return new ArrayList<>(ejercicios);
+    public List<Ejercicio> getEjercicios() {
+        return ejercicios;
     }
 
+    public void setEjercicios(List<Ejercicio> ejercicios) {
+        this.ejercicios = ejercicios;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
 }

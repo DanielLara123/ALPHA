@@ -26,3 +26,57 @@
     -fx-background-color: #efb810;
     -fx-text-fill: #293133;
 }
+
+.scroll-pane {
+    -fx-background-color: #000000;
+    -fx-border-color: #efb810;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #293133;
+}
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #efb810;
+    -fx-background-radius: 10px;
+}
+
+.scroll-bar:vertical .track,
+.scroll-bar:horizontal .track {
+    -fx-background-color: #293133;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button,
+.scroll-bar:horizontal .increment-button,
+.scroll-bar:horizontal .decrement-button {
+    -fx-background-color: #293133;
+    -fx-background-radius: 10px;
+}
+
+.choice-box {
+    -fx-background-color: #293133;
+    -fx-text-fill: #efb810;
+    -fx-background-radius: 10px;
+    -fx-border-color: #efb810;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+}
+
+.choice-box:hover {
+    -fx-background-color: #efb810;
+    -fx-text-fill: #293133;
+}
+
+.list-view .list-cell {
+    -fx-background-color: #000000;
+    -fx-text-fill: #efb810;
+}
+
+.list-view .list-cell:hover {
+    -fx-background-color: #efb810;
+    -fx-text-fill: #293133;
+}
