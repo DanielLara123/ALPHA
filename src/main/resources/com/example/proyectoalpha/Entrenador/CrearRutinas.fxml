@@ -29,6 +29,6 @@
     <ListView fx:id="listViewDias" style="-fx-background-color: #222; -fx-border-color: gold; -fx-border-width: 1;" stylesheets="@../../../../css/ModeloAlpha.css" />
 
     <!-- Botones para añadir días y crear -->
-    <Button onAction="#onAnadirDia" style="-fx-background-color: transparent; -fx-border-color: gold; -fx-text-fill: gold; -fx-padding: 10 20;" text="+ Añadir día" />
+    <Button onAction="#onAnadirDia" style="-fx-background-color: transparent; -fx-border-color: gold; -fx-text-fill: gold; -fx-padding: 10 20;" text="+ Añadir ejercicio" />
     <Button onAction="#onCrearRutina" style="-fx-background-color: gold; -fx-text-fill: black; -fx-padding: 10 20; -fx-font-weight: bold;" text="Crear" />
 </VBox>

@@ -5,10 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class RutinasUsuarioController {
 
@@ -29,13 +31,24 @@ public class RutinasUsuarioController {
     public void initialize() {
         BtnMisRutinas.setOnAction(event -> mostrarRutinas());
         BtnCrearRutina.setOnAction(event -> crearRutina());
-        BtnVolver.setOnAction(event -> volver());
+        BtnVolver.setOnAction(event -> manejarVolver());
+        colocarImagenBotones();
+    }
+
+    public void setDatosUsuario(String dni, String correo, String contrasena) {
+        dniUsuario = dni;
+        correoUsuario = correo;
+        contrasenaUsuario = contrasena;
     }
 
     private void mostrarRutinas() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/MostrarRutinas.fxml"));
             Parent root = loader.load();
+
+            MostrarRutinasController controller = loader.getController();
+            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+
             Stage stage = (Stage) BtnMisRutinas.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -46,8 +59,12 @@ public class RutinasUsuarioController {
 
     private void crearRutina() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/CrearRutina.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/CrearRutinas.fxml"));
             Parent root = loader.load();
+
+            CrearRutinasController controller = loader.getController();
+            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+
             Stage stage = (Stage) BtnCrearRutina.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -56,10 +73,14 @@ public class RutinasUsuarioController {
         }
     }
 
-    private void volver() {
+    private void manejarVolver() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/MenuAtleta.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/MenuAtleta.fxml"));
             Parent root = loader.load();
+
+            MenuAtletaController controller = loader.getController();
+            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -68,9 +89,19 @@ public class RutinasUsuarioController {
         }
     }
 
-    public void setDatosUsuario(String dniUsuario, String correoUsuario, String contrasenaUsuario) {
-        this.dniUsuario = dniUsuario;
-        this.correoUsuario = correoUsuario;
-        this.contrasenaUsuario = contrasenaUsuario;
+    private void colocarImagenBotones(){
+        URL crearRutina = getClass().getResource("/images/FotoAñadirUsuario.png");
+        URL misRutinas = getClass().getResource("/images/PlanesDeEntrenamiento.png");
+        URL volver = getClass().getResource("/images/VolverAtras.png");
+
+
+        Image imagenCrear = new Image(String.valueOf(crearRutina), 200, 200, false, true);
+        Image imagenRutinas = new Image(String.valueOf(misRutinas), 200, 200, false, true);
+        Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
+
+        BtnCrearRutina.setGraphic(new ImageView(imagenCrear));
+        BtnMisRutinas.setGraphic(new ImageView(imagenRutinas));
+        BtnVolver.setGraphic(new ImageView(imagenVolver));
+
     }
 }

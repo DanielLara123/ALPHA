@@ -7,14 +7,14 @@ public class Rutina {
     private List<Ejercicio> ejercicios;
     private String autor;
 
-    // Constructor
+    public Rutina() {}
+
     public Rutina(String nombre, List<Ejercicio> ejercicios, String autor) {
         this.nombre = nombre;
         this.ejercicios = ejercicios;
         this.autor = autor;
     }
 
-    // Getters and setters
     public String getNombre() {
         return nombre;
     }

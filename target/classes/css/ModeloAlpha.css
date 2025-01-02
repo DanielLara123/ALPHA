@@ -76,7 +76,56 @@
     -fx-text-fill: #efb810;
 }
 
+.list-cell:filled:selected {
+    -fx-background-color: gold;
+    -fx-text-fill: black;
+}
+
 .list-view .list-cell:hover {
     -fx-background-color: #efb810;
     -fx-text-fill: #293133;
+}
+
+.dialog-pane {
+    -fx-background-color: #000000;
+    -fx-border-color: #ffcc00;
+    -fx-border-width: 2px;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: #000000;
+    -fx-text-fill: #ffcc00;
+}
+
+.dialog-pane .content {
+    -fx-text-fill: #ffffff;
+}
+
+.dialog-pane .button-bar {
+    -fx-background-color: #000000;
+}
+
+.dialog-pane .button {
+    -fx-background-color: #ffcc00;
+    -fx-text-fill: #000000;
+}
+
+.columna-ejercicio {
+    -fx-background-color: #f0f0f0;
+    -fx-text-fill: #000000;
+}
+
+.columna-series {
+    -fx-background-color: #e0e0e0;
+    -fx-text-fill: #000000;
+}
+
+.columna-repeticiones {
+    -fx-background-color: #d0d0d0;
+    -fx-text-fill: #000000;
+}
+
+.columna-descanso {
+    -fx-background-color: #c0c0c0;
+    -fx-text-fill: #000000;
 }

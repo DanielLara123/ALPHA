@@ -6,17 +6,23 @@ public class Ejercicio {
     private int descanso;
     private int series;
     private int repeticiones;
+    private double peso;
 
     // Constructor sin argumentos (requerido para deserialización)
     public Ejercicio() {}
 
     // Constructor completo
-    public Ejercicio(String nombre, String grupoMuscular, int descanso, int series, int repeticiones) {
+    public Ejercicio(String nombre, String grupoMuscular, int descanso, int series, int repeticiones, double peso) {
         this.nombre = nombre;
         this.grupoMuscular = grupoMuscular;
         this.descanso = descanso;
         this.series = series;
         this.repeticiones = repeticiones;
+        this.peso = peso;
+    }
+
+    public Ejercicio(String seleccionaUnEjercicio, String placeholder, int i, int i1, int i2) {
+
     }
 
     // Getters y Setters
@@ -60,8 +66,21 @@ public class Ejercicio {
         this.repeticiones = repeticiones;
     }
 
+    public double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
+
     @Override
     public String toString() {
         return nombre; // Para mostrar solo el nombre en los menús desplegables
+    }
+
+    public void agregarSet(int repeticiones, double peso) {
+        this.repeticiones = repeticiones;
+        this.peso = peso;
     }
 }
