@@ -54,49 +54,49 @@ public class CrearRutinasController {
     }
 
     private void onAnadirEjercicio() {
-        Dialog<ButtonType> dialogoEjercicio = new Dialog<>();
-        dialogoEjercicio.setTitle("Añadir Ejercicio");
+            Dialog<ButtonType> dialogoEjercicio = new Dialog<>();
+            dialogoEjercicio.setTitle("Añadir Ejercicio");
 
-        VBox contenido = new VBox();
-        contenido.setSpacing(10);
-        contenido.setStyle("-fx-padding: 10;");
+            VBox contenido = new VBox();
+            contenido.setSpacing(10);
+            contenido.setStyle("-fx-padding: 10;");
 
-        // Obtener los grupos musculares del mapa `ejercicios`
-        Map<String, List<Ejercicio>> ejerciciosMap = servicioEjercicios.obtenerMapaEjercicios();
-        if (ejerciciosMap == null || ejerciciosMap.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "No hay datos de ejercicios disponibles.");
-            return;
-        }
-
-        List<String> gruposMusculares = new ArrayList<>(ejerciciosMap.keySet());
-
-        // Menú desplegable para seleccionar grupo muscular
-        ChoiceBox<String> choiceBoxGruposMusculares = new ChoiceBox<>();
-        choiceBoxGruposMusculares.getItems().add("Selecciona un grupo muscular"); // Placeholder
-        choiceBoxGruposMusculares.getItems().addAll(gruposMusculares);
-        choiceBoxGruposMusculares.getSelectionModel().selectFirst(); // Seleccionar el placeholder al inicio
-
-        // Menú desplegable para seleccionar ejercicio
-        ChoiceBox<Ejercicio> choiceBoxEjercicios = new ChoiceBox<>();
-        choiceBoxEjercicios.getItems().add(
-                new Ejercicio("Selecciona un ejercicio", "placeholder", 0, 0, 0)
-        ); // Placeholder
-        choiceBoxEjercicios.getSelectionModel().selectFirst(); // Seleccionar el placeholder al inicio
-
-        // Actualizar la lista de ejercicios al seleccionar un grupo muscular
-        choiceBoxGruposMusculares.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (!"Selecciona un grupo muscular".equals(newValue)) {
-                choiceBoxEjercicios.getItems().clear();
-                List<Ejercicio> ejercicios = ejerciciosMap.get(newValue);
-                if (ejercicios != null && !ejercicios.isEmpty()) {
-                    choiceBoxEjercicios.getItems().addAll(ejercicios);
-                } else {
-                    choiceBoxEjercicios.getItems().add(
-                            new Ejercicio("No hay ejercicios disponibles", "placeholder", 0, 0, 0)
-                    );
-                }
+            // Obtener los grupos musculares del mapa `ejercicios`
+            Map<String, List<Ejercicio>> ejerciciosMap = servicioEjercicios.obtenerMapaEjercicios();
+            if (ejerciciosMap == null || ejerciciosMap.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "No hay datos de ejercicios disponibles.");
+                return;
             }
-        });
+
+            List<String> gruposMusculares = new ArrayList<>(ejerciciosMap.keySet());
+
+            // Menú desplegable para seleccionar grupo muscular
+            ChoiceBox<String> choiceBoxGruposMusculares = new ChoiceBox<>();
+            choiceBoxGruposMusculares.getItems().add("Selecciona un grupo muscular"); // Placeholder
+            choiceBoxGruposMusculares.getItems().addAll(gruposMusculares);
+            choiceBoxGruposMusculares.getSelectionModel().selectFirst(); // Seleccionar el placeholder al inicio
+
+            // Menú desplegable para seleccionar ejercicio
+            ChoiceBox<Ejercicio> choiceBoxEjercicios = new ChoiceBox<>();
+            choiceBoxEjercicios.getItems().add(
+                    new Ejercicio("Selecciona un ejercicio", "placeholder", 0, 0, 0)
+            ); // Placeholder
+            choiceBoxEjercicios.getSelectionModel().selectFirst(); // Seleccionar el placeholder al inicio
+
+            // Actualizar la lista de ejercicios al seleccionar un grupo muscular
+            choiceBoxGruposMusculares.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (!"Selecciona un grupo muscular".equals(newValue)) {
+                    choiceBoxEjercicios.getItems().clear();
+                    List<Ejercicio> ejercicios = ejerciciosMap.get(newValue);
+                    if (ejercicios != null && !ejercicios.isEmpty()) {
+                        choiceBoxEjercicios.getItems().addAll(ejercicios);
+                    } else {
+                        choiceBoxEjercicios.getItems().add(
+                                new Ejercicio("No hay ejercicios disponibles", "placeholder", 0, 0, 0)
+                        );
+                    }
+                }
+            });
 
         // Campos de entrada para repeticiones, series y descanso
         TextField repeticionesField = new TextField();

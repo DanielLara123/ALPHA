@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -83,7 +84,21 @@ public class CambiarDatosPersonalesController {
                 stage.showAndWait();
 
                 if (confirmacionController.estaConfirmado()) {
+                    // Rename JSON files if they exist
+                    File historialFile = new File(correoUsuario + "_historial.json");
+                    File rutinasFile = new File(correoUsuario + "_rutinas.json");
+
+                    if (historialFile.exists()) {
+                        historialFile.renameTo(new File(nuevoCorreo + "_historial.json"));
+                    }
+
+                    if (rutinasFile.exists()) {
+                        rutinasFile.renameTo(new File(nuevoCorreo + "_rutinas.json"));
+                    }
+
+                    // Update user data
                     servicioUsuario.actualizarUsuario(correoUsuario, nuevoCorreo, nuevaContrasena, nuevoDni);
+                    setDatosUsuario(nuevoDni, nuevoCorreo, nuevaContrasena); // Update the user data in the controller
                     LblMensaje.setText("Usuario actualizado correctamente");
                 } else {
                     LblMensaje.setText("Actualización de usuario cancelada");

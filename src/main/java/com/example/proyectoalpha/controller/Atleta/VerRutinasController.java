@@ -4,6 +4,7 @@ import com.example.proyectoalpha.clases.Atleta.Ejercicio;
 import com.example.proyectoalpha.clases.Atleta.HistorialEjercicio;
 import com.example.proyectoalpha.clases.Atleta.HistorialesEjercicios;
 import com.example.proyectoalpha.clases.Atleta.Rutina;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -129,23 +130,28 @@ public class VerRutinasController {
         String fileName = email + "_historial.json";
         ObjectMapper mapper = new ObjectMapper();
         File file = new File(fileName);
-        HistorialesEjercicios historialesEjercicios;
+        List<HistorialesEjercicios> historialesList;
 
         try {
             if (file.exists() && file.length() > 0) {
-                try {
-                    historialesEjercicios = mapper.readValue(file, HistorialesEjercicios.class);
-                } catch (IOException e) {
-                    historialesEjercicios = new HistorialesEjercicios(email, nombreEjercicio, new ArrayList<>());
-                }
+                historialesList = mapper.readValue(file, new TypeReference<List<HistorialesEjercicios>>() {});
             } else {
-                historialesEjercicios = new HistorialesEjercicios(email, nombreEjercicio, new ArrayList<>());
+                historialesList = new ArrayList<>();
             }
 
+            // Find the existing HistorialesEjercicios for the given exercise or create a new one
+            HistorialesEjercicios historialesEjercicios = historialesList.stream()
+                    .filter(h -> h.getNombreEjercicio().equals(nombreEjercicio))
+                    .findFirst()
+                    .orElseGet(() -> {
+                        HistorialesEjercicios newHistorial = new HistorialesEjercicios(nombreEjercicio, new ArrayList<>());
+                        historialesList.add(newHistorial);
+                        return newHistorial;
+                    });
+
             historialesEjercicios.getHistorialEjercicios().add(historialEjercicio);
-            mapper.writeValue(file, historialesEjercicios);
+            mapper.writeValue(file, historialesList);
         } catch (IOException e) {
-            e.printStackTrace(); // Print the stack trace for debugging
             showAlert("Error", "No se pudo guardar el historial. Detalles: " + e.getMessage());
         }
     }

@@ -79,7 +79,33 @@ public class MostrarRutinasController {
     }
 
     private void manejarEliminarRutina() {
+        String selectedItem = ListViewRutinas.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Confirmacion.fxml"));
+                Parent root = loader.load();
+                ConfirmacionController confirmacionController = loader.getController();
+                confirmacionController.setMensaje("¿Está seguro de que quiere eliminar la rutina?");
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(new Scene(root));
+                stage.showAndWait();
 
+                if (confirmacionController.estaConfirmado()) {
+                    String rutinaName = selectedItem.split(" - ")[0];
+                    servicioRutinas.eliminarRutina(correoUsuario, rutinaName);
+                    rutinaList.remove(selectedItem);
+                    showMessage("Rutina eliminada correctamente.");
+                } else {
+                    showMessage("Eliminación de rutina cancelada.");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                showMessage("Error al mostrar la confirmación.");
+            }
+        } else {
+            showMessage("Por favor, seleccione una rutina para eliminar.");
+        }
     }
 
     public void setDatosUsuario(String dni, String correo, String contrasena) {

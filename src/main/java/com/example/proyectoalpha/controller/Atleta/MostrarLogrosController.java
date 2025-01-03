@@ -4,25 +4,28 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.fxml.FXMLLoader;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
 import java.util.Iterator;
+import java.util.Stack;
 
-public class NotificacionesUsuarioController {
+public class MostrarLogrosController {
 
     @FXML
     private Button BtnVolver;
+
+    @FXML
+    private ListView<String> ListViewLogros;
 
     @FXML
     private Label LblMensaje;
@@ -30,6 +33,7 @@ public class NotificacionesUsuarioController {
     private String dniUsuario;
     private String correoUsuario;
     private String contrasenaUsuario;
+    private String ejercicio;
 
     @FXML
     private void initialize() {
@@ -37,14 +41,12 @@ public class NotificacionesUsuarioController {
         colocarImagenBotones();
     }
 
-    public void setDatosUsuario(String dni, String correo, String contrasena) {
-        dniUsuario = dni;
-        correoUsuario = correo;
-        contrasenaUsuario = contrasena;
-        cargarNotificaciones();
+    public void setEjercicio(String ejercicio) {
+        this.ejercicio = ejercicio;
+        cargarLogros();
     }
 
-    private void cargarNotificaciones() {
+    private void cargarLogros() {
         String fileName = correoUsuario + "_historial.json";
         File file = new File(fileName);
         if (!file.exists()) {
@@ -54,33 +56,38 @@ public class NotificacionesUsuarioController {
 
             try {
                 JsonNode rootNode = objectMapper.readTree(file);
-                long lastDate = 0;
-
                 if (rootNode.isArray()) {
+                    boolean found = false;
                     for (JsonNode exerciseNode : rootNode) {
+                        JsonNode nombreEjercicioNode = exerciseNode.get("nombreEjercicio");
                         JsonNode historialEjercicios = exerciseNode.get("historialEjercicios");
 
-                        if (historialEjercicios != null) {
-                            Iterator<JsonNode> elements = historialEjercicios.elements();
+                        if (nombreEjercicioNode != null && historialEjercicios != null) {
+                            String nombreEjercicio = nombreEjercicioNode.asText();
+                            if (nombreEjercicio.equals(ejercicio)) {
+                                found = true;
+                                Stack<String> stack = new Stack<>();
+                                Iterator<JsonNode> elements = historialEjercicios.elements();
 
-                            while (elements.hasNext()) {
-                                JsonNode node = elements.next();
-                                long date = node.get("fecha").asLong();
-                                if (date > lastDate) {
-                                    lastDate = date;
+                                while (elements.hasNext()) {
+                                    JsonNode node = elements.next();
+                                    String date = new java.util.Date(node.get("fecha").asLong()).toString();
+                                    int reps = node.get("repeticiones").asInt();
+                                    double weight = node.get("peso").asDouble();
+                                    stack.push("Fecha: " + date + ", Repeticiones: " + reps + ", Peso: " + weight + " kg");
+                                }
+
+                                while (!stack.isEmpty()) {
+                                    ListViewLogros.getItems().add(stack.pop());
                                 }
                             }
                         }
                     }
-                }
-
-                if (lastDate > 0) {
-                    long currentTime = System.currentTimeMillis();
-                    long timePassed = currentTime - lastDate;
-                    long daysPassed = timePassed / (1000 * 60 * 60 * 24);
-                    LblMensaje.setText("Han pasado " + daysPassed + " días desde tu último ejercicio.");
+                    if (!found) {
+                        LblMensaje.setText("No se encontraron registros para el ejercicio seleccionado.");
+                    }
                 } else {
-                    LblMensaje.setText("No se encontraron registros de ejercicios.");
+                    LblMensaje.setText("El archivo de historial no contiene los datos esperados.");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -88,6 +95,7 @@ public class NotificacionesUsuarioController {
             }
         }
     }
+
 
     private void manejarVolver() {
         try {
@@ -105,10 +113,16 @@ public class NotificacionesUsuarioController {
         }
     }
 
+    public void setDatosUsuario(String dniUsuario, String correoUsuario, String contrasenaUsuario) {
+        this.dniUsuario = dniUsuario;
+        this.correoUsuario = correoUsuario;
+        this.contrasenaUsuario = contrasenaUsuario;
+    }
+
     private void colocarImagenBotones() {
         URL volver = getClass().getResource("/images/VolverAtras.png");
 
-        javafx.scene.image.Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
+        Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
 
         BtnVolver.setGraphic(new ImageView(imagenVolver));
     }

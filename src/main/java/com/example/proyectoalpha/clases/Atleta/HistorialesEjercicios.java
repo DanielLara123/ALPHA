@@ -3,24 +3,14 @@ package com.example.proyectoalpha.clases.Atleta;
 import java.util.List;
 
 public class HistorialesEjercicios {
-    private String correo;
     private String nombreEjercicio;
     private List<HistorialEjercicio> historialEjercicios;
 
     public HistorialesEjercicios() {}
 
-    public HistorialesEjercicios(String correo, String nombreEjercicio, List<HistorialEjercicio> historialEjercicios) {
-        this.correo = correo;
+    public HistorialesEjercicios(String nombreEjercicio, List<HistorialEjercicio> historialEjercicios) {
         this.nombreEjercicio = nombreEjercicio;
         this.historialEjercicios = historialEjercicios;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
     }
 
     public String getNombreEjercicio() {

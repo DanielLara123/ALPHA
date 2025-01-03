@@ -141,6 +141,10 @@ public class MenuAtletaController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/NotificacionesUsuario.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) BtnNotificaciones.getScene().getWindow();
+
+            NotificacionesUsuarioController controller = loader.getController();
+            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException ex) {
@@ -168,6 +172,10 @@ public class MenuAtletaController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/LogrosUsuario.fxml"));
             Parent root = loader.load();
+
+            LogrosUsuarioController controller = loader.getController();
+            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+
             Stage stage = (Stage) BtnLogros.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

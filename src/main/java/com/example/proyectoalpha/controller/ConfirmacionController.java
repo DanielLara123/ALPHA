@@ -1,40 +1,49 @@
 package com.example.proyectoalpha.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.DialogPane;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 public class ConfirmacionController {
 
     @FXML
-    private DialogPane dialogPane;
+    private Button BtnNo;
 
     @FXML
-    private Label mensajeLabel;
+    private Button BtnSi;
+
+    @FXML
+    private Label LblMessage;
 
     private boolean confirmado;
 
+    @FXML
+    private void initialize() {
+        BtnSi.setOnAction(event -> handleYes());
+        BtnNo.setOnAction(event -> handleNo());
+    }
+
     public void setMensaje(String mensaje) {
-        mensajeLabel.setText(mensaje);
+        LblMessage.setText(mensaje);
     }
 
     public boolean estaConfirmado() {
         return confirmado;
     }
 
-    @FXML
-    private void confirmar() {
+    private void handleYes() {
         confirmado = true;
-        dialogPane.getScene().getWindow().hide();
+        closeWindow();
     }
 
-    @FXML
-    private void cancelar() {
+    private void handleNo() {
         confirmado = false;
-        dialogPane.getScene().getWindow().hide();
+        closeWindow();
     }
 
-    public DialogPane getDialogPane() {
-        return dialogPane;
+    private void closeWindow() {
+        Stage stage = (Stage) BtnSi.getScene().getWindow();
+        stage.close();
     }
 }
