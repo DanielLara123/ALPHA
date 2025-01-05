@@ -1,5 +1,6 @@
 package com.example.proyectoalpha.controller.Administrador;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -66,6 +67,20 @@ public class ActualizarUsuariosController {
                 stage.showAndWait();
 
                 if (datosController.isDatosConfirmados()) {
+                    String nuevoCorreo = datosController.getNuevoCorreo();
+
+                    // Rename JSON files if they exist
+                    File historialFile = new File(correo + "_historial.json");
+                    File rutinasFile = new File(correo + "_rutinas.json");
+
+                    if (historialFile.exists()) {
+                        historialFile.renameTo(new File(nuevoCorreo + "_historial.json"));
+                    }
+
+                    if (rutinasFile.exists()) {
+                        rutinasFile.renameTo(new File(nuevoCorreo + "_rutinas.json"));
+                    }
+
                     LblMensaje.setText("Usuario actualizado correctamente");
                 } else {
                     LblMensaje.setText("Actualización de usuario cancelada");

@@ -1,8 +1,8 @@
 package com.example.proyectoalpha.controller.RegistroInicioSesion;
 
 import com.example.proyectoalpha.clases.Usuario;
-import com.example.proyectoalpha.controller.Administrador.MenuAdminController;
 import com.example.proyectoalpha.controller.Atleta.MenuAtletaController;
+import com.example.proyectoalpha.controller.Entrenador.MenuEntrenadorController;
 import com.example.proyectoalpha.servicios.servicioUsuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -65,7 +65,7 @@ public class InicioSesionController {
                 } else if (tipoUsuario.equalsIgnoreCase("medico")) {
                     MenuMedico();
                 } else if (tipoUsuario.equalsIgnoreCase("administrador")) {
-                    MenuAdministrador();
+                    MenuAdministrador(usuario);
                 } else {
                     MenuEntrenador();
                 }
@@ -141,7 +141,7 @@ public class InicioSesionController {
         }
     }
 
-    private void MenuAdministrador(){
+    private void MenuAdministrador(Usuario usuario){
         try {
             FXMLLoader loader4 = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/MenuAdministrador.fxml"));
             Parent root3 = loader4.load();
@@ -158,6 +158,9 @@ public class InicioSesionController {
         try {
             FXMLLoader loader4 = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Entrenador/MenuEntrenador.fxml"));
             Parent root3 = loader4.load();
+
+            MenuEntrenadorController controller = loader4.getController();
+            controller.setCorreoEntrenador(LblCorreo.getText());
 
             Stage stage = (Stage) BtnContinuar.getScene().getWindow();
             stage.setScene(new Scene(root3));

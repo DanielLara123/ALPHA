@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -111,6 +112,17 @@ public class ConfiguracionUsuarioController {
             if (confirmacionController.estaConfirmado()) {
                 servicioUsuario servicioUsuario = new servicioUsuario();
                 servicioUsuario.eliminarUsuario(correoUsuario);
+
+                File historialFile = new File(correoUsuario + "_historial.json");
+                File rutinasFile = new File(correoUsuario + "_rutinas.json");
+
+                if (historialFile.exists()) {
+                    historialFile.delete();
+                }
+
+                if (rutinasFile.exists()) {
+                    rutinasFile.delete();
+                }
 
                 FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/TipoUsuario.fxml"));
                 Parent mainRoot = mainLoader.load();

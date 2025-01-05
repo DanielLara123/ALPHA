@@ -36,24 +36,6 @@ public class MenuAtletaController {
     @FXML
     private Button BtnVolver;
 
-    @FXML
-    private Label LblMisDatos;
-
-    @FXML
-    private Label LblNotificaciones;
-
-    @FXML
-    private Label LblConfiguracion;
-
-    @FXML
-    private Label LblEjercicios;
-
-    @FXML
-    private Label LblLogros;
-
-    @FXML
-    private Label LblRutinas;
-
     private String dniUsuario;
     private String correoUsuario;
     private String contrasenaUsuario;

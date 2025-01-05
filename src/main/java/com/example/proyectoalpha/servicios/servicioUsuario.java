@@ -1,5 +1,6 @@
 package com.example.proyectoalpha.servicios;
 
+import com.example.proyectoalpha.clases.Atleta.Atleta;
 import com.example.proyectoalpha.clases.Usuario;
 import com.example.proyectoalpha.clases.Atleta.Ejercicio;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -94,5 +95,23 @@ public class servicioUsuario {
                 .filter(usuario -> usuario.getDni().equals(dni))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public List<String> obtenerEmailsUsuarios() {
+        List<String> emails = new ArrayList<>();
+        for (Usuario usuario : usuarios) {
+            emails.add(usuario.getCorreo());
+        }
+        return emails;
+    }
+
+    public List<String> obtenerEmailsAtletas() {
+        List<String> emails = new ArrayList<>();
+        for (Usuario usuario : usuarios) {
+            if ("Atleta".equals(usuario.getTipoUsuario())) {
+                emails.add(usuario.getCorreo());
+            }
+        }
+        return emails;
     }
 }
