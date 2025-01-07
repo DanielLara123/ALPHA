@@ -33,6 +33,7 @@ public class MenuMedicoController {
     private void initialize() {
         colocarImagenBotones();
         BtnEstadisticasMedicasMedico.setOnAction(event -> HistorialMedico());
+        BtnEmisionDeRecomendacionesMedico.setOnAction(event -> manejarChat());
     }
 
     public void HistorialMedico(){
@@ -47,10 +48,22 @@ public class MenuMedicoController {
         }
     }
 
+    void manejarChat(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Medico/ChatMedico.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) BtnEmisionDeRecomendacionesMedico.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void colocarImagenBotones(){
         URL DatosDeSaludMedico = getClass().getResource("/images/DatosDeSaludMedico.png");
         URL EstadisticasMedicasMedico = getClass().getResource("/images/EstadisticasMedicasMedico.png");
-        URL EmisionDeRecomendacionesMedico = getClass().getResource("/images/EmisionDeRecomendacionesMedico.png");
+        URL EmisionDeRecomendacionesMedico = getClass().getResource("/images/FotoChat.png");
 
 
 
