@@ -26,6 +26,8 @@ public class MenuEntrenadorController {
     @FXML
     private Button BtnPlanes;
 
+    private String correoEntrenador;
+
     @FXML
     void initialize() {
         BtnPlanes.setOnAction(event -> manejarPlanes());
@@ -37,6 +39,10 @@ public class MenuEntrenadorController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Entrenador/OpcionesRutinas.fxml"));
             Parent root = loader.load();
+
+            OpcionesRutinasController controller = loader.getController();
+            controller.setCorreoEntrenador(correoEntrenador);
+
             Stage stage = (Stage) BtnPlanes.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -73,5 +79,9 @@ public class MenuEntrenadorController {
         BtnMonitoreo.setGraphic(new ImageView(imagenMonitoreoDeClientes));
         BtnAlertas.setGraphic(new ImageView(imagenAlertaDeSalud));
 
+    }
+
+    public void setCorreoEntrenador(String text) {
+        this.correoEntrenador = text;
     }
 }

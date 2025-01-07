@@ -1,18 +1,11 @@
 package com.example.proyectoalpha.controller;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 public class ConfirmacionController {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private Button BtnNo;
@@ -23,30 +16,34 @@ public class ConfirmacionController {
     @FXML
     private Label LblMessage;
 
-    private boolean confirmado = false;
-
-    public void setMensaje(String s) {
-        LblMessage.setText(s);
-    }
+    private boolean confirmado;
 
     @FXML
-    void initialize() {
-        BtnSi.setOnAction(event -> {
-            confirmado = true;
-            closeWindow();
-        });
+    private void initialize() {
+        BtnSi.setOnAction(event -> handleYes());
+        BtnNo.setOnAction(event -> handleNo());
+    }
 
-        BtnNo.setOnAction(event -> {
-            confirmado = false;
-            closeWindow();
-        });
+    public void setMensaje(String mensaje) {
+        LblMessage.setText(mensaje);
     }
 
     public boolean estaConfirmado() {
         return confirmado;
     }
 
+    private void handleYes() {
+        confirmado = true;
+        closeWindow();
+    }
+
+    private void handleNo() {
+        confirmado = false;
+        closeWindow();
+    }
+
     private void closeWindow() {
-        BtnNo.getScene().getWindow().hide();
+        Stage stage = (Stage) BtnSi.getScene().getWindow();
+        stage.close();
     }
 }

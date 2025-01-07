@@ -1,5 +1,6 @@
 package com.example.proyectoalpha.controller.Administrador;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -53,7 +54,7 @@ public class EliminarUsuarioController {
 
         if (correo.isEmpty()) {
             LblMensaje.setText("Por favor, ingrese un correo");
-        }else if (!servicioUsuario.emailEstaRegistrado(correo)) {
+        } else if (!servicioUsuario.emailEstaRegistrado(correo)) {
             LblMensaje.setText("El correo ingresado no está registrado");
         } else {
             try {
@@ -67,6 +68,18 @@ public class EliminarUsuarioController {
 
                 if (confirmacionController.estaConfirmado()) {
                     servicioUsuario.eliminarUsuario(correo);
+
+                    File historialFile = new File(correo + "_historial.json");
+                    File rutinasFile = new File(correo + "_rutinas.json");
+
+                    if (historialFile.exists()) {
+                        historialFile.delete();
+                    }
+
+                    if (rutinasFile.exists()) {
+                        rutinasFile.delete();
+                    }
+
                     LblMensaje.setText("Usuario eliminado correctamente");
                 } else {
                     LblMensaje.setText("Eliminación de usuario cancelada");

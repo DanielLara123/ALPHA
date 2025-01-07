@@ -1,6 +1,7 @@
 package com.example.proyectoalpha.clases;
 
 import com.example.proyectoalpha.clases.Atleta.Ejercicio;
+import com.example.proyectoalpha.clases.Atleta.Rutina;
 
 import java.util.List;
 
@@ -9,7 +10,15 @@ public class Usuario {
     private String contrasena;
     private String tipoUsuario;
     private String dni;
-    private List<Ejercicio> rutinas;
+
+    public Usuario() {}
+
+    public Usuario(String mail, String password, String usertype, String dni) {
+        this.email = mail;
+        this.contrasena = password;
+        this.tipoUsuario = usertype;
+        this.dni = dni;
+    }
 
     // Getters and setters
     public String getCorreo() {
@@ -42,14 +51,6 @@ public class Usuario {
 
     public void setDni(String dni) {
         this.dni = dni;
-    }
-
-    public List<Ejercicio> getRutinas() {
-        return rutinas;
-    }
-
-    public void setRutinas(List<Ejercicio> rutinas) {
-        this.rutinas = rutinas;
     }
 
 }

@@ -21,12 +21,6 @@ import javafx.stage.Stage;
 public class NuevosDatosUsuarioController {
 
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
     private Button BtnContinuar;
 
     @FXML
@@ -59,10 +53,15 @@ public class NuevosDatosUsuarioController {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+        FieldCorreo.setText(correo);
     }
 
     public boolean isDatosConfirmados() {
         return datosConfirmados;
+    }
+
+    public String getNuevoCorreo() {
+        return FieldCorreo.getText().trim();
     }
 
     private void manejarContinuar() {

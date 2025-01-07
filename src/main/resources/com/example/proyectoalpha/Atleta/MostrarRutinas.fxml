@@ -1,35 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<StackPane prefHeight="559.0" prefWidth="722.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Atleta.MostrarRutinasUsuarioController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Atleta.MostrarRutinasController">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+      <GridPane layoutX="200.0" layoutY="126.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" />
+            <RowConstraints minHeight="120.0" prefHeight="30.0" />
+         </rowConstraints>
          <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../images/FotoListaRutinas.png" />
-                     </image>
-                  </ImageView>
-                  <ListView fx:id="listViewRutinas" prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: #000000; -fx-control-inner-background: #000000;" stylesheets="@../../../../css/ModeloAlpha.css" />
-                  <Button fx:id="btnMostrar" style="-fx-background-color: #333333; -fx-text-fill: gold; -fx-font-size: 16px;" text="Mostrar" />
-                  <Button fx:id="BtnVolver" mnemonicParsing="false" stylesheets="@../../../../css/ModeloAlpha.css" text="Volver">
-                     <VBox.margin>
-                        <Insets top="50.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
+            <ImageView fitHeight="94.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+               <image>
+                  <Image url="@../../../../images/ALPHA.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="58.0" prefWidth="16.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.halignment="LEFT" GridPane.valignment="TOP" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../../../images/MisRutinas.png" />
+               </image>
+            </ImageView>
+            <ListView fx:id="ListViewRutinas" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #000000; -fx-border-color: gold; -fx-border-width: 1;" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <styleClass>
+                  <String fx:value="list-view" />
+                  <String fx:value="list-cell" />
+               </styleClass></ListView>
+            <Button fx:id="BtnEliminarRutina" alignment="CENTER" mnemonicParsing="false" stylesheets="@../../../../css/ModeloAlpha.css" text="Eliminar Rutina" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+            <Label fx:id="LblMensaje" alignment="CENTER" contentDisplay="CENTER" prefHeight="48.0" prefWidth="377.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="BtnVerRutina" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" stylesheets="@../../../../css/ModeloAlpha.css" text="Ver Rutina" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
          </children>
-      </AnchorPane>
+      </GridPane>
    </children>
-</StackPane>
+</AnchorPane>

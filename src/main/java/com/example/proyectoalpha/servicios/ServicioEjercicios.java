@@ -54,15 +54,21 @@ public class ServicioEjercicios {
         }
     }
 
-    // Método para añadir un ejercicio a una categoría
+    // Método para añadir un ejercicio a una categoría con verificación
     public void agregarEjercicio(String categoria, Ejercicio ejercicio) {
-        if (ejercicios.containsKey(categoria)) {
-            ejercicios.get(categoria).add(ejercicio);
-            System.out.println("Ejercicio añadido a " + categoria + ": " + ejercicio.getNombre());
-            guardarEjercicios(); // Guardar cambios
-        } else {
-            System.out.println("Categoría no válida: " + categoria);
+        List<Ejercicio> listaEjercicios = ejercicios.computeIfAbsent(categoria, k -> new ArrayList<>());
+
+        // Verificar si el ejercicio ya existe en la categoría
+        for (Ejercicio e : listaEjercicios) {
+            if (e.getNombre().equalsIgnoreCase(ejercicio.getNombre())) {
+                System.out.println("El ejercicio ya existe en la categoría: " + categoria);
+                return;
+            }
         }
+
+        listaEjercicios.add(ejercicio);
+        System.out.println("Ejercicio añadido a " + categoria + ": " + ejercicio.getNombre());
+        guardarEjercicios();
     }
 
     // Método para obtener los ejercicios de una categoría

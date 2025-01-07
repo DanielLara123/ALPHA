@@ -36,24 +36,6 @@ public class MenuAtletaController {
     @FXML
     private Button BtnVolver;
 
-    @FXML
-    private Label LblMisDatos;
-
-    @FXML
-    private Label LblNotificaciones;
-
-    @FXML
-    private Label LblConfiguracion;
-
-    @FXML
-    private Label LblEjercicios;
-
-    @FXML
-    private Label LblLogros;
-
-    @FXML
-    private Label LblRutinas;
-
     private String dniUsuario;
     private String correoUsuario;
     private String contrasenaUsuario;
@@ -141,6 +123,10 @@ public class MenuAtletaController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/NotificacionesUsuario.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) BtnNotificaciones.getScene().getWindow();
+
+            NotificacionesUsuarioController controller = loader.getController();
+            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException ex) {
@@ -168,6 +154,10 @@ public class MenuAtletaController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/LogrosUsuario.fxml"));
             Parent root = loader.load();
+
+            LogrosUsuarioController controller = loader.getController();
+            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+
             Stage stage = (Stage) BtnLogros.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

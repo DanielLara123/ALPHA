@@ -1,8 +1,10 @@
 package com.example.proyectoalpha.controller.Entrenador;
 
 import com.example.proyectoalpha.clases.Atleta.Ejercicio;
+import com.example.proyectoalpha.clases.Atleta.Rutina;
 import com.example.proyectoalpha.servicios.ServicioEjercicios;
 import com.example.proyectoalpha.servicios.ServicioRutinas;
+import com.example.proyectoalpha.servicios.servicioUsuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -12,13 +14,11 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,50 +31,36 @@ public class CrearRutinasController {
     private Button BtnVolver;
 
     @FXML
-    private ListView<HBox> listViewDias;
+    private ListView<HBox> listViewEjercicios;
 
-    private final ServicioRutinas servicioRutinas = new ServicioRutinas(); // Servicio para rutinas
-    private final ServicioEjercicios servicioEjercicios = new ServicioEjercicios(); // Servicio para ejercicios
-    private int contadorDias = 1; // Contador para los días
+    @FXML
+    private Button BtnAñadirEjercicio;
+
+    @FXML
+    private Button BtnCrearRutina;
+
+    @FXML
+    private ChoiceBox<String> ChoiceBoxAtleta;
+
+    private final ServicioRutinas servicioRutinas = new ServicioRutinas();
+    private final ServicioEjercicios servicioEjercicios = new ServicioEjercicios();
+    private final servicioUsuario servicioUsuarios = new servicioUsuario();
+
+    private String correoEntrenador;
 
     @FXML
     private void initialize(){
         colocarImagenBotones();
         BtnVolver.setOnAction(e -> manejarVolver());
+        BtnAñadirEjercicio.setOnAction(e -> onAnadirEjercicio());
+        BtnCrearRutina.setOnAction(e -> onCrearRutina());
+
+        // Populate ChoiceBoxAtleta with user emails
+        List<String> usuariosEmails = servicioUsuarios.obtenerEmailsAtletas();
+        ChoiceBoxAtleta.getItems().addAll(usuariosEmails);
     }
 
-    @FXML
-    private void onAnadirDia() {
-        TextInputDialog dialogoDia = new TextInputDialog("Día " + contadorDias);
-        dialogoDia.setTitle("Añadir Día");
-        dialogoDia.setHeaderText("Escribe el nombre del día:");
-        dialogoDia.setContentText("Nombre del día:");
-
-        dialogoDia.showAndWait().ifPresent(nombreDia -> {
-            HBox nuevoDia = new HBox();
-            nuevoDia.setSpacing(10);
-            nuevoDia.setAlignment(Pos.CENTER_LEFT);
-            nuevoDia.setStyle("-fx-background-color: black; -fx-padding: 10;");
-
-            Label diaLabel = new Label(nombreDia);
-            diaLabel.setStyle("-fx-text-fill: gold; -fx-font-size: 14px;");
-
-            Button anadirEjercicioButton = new Button("+ Añadir ejercicio");
-            anadirEjercicioButton.setStyle("-fx-background-color: transparent; -fx-border-color: gold; -fx-text-fill: gold;");
-            anadirEjercicioButton.setOnAction(e -> onAnadirEjercicio(nuevoDia));
-
-            VBox ejerciciosContainer = new VBox();
-            ejerciciosContainer.setSpacing(5);
-            ejerciciosContainer.setStyle("-fx-padding: 10;");
-
-            nuevoDia.getChildren().addAll(diaLabel, anadirEjercicioButton, ejerciciosContainer);
-
-            listViewDias.getItems().add(nuevoDia);
-            contadorDias++;
-        });
-    }
-
-    private void onAnadirEjercicio(HBox diaContainer) {
+    private void onAnadirEjercicio() {
         Dialog<ButtonType> dialogoEjercicio = new Dialog<>();
         dialogoEjercicio.setTitle("Añadir Ejercicio");
 
@@ -85,8 +71,7 @@ public class CrearRutinasController {
         // Obtener los grupos musculares del mapa `ejercicios`
         Map<String, List<Ejercicio>> ejerciciosMap = servicioEjercicios.obtenerMapaEjercicios();
         if (ejerciciosMap == null || ejerciciosMap.isEmpty()) {
-            Alert alerta = new Alert(AlertType.ERROR, "No hay datos de ejercicios disponibles.");
-            alerta.show();
+            showAlert(Alert.AlertType.ERROR, "No hay datos de ejercicios disponibles.");
             return;
         }
 
@@ -120,77 +105,102 @@ public class CrearRutinasController {
             }
         });
 
+        // Campos de entrada para repeticiones, series y descanso
+        TextField repeticionesField = new TextField();
+        repeticionesField.setPromptText("Repeticiones");
+
+        TextField seriesField = new TextField();
+        seriesField.setPromptText("Series");
+
+        TextField descansoField = new TextField();
+        descansoField.setPromptText("Descanso (segundos)");
+
         contenido.getChildren().addAll(
                 new Label("Selecciona un grupo muscular:"), choiceBoxGruposMusculares,
-                new Label("Selecciona un ejercicio:"), choiceBoxEjercicios
+                new Label("Selecciona un ejercicio:"), choiceBoxEjercicios,
+                new Label("Repeticiones:"), repeticionesField,
+                new Label("Series:"), seriesField,
+                new Label("Descanso (segundos):"), descansoField
         );
 
         dialogoEjercicio.getDialogPane().setContent(contenido);
         dialogoEjercicio.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
+        // Apply CSS to the dialog
+        dialogoEjercicio.getDialogPane().getStylesheets().add(getClass().getResource("/css/ModeloAlpha.css").toExternalForm());
+
         dialogoEjercicio.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 Ejercicio ejercicioSeleccionado = choiceBoxEjercicios.getValue();
                 if (ejercicioSeleccionado != null && !"Selecciona un ejercicio".equals(ejercicioSeleccionado.getNombre())) {
-                    VBox ejerciciosContainer = (VBox) diaContainer.getChildren().get(2);
+                    HBox nuevoEjercicio = new HBox();
+                    nuevoEjercicio.setSpacing(10);
+                    nuevoEjercicio.setAlignment(Pos.CENTER_LEFT);
+                    nuevoEjercicio.setStyle("-fx-background-color: black; -fx-padding: 10;");
 
-                    Label nuevoEjercicio = new Label(ejercicioSeleccionado.getNombre());
-                    nuevoEjercicio.setStyle("-fx-text-fill: gold; -fx-font-size: 12px;");
+                    Label ejercicioLabel = new Label(ejercicioSeleccionado.getNombre() + " - Repeticiones: " + repeticionesField.getText() + ", Series: " + seriesField.getText() + ", Descanso: " + descansoField.getText() + " seg");
+                    ejercicioLabel.setStyle("-fx-text-fill: gold; -fx-font-size: 12px;");
 
-                    ejerciciosContainer.getChildren().add(nuevoEjercicio);
+                    nuevoEjercicio.getChildren().add(ejercicioLabel);
+
+                    listViewEjercicios.getItems().add(nuevoEjercicio);
                 } else {
-                    Alert alerta = new Alert(AlertType.WARNING, "Por favor, selecciona un ejercicio válido.");
-                    alerta.show();
+                    showAlert(Alert.AlertType.WARNING, "Por favor, selecciona un ejercicio válido.");
                 }
             }
         });
     }
 
-    @FXML
     private void onCrearRutina() {
         String nombreRutina = nombreRutinaField.getText();
+        String correoUsuario = ChoiceBoxAtleta.getValue();
 
         if (nombreRutina.isEmpty()) {
-            Alert alerta = new Alert(AlertType.WARNING, "Por favor, introduce un nombre para la rutina.");
-            alerta.show();
+            showAlert(Alert.AlertType.WARNING, "Por favor, introduce un nombre para la rutina.");
             return;
         }
 
-        HashMap<String, Object> rutinaData = new HashMap<>();
-        rutinaData.put("nombre", nombreRutina);
-
-        List<HashMap<String, Object>> dias = new ArrayList<>();
-        for (HBox dia : listViewDias.getItems()) {
-            Label diaLabel = (Label) dia.getChildren().get(0);
-            String nombreDia = diaLabel.getText();
-
-            VBox ejerciciosContainer = (VBox) dia.getChildren().get(2);
-            List<String> ejercicios = new ArrayList<>();
-            for (javafx.scene.Node ejercicio : ejerciciosContainer.getChildren()) {
-                if (ejercicio instanceof Label) {
-                    ejercicios.add(((Label) ejercicio).getText());
-                }
-            }
-
-            HashMap<String, Object> diaData = new HashMap<>();
-            diaData.put("nombre", nombreDia);
-            diaData.put("ejercicios", ejercicios);
-
-            dias.add(diaData);
+        if (correoUsuario == null || correoUsuario.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Por favor, selecciona un atleta.");
+            return;
         }
-        rutinaData.put("dias", dias);
 
-        // Guardar la rutina utilizando ServicioRutinas
-        servicioRutinas.agregarRutina(nombreRutina, rutinaData);
+        List<Ejercicio> ejerciciosList = new ArrayList<>();
+        for (HBox dia : listViewEjercicios.getItems()) {
+            Label ejercicioLabel = (Label) dia.getChildren().get(0);
+            String[] parts = ejercicioLabel.getText().split(" - ");
+            String nombreEjercicio = parts[0];
+            String[] detalles = parts[1].split(", ");
+            int repeticiones = Integer.parseInt(detalles[0].split(": ")[1]);
+            int series = Integer.parseInt(detalles[1].split(": ")[1]);
+            int descanso = Integer.parseInt(detalles[2].split(": ")[1].split(" ")[0]);
 
-        Alert alerta = new Alert(AlertType.INFORMATION, "Rutina guardada exitosamente en rutinas.json.");
-        alerta.show();
+            Ejercicio ejercicioData = new Ejercicio(nombreEjercicio, "", descanso, series, repeticiones, 0);
+            ejerciciosList.add(ejercicioData);
+        }
+
+        Rutina nuevaRutina = new Rutina(nombreRutina, ejerciciosList, correoEntrenador);
+
+        try {
+            List<Rutina> rutinas = servicioRutinas.loadRutinas(correoUsuario);
+            rutinas.add(nuevaRutina);
+            servicioRutinas.saveRutinas(correoUsuario, rutinas);
+
+            showAlert(Alert.AlertType.INFORMATION, "Rutina guardada exitosamente en " + correoUsuario + "_rutinas.json.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error al guardar la rutina.");
+        }
     }
 
     private void manejarVolver() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Entrenador/OpcionesRutinas.fxml"));
             Parent root = loader.load();
+
+            OpcionesRutinasController controller = loader.getController();
+            controller.setCorreoEntrenador(correoEntrenador);
+
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -199,12 +209,22 @@ public class CrearRutinasController {
         }
     }
 
+    public void setCorreoEntrenador(String correoEntrenador) {
+        this.correoEntrenador = correoEntrenador;
+    }
+
     private void colocarImagenBotones(){
         URL volver = getClass().getResource("/images/VolverAtras.png");
 
         Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
 
         BtnVolver.setGraphic(new ImageView(imagenVolver));
+    }
 
+    private void showAlert(Alert.AlertType alertType, String message) {
+        Alert alert = new Alert(alertType, message);
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/css/ModeloAlpha.css").toExternalForm());
+        alert.show();
     }
 }
