@@ -15,13 +15,10 @@ import java.net.URL;
 public class MenuEntrenadorController {
 
     @FXML
-    private Button BtnAlertas;
-
-    @FXML
     private Button BtnCerrarSesion;
 
     @FXML
-    private Button BtnMonitoreo;
+    private Button BtnChat;
 
     @FXML
     private Button BtnPlanes;
@@ -33,6 +30,7 @@ public class MenuEntrenadorController {
         BtnPlanes.setOnAction(event -> manejarPlanes());
         BtnCerrarSesion.setOnAction(event -> manejarCerrarSesion());
         colocarImagenBotones();
+        BtnChat.setOnAction(event -> manejarChat());
     }
 
     void manejarPlanes(){
@@ -63,22 +61,29 @@ public class MenuEntrenadorController {
         }
     }
 
+    void manejarChat(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Entrenador/ChatEntrenador.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) BtnChat.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
     private void colocarImagenBotones(){
         URL PlanesDeEntrenamiento = getClass().getResource("/images/PlanesDeEntrenamiento.png");
-        URL MonitoreoDeClientes = getClass().getResource("/images/MonitoreoDeClientes.png");
-        URL AlertasDeSalud = getClass().getResource("/images/AlertaDeSalud.png");
+        URL Chat = getClass().getResource("/images/FotoChat.png");
 
 
 
         Image imagenPlanesDeEntrenamiento = new Image(String.valueOf(PlanesDeEntrenamiento), 200, 200, false, true);
-        Image imagenMonitoreoDeClientes = new Image(String.valueOf(MonitoreoDeClientes), 200, 200, false, true);
-        Image imagenAlertaDeSalud = new Image(String.valueOf(AlertasDeSalud), 200, 200, false, true);
+        Image imagenChat = new Image(String.valueOf(Chat), 200, 200, false, true);
 
 
         BtnPlanes.setGraphic(new ImageView(imagenPlanesDeEntrenamiento));
-        BtnMonitoreo.setGraphic(new ImageView(imagenMonitoreoDeClientes));
-        BtnAlertas.setGraphic(new ImageView(imagenAlertaDeSalud));
-
+        BtnChat.setGraphic(new ImageView(imagenChat));
     }
 
     public void setCorreoEntrenador(String text) {
