@@ -15,9 +15,6 @@ import java.net.URL;
 public class MenuMedicoController {
 
     @FXML
-    private Button BtnHistorialesMedicos;
-
-    @FXML
     private Button BtnDatosDeSaludMedico;
 
     @FXML
@@ -34,14 +31,15 @@ public class MenuMedicoController {
 
     @FXML
     private void initialize() {
-        BtnHistorialesMedicos.setOnAction(event -> HistorialMedico());
+        colocarImagenBotones();
+        BtnEstadisticasMedicasMedico.setOnAction(event -> HistorialMedico());
     }
 
     public void HistorialMedico(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Medico/HistorialMedico.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) BtnHistorialesMedicos.getScene().getWindow();
+            Stage stage = (Stage) BtnEstadisticasMedicasMedico.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
