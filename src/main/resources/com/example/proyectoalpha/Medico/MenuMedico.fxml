@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Medico.MenuMedicoController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Medico.MenuMedicoController">
    <children>
       <BorderPane layoutX="200.0" layoutY="94.0" prefHeight="200.0" prefWidth="200.0" styleClass="parent" stylesheets="@../../../../css/ModeloAlpha.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -31,7 +31,7 @@
                         <Image url="@../../../../images/ALPHA.png" />
                      </image>
                   </ImageView>
-                  <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="87.0" text="Cerrar Sesión" GridPane.halignment="LEFT" GridPane.valignment="TOP" />
+                  <Button fx:id="BtnCerrarSesion" mnemonicParsing="false" prefHeight="41.0" prefWidth="119.0" text="Cerrar Sesión" GridPane.halignment="LEFT" GridPane.valignment="TOP" />
                   <ImageView fitHeight="31.0" fitWidth="198.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                      <image>
                         <Image url="@../../../../images/MenuMedico.png" />

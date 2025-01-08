@@ -34,6 +34,7 @@ public class MenuMedicoController {
         colocarImagenBotones();
         BtnEstadisticasMedicasMedico.setOnAction(event -> HistorialMedico());
         BtnEmisionDeRecomendacionesMedico.setOnAction(event -> manejarChat());
+        BtnCerrarSesion.setOnAction(event -> manejarCerrarSesion());
     }
 
     public void HistorialMedico(){
@@ -45,6 +46,18 @@ public class MenuMedicoController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    void manejarCerrarSesion(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/TipoUsuario.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) BtnCerrarSesion.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
