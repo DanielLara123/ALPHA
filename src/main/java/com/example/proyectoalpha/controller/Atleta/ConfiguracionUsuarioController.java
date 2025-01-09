@@ -113,8 +113,13 @@ public class ConfiguracionUsuarioController {
                 servicioUsuario servicioUsuario = new servicioUsuario();
                 servicioUsuario.eliminarUsuario(correoUsuario);
 
+                File datosMedicosFile = new File(correoUsuario + "_datosMedicos.json");
                 File historialFile = new File(correoUsuario + "_historial.json");
                 File rutinasFile = new File(correoUsuario + "_rutinas.json");
+
+                if (datosMedicosFile.exists()) {
+                    datosMedicosFile.delete();
+                }
 
                 if (historialFile.exists()) {
                     historialFile.delete();

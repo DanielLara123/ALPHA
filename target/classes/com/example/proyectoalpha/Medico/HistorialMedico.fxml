@@ -14,13 +14,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" styleClass="parent" stylesheets="@../../../../css/ModeloAlpha.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Medico.HistorialMedicoController">
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" styleClass="parent" stylesheets="@../../../../css/ModeloAlpha.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Medico.HistorialMedicoController">
    <children>
       <BorderPane layoutX="184.0" layoutY="70.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <ImageView fx:id="LblTitulo" fitHeight="128.0" fitWidth="455.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+            <ImageView fitHeight="128.0" fitWidth="455.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
-                  <Image url="@../../../../images/Monitorización%20de%20salud.png" />
+                  <Image url="@../../../../images/Monitorizacióndesalud.png" />
                </image>
                <BorderPane.margin>
                   <Insets top="50.0" />
@@ -42,19 +42,19 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <ImageView fx:id="GPS" fitHeight="42.0" fitWidth="242.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
+                        <ImageView fitHeight="42.0" fitWidth="242.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
                            <image>
                               <Image url="@../../../../images/GPS.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="O2" fitHeight="37.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <ImageView fitHeight="37.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                            <image>
                               <Image url="@../../../../images/Oxigenación.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="FC" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                            <image>
-                              <Image url="@../../../../images/Frecuencia%20Cardíaca.png" />
+                              <Image url="@../../../../images/FrecuenciaCardíaca.png" />
                            </image>
                         </ImageView>
                         <Label fx:id="LblGpsData" prefHeight="45.0" prefWidth="425.0" GridPane.columnIndex="1">
@@ -105,6 +105,6 @@
             </Button>
          </right>
       </BorderPane>
-      <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="68.0" prefWidth="113.0" text="Volver" />
+      <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="23.0" prefWidth="8.0" />
    </children>
 </AnchorPane>

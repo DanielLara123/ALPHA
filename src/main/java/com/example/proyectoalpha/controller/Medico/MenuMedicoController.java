@@ -14,8 +14,6 @@ import java.net.URL;
 
 public class MenuMedicoController {
 
-    @FXML
-    private Button BtnDatosDeSaludMedico;
 
     @FXML
     private Button BtnEstadisticasMedicasMedico;
@@ -26,8 +24,7 @@ public class MenuMedicoController {
     @FXML
     private Button BtnCerrarSesion;
 
-    @FXML
-    private ImageView LblTitulo;
+
 
     @FXML
     private void initialize() {
@@ -74,18 +71,12 @@ public class MenuMedicoController {
     }
 
     private void colocarImagenBotones(){
-        URL DatosDeSaludMedico = getClass().getResource("/images/DatosDeSaludMedico.png");
         URL EstadisticasMedicasMedico = getClass().getResource("/images/EstadisticasMedicasMedico.png");
         URL EmisionDeRecomendacionesMedico = getClass().getResource("/images/FotoChat.png");
 
-
-
-        Image imagenDatosDeSaludMedico = new Image(String.valueOf(DatosDeSaludMedico), 200, 200, false, true);
         Image imagenEstadisticasMedicasMedico = new Image(String.valueOf(EstadisticasMedicasMedico), 200, 200, false, true);
         Image imagenEmisionDeRecomendacionesMedico = new Image(String.valueOf(EmisionDeRecomendacionesMedico), 200, 200, false, true);
 
-
-        BtnDatosDeSaludMedico.setGraphic(new ImageView(imagenDatosDeSaludMedico));
         BtnEstadisticasMedicasMedico.setGraphic(new ImageView(imagenEstadisticasMedicasMedico));
         BtnEmisionDeRecomendacionesMedico.setGraphic(new ImageView(imagenEmisionDeRecomendacionesMedico));
 

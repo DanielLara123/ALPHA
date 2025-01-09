@@ -85,8 +85,13 @@ public class CambiarDatosPersonalesController {
 
                 if (confirmacionController.estaConfirmado()) {
                     // Rename JSON files if they exist
+                    File datosMedicosFile = new File(correoUsuario + "_datosMedicos.json");
                     File historialFile = new File(correoUsuario + "_historial.json");
                     File rutinasFile = new File(correoUsuario + "_rutinas.json");
+
+                    if (datosMedicosFile.exists()) {
+                        datosMedicosFile.renameTo(new File(nuevoCorreo + "_datosMedicos.json"));
+                    }
 
                     if (historialFile.exists()) {
                         historialFile.renameTo(new File(nuevoCorreo + "_historial.json"));

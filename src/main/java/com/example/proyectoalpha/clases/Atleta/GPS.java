@@ -1,32 +1,19 @@
 package com.example.proyectoalpha.clases.Atleta;
 
 public class GPS {
-    private Atleta atleta;
-    private double latitud;
-    private double longitud;
+    private String ubicacion;
 
-    public GPS(Atleta atleta) {
-        this.atleta = atleta;
+    public GPS() {}
+
+    public GPS(String ubicacion) {
+        this.ubicacion = ubicacion;
     }
 
-    public double getLatitud() {
-        return latitud;
+    public String getUbicacion() {
+        return ubicacion;
     }
 
-    public double getLongitud() {
-        return longitud;
-    }
-
-    public void setLatitud(double latitud) {
-        this.latitud = latitud;
-    }
-
-    public void setLongitud(double longitud) {
-        this.longitud = longitud;
-    }
-
-    public void actualizarPosicion(double latitud, double longitud) {
-        this.latitud = latitud;
-        this.longitud = longitud;
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
     }
 }
