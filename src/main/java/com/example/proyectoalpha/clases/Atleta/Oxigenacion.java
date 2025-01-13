@@ -1,25 +1,19 @@
 package com.example.proyectoalpha.clases.Atleta;
 
 public class Oxigenacion {
-    private Atleta atleta;
-    private int nivelOxigenacion;
+    private int nivelOxigeno;
 
-    public Oxigenacion(Atleta atleta){
-        this.atleta = atleta;
+    public Oxigenacion() {}
+
+    public Oxigenacion(int nivelOxigeno) {
+        this.nivelOxigeno = nivelOxigeno;
     }
 
-    public int getNivelOxigenacion(){
-        return nivelOxigenacion;
+    public int getNivelOxigeno() {
+        return nivelOxigeno;
     }
 
-    public void setNivelOxigenacion(int nivelOxigenacion){
-        if (nivelOxigenacion < 0 || nivelOxigenacion > 100){
-            throw new IllegalArgumentException("El nivel de oxigenación debe estar entre 0 y 100");
-        }
-        this.nivelOxigenacion = nivelOxigenacion;
-    }
-
-    public void actualizarNivelOxigenacion(int nuevoNivelOxigenacion){
-        setNivelOxigenacion(nuevoNivelOxigenacion);
+    public void setNivelOxigeno(int nivelOxigeno) {
+        this.nivelOxigeno = nivelOxigeno;
     }
 }

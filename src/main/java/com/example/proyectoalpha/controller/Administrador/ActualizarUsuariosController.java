@@ -70,8 +70,13 @@ public class ActualizarUsuariosController {
                     String nuevoCorreo = datosController.getNuevoCorreo();
 
                     // Rename JSON files if they exist
+                    File saludFile = new File(correo + "_datosMedicos.json");
                     File historialFile = new File(correo + "_historial.json");
                     File rutinasFile = new File(correo + "_rutinas.json");
+
+                    if (saludFile.exists()) {
+                        saludFile.renameTo(new File(nuevoCorreo + "_datosMedicos.json"));
+                    }
 
                     if (historialFile.exists()) {
                         historialFile.renameTo(new File(nuevoCorreo + "_historial.json"));

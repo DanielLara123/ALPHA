@@ -69,8 +69,13 @@ public class EliminarUsuarioController {
                 if (confirmacionController.estaConfirmado()) {
                     servicioUsuario.eliminarUsuario(correo);
 
+                    File saludFile = new File(correo + "_datosMedicos.json");
                     File historialFile = new File(correo + "_historial.json");
                     File rutinasFile = new File(correo + "_rutinas.json");
+
+                    if (saludFile.exists()) {
+                        saludFile.delete();
+                    }
 
                     if (historialFile.exists()) {
                         historialFile.delete();
