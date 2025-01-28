@@ -66,6 +66,10 @@ public class MenuEntrenadorController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Entrenador/ChatEntrenador.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) BtnChat.getScene().getWindow();
+
+            ChatEntrenadorController controller = loader.getController();
+            controller.setCorreoEntrenador(correoEntrenador);
+
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException ex) {

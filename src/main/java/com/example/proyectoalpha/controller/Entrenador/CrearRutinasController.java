@@ -68,7 +68,7 @@ public class CrearRutinasController {
         contenido.setSpacing(10);
         contenido.setStyle("-fx-padding: 10;");
 
-        // Obtener los grupos musculares del mapa `ejercicios`
+        // Obtener los grupos musculares del mapa ejercicios
         Map<String, List<Ejercicio>> ejerciciosMap = servicioEjercicios.obtenerMapaEjercicios();
         if (ejerciciosMap == null || ejerciciosMap.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "No hay datos de ejercicios disponibles.");
@@ -155,41 +155,45 @@ public class CrearRutinasController {
         String nombreRutina = nombreRutinaField.getText();
         String correoUsuario = ChoiceBoxAtleta.getValue();
 
+        boolean valid = true;
+
         if (nombreRutina.isEmpty()) {
             showAlert(Alert.AlertType.WARNING, "Por favor, introduce un nombre para la rutina.");
-            return;
+            valid = false;
         }
 
         if (correoUsuario == null || correoUsuario.isEmpty()) {
             showAlert(Alert.AlertType.WARNING, "Por favor, selecciona un atleta.");
-            return;
+            valid = false;
         }
 
-        List<Ejercicio> ejerciciosList = new ArrayList<>();
-        for (HBox dia : listViewEjercicios.getItems()) {
-            Label ejercicioLabel = (Label) dia.getChildren().get(0);
-            String[] parts = ejercicioLabel.getText().split(" - ");
-            String nombreEjercicio = parts[0];
-            String[] detalles = parts[1].split(", ");
-            int repeticiones = Integer.parseInt(detalles[0].split(": ")[1]);
-            int series = Integer.parseInt(detalles[1].split(": ")[1]);
-            int descanso = Integer.parseInt(detalles[2].split(": ")[1].split(" ")[0]);
+        if (valid) {
+            List<Ejercicio> ejerciciosList = new ArrayList<>();
+            for (HBox dia : listViewEjercicios.getItems()) {
+                Label ejercicioLabel = (Label) dia.getChildren().get(0);
+                String[] parts = ejercicioLabel.getText().split(" - ");
+                String nombreEjercicio = parts[0];
+                String[] detalles = parts[1].split(", ");
+                int repeticiones = Integer.parseInt(detalles[0].split(": ")[1]);
+                int series = Integer.parseInt(detalles[1].split(": ")[1]);
+                int descanso = Integer.parseInt(detalles[2].split(": ")[1].split(" ")[0]);
 
-            Ejercicio ejercicioData = new Ejercicio(nombreEjercicio, "", descanso, series, repeticiones, 0);
-            ejerciciosList.add(ejercicioData);
-        }
+                Ejercicio ejercicioData = new Ejercicio(nombreEjercicio, "", descanso, series, repeticiones, 0);
+                ejerciciosList.add(ejercicioData);
+            }
 
-        Rutina nuevaRutina = new Rutina(nombreRutina, ejerciciosList, correoEntrenador);
+            Rutina nuevaRutina = new Rutina(nombreRutina, ejerciciosList, correoEntrenador);
 
-        try {
-            List<Rutina> rutinas = servicioRutinas.loadRutinas(correoUsuario);
-            rutinas.add(nuevaRutina);
-            servicioRutinas.saveRutinas(correoUsuario, rutinas);
+            try {
+                List<Rutina> rutinas = servicioRutinas.loadRutinas(correoUsuario);
+                rutinas.add(nuevaRutina);
+                servicioRutinas.saveRutinas(correoUsuario, rutinas);
 
-            showAlert(Alert.AlertType.INFORMATION, "Rutina guardada exitosamente en " + correoUsuario + "_rutinas.json.");
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error al guardar la rutina.");
+                showAlert(Alert.AlertType.INFORMATION, "Rutina guardada exitosamente en " + correoUsuario + "_rutinas.json.");
+            } catch (IOException e) {
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Error al guardar la rutina.");
+            }
         }
     }
 

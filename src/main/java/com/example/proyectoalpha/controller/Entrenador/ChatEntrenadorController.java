@@ -17,6 +17,8 @@ public class ChatEntrenadorController {
     @FXML
     private Button BtnVolver;
 
+    private String correoEntrenador;
+
     @FXML
     void initialize(){
         colocarImagenBotones();
@@ -27,12 +29,20 @@ public class ChatEntrenadorController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Entrenador/MenuEntrenador.fxml"));
             Parent root = loader.load();
+
+            MenuEntrenadorController controller = loader.getController();
+            controller.setCorreoEntrenador(correoEntrenador);
+
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void setCorreoEntrenador(String correoEntrenador){
+        this.correoEntrenador = correoEntrenador;
     }
 
     private void colocarImagenBotones(){
