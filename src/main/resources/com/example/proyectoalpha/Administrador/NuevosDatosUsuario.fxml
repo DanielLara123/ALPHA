@@ -115,6 +115,16 @@
                         <TextField fx:id="FieldDni" prefHeight="25.0" prefWidth="164.0" promptText="Introduce DNI del usuario" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" />
                      </children>
                   </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../images/Gimnasio.png" />
+                           </image>
+                        </ImageView>
+                        <ChoiceBox fx:id="ChoiceBoxGimnasio" prefWidth="150.0" stylesheets="@../../../../css/ModeloAlpha.css" />
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </center>

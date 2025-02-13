@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -31,8 +32,9 @@ public class ActualizarUsuariosController {
     @FXML
     private Button BtnVolver;
 
+    // Por implementar
     @FXML
-    private TextField FieldCorreo;
+    private ChoiceBox<?> ChoiceBoxCorreoAtleta;
 
     @FXML
     private Label LblMensaje;
@@ -49,7 +51,7 @@ public class ActualizarUsuariosController {
     }
 
     private void manejarContinuar() {
-        String correo = FieldCorreo.getText().trim();
+        String correo = ChoiceBoxCorreoAtleta.getValue().toString();
 
         if (correo.isEmpty()) {
             LblMensaje.setText("El campo correo es obligatorio");

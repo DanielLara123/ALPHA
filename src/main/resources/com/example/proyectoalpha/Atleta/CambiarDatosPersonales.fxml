@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Atleta.CambiarDatosPersonalesController">
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Atleta.CambiarDatosPersonalesController">
    <children>
       <BorderPane layoutX="168.0" layoutY="88.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -81,7 +82,7 @@
                               <Image url="@../../../../images/Contraseña.png" />
                            </image>
                         </ImageView>
-                        <TextField fx:id="FieldContrasena" prefHeight="31.0" prefWidth="207.0" promptText="Introduce nueva contraseña" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" />
+                        <TextField fx:id="FieldContrasena" prefHeight="26.0" prefWidth="201.0" promptText="Introduce nueva contraseña" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -92,6 +93,16 @@
                            </image>
                         </ImageView>
                         <TextField fx:id="FieldDni" prefHeight="25.0" prefWidth="164.0" promptText="introduce nuevo DNI" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="152.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../images/Gimnasio.png" />
+                           </image>
+                        </ImageView>
+                        <ChoiceBox fx:id="ChoiceSeleccionarGimnasio" prefWidth="150.0" stylesheets="@../../../../css/ModeloAlpha.css" />
                      </children>
                   </HBox>
                </children>
