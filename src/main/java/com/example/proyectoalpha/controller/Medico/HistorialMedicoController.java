@@ -1,19 +1,6 @@
 package com.example.proyectoalpha.controller.Medico;
 
-import com.example.proyectoalpha.servicios.servicioUsuario;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-
+/*
 public class HistorialMedicoController {
 
     @FXML
@@ -166,3 +153,4 @@ public class HistorialMedicoController {
         BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 }
+*/

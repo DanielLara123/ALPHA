@@ -1,5 +1,5 @@
 package com.example.proyectoalpha.controller.Administrador;
-
+/*
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -11,14 +11,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import com.example.proyectoalpha.servicios.servicioUsuario;
 import com.example.proyectoalpha.controller.ConfirmacionController;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-
+/*
 public class EliminarUsuarioController {
 
     @FXML
@@ -123,3 +121,5 @@ public class EliminarUsuarioController {
     }
 
 }
+
+ */

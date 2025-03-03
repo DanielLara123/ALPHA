@@ -1,5 +1,5 @@
 package com.example.proyectoalpha.controller.Atleta;
-
+/*
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.Stack;
-
+/*
 public class MostrarLogrosController {
 
     @FXML
@@ -127,3 +127,5 @@ public class MostrarLogrosController {
         BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 }
+
+ */

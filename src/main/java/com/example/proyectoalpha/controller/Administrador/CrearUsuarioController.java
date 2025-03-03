@@ -1,5 +1,5 @@
 package com.example.proyectoalpha.controller.Administrador;
-
+/*
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,11 +16,10 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import com.example.proyectoalpha.servicios.servicioUsuario;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
+/*
 public class CrearUsuarioController {
 
     @FXML
@@ -139,3 +138,5 @@ public class CrearUsuarioController {
         }
     }
 }
+
+ */

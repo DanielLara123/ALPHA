@@ -1,5 +1,5 @@
 package com.example.proyectoalpha.controller.Entrenador;
-
+/*
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -54,3 +54,5 @@ public class ChatEntrenadorController {
         BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 }
+
+ */

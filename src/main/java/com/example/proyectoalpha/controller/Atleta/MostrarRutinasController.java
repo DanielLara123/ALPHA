@@ -1,8 +1,7 @@
 package com.example.proyectoalpha.controller.Atleta;
-
+/*
 import com.example.proyectoalpha.clases.Rutina;
 import com.example.proyectoalpha.controller.ConfirmacionController;
-import com.example.proyectoalpha.servicios.ServicioRutinas;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,7 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-
+/*
 public class MostrarRutinasController {
 
     @FXML
@@ -155,3 +154,5 @@ public class MostrarRutinasController {
         LblMensaje.setText(message);
     }
 }
+
+ */

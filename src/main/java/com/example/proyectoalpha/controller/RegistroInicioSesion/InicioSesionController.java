@@ -1,9 +1,8 @@
 package com.example.proyectoalpha.controller.RegistroInicioSesion;
 
+/*
 import com.example.proyectoalpha.clases.Usuario;
-import com.example.proyectoalpha.controller.Atleta.MenuAtletaController;
 import com.example.proyectoalpha.controller.Entrenador.MenuEntrenadorController;
-import com.example.proyectoalpha.servicios.servicioUsuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+
 
 public class InicioSesionController {
 
@@ -170,3 +170,5 @@ public class InicioSesionController {
         }
     }
 }
+
+ */

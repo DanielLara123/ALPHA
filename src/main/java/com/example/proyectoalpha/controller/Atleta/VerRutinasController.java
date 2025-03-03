@@ -1,8 +1,7 @@
 package com.example.proyectoalpha.controller.Atleta;
 
+/*
 import com.example.proyectoalpha.clases.Ejercicio;
-import com.example.proyectoalpha.clases.Atleta.HistorialEjercicio;
-import com.example.proyectoalpha.clases.Atleta.HistorialesEjercicios;
 import com.example.proyectoalpha.clases.Rutina;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -193,3 +192,5 @@ public class VerRutinasController {
         this.contrasenaUsuario = contrasenaUsuario;
     }
 }
+
+ */

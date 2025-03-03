@@ -1,8 +1,7 @@
 package com.example.proyectoalpha.controller.RegistroInicioSesion;
-
+/*
 import com.example.proyectoalpha.clases.Usuario;
 import com.example.proyectoalpha.controller.TipoUsuarioController;
-import com.example.proyectoalpha.servicios.servicioUsuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -151,3 +150,5 @@ public class RegistroController {
         BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 }
+
+ */

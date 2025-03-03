@@ -1,5 +1,5 @@
 package com.example.proyectoalpha.controller.Administrador;
-
+/*
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import com.example.proyectoalpha.clases.Usuario;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+/*
 public class MostrarUsuarioController {
 
     @FXML
@@ -52,3 +52,5 @@ public class MostrarUsuarioController {
         }
     }
 }
+
+ */

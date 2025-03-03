@@ -1,7 +1,6 @@
 package com.example.proyectoalpha.controller.Atleta;
-
+/*
 import com.example.proyectoalpha.clases.Ejercicio;
-import com.example.proyectoalpha.servicios.ServicioEjercicios;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/*
 public class EjerciciosUsuarioController {
 
     @FXML
@@ -104,3 +104,5 @@ public class EjerciciosUsuarioController {
         BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 }
+
+ */

@@ -1,12 +1,10 @@
 package com.example.proyectoalpha.controller.Administrador;
-
+/*
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 import com.example.proyectoalpha.controller.ConfirmacionController;
-import com.example.proyectoalpha.servicios.servicioUsuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,7 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
+/*
 public class NuevosDatosUsuarioController {
 
     @FXML
@@ -136,3 +134,5 @@ public class NuevosDatosUsuarioController {
         }
     }
 }
+
+ */

@@ -1,6 +1,5 @@
 package com.example.proyectoalpha.controller.Atleta;
-
-import com.example.proyectoalpha.servicios.LinkedList;
+/*
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,15 +13,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+/*
 public class MostrarRutinasUsuarioController {
 
     @FXML
@@ -203,5 +200,5 @@ public class MostrarRutinasUsuarioController {
     }
 
 }
-
+*/
 

@@ -1,9 +1,7 @@
 package com.example.proyectoalpha.controller.Atleta;
-
+/*
 import com.example.proyectoalpha.clases.Ejercicio;
 import com.example.proyectoalpha.clases.Rutina;
-import com.example.proyectoalpha.servicios.ServicioEjercicios;
-import com.example.proyectoalpha.servicios.ServicioRutinas;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -21,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/*
 public class CrearRutinasController {
 
     @FXML
@@ -217,3 +216,4 @@ public class CrearRutinasController {
         this.contrasenaUsuario = contrasenaUsuario;
     }
 }
+*/
