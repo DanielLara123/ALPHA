@@ -10,6 +10,7 @@ public class Usuario {
     private String contrasena;
     private String tipoUsuario;
     private String dni;
+    private String gimnasio;
 
     public Usuario() {}
 
