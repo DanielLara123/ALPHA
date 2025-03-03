@@ -1,31 +1,35 @@
-package com.example.proyectoalpha.clases.Atleta;
+package com.example.proyectoalpha.clases;
 
 public class Ejercicio {
+    private int ID_ejercicio;
     private String nombre;
     private String grupoMuscular;
-    private int descanso;
+    private double peso;
     private int series;
     private int repeticiones;
-    private double peso;
+    private int descanso;
 
     // Constructor sin argumentos (requerido para deserialización)
     public Ejercicio() {}
 
-    // Constructor completo
-    public Ejercicio(String nombre, String grupoMuscular, int descanso, int series, int repeticiones, double peso) {
+    public Ejercicio(int ID_ejercicio, String nombre, String grupoMuscular, double peso, int series, int repeticiones, int descanso) {
+        this.ID_ejercicio = ID_ejercicio;
         this.nombre = nombre;
         this.grupoMuscular = grupoMuscular;
-        this.descanso = descanso;
+        this.peso = peso;
         this.series = series;
         this.repeticiones = repeticiones;
-        this.peso = peso;
+        this.descanso = descanso;
     }
 
-    public Ejercicio(String seleccionaUnEjercicio, String placeholder, int i, int i1, int i2) {
-
+    public int getID_ejercicio() {
+        return ID_ejercicio;
     }
 
-    // Getters y Setters
+    public void setID_ejercicio(int ID_ejercicio) {
+        this.ID_ejercicio = ID_ejercicio;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -42,12 +46,12 @@ public class Ejercicio {
         this.grupoMuscular = grupoMuscular;
     }
 
-    public int getDescanso() {
-        return descanso;
+    public double getPeso() {
+        return peso;
     }
 
-    public void setDescanso(int descanso) {
-        this.descanso = descanso;
+    public void setPeso(double peso) {
+        this.peso = peso;
     }
 
     public int getSeries() {
@@ -66,21 +70,13 @@ public class Ejercicio {
         this.repeticiones = repeticiones;
     }
 
-    public double getPeso() {
-        return peso;
+    public int getDescanso() {
+        return descanso;
     }
 
-    public void setPeso(double peso) {
-        this.peso = peso;
-    }
-
-    @Override
-    public String toString() {
-        return nombre; // Para mostrar solo el nombre en los menús desplegables
-    }
-
-    public void agregarSet(int repeticiones, double peso) {
-        this.repeticiones = repeticiones;
-        this.peso = peso;
+    public void setDescanso(int descanso) {
+        this.descanso = descanso;
     }
 }
+
+

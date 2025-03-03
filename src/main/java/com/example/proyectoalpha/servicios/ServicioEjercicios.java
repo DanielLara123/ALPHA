@@ -1,6 +1,6 @@
 package com.example.proyectoalpha.servicios;
 
-import com.example.proyectoalpha.clases.Atleta.Ejercicio;
+import com.example.proyectoalpha.clases.Ejercicio;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

@@ -1,6 +1,6 @@
 package com.example.proyectoalpha.servicios;
 
-import com.example.proyectoalpha.clases.Atleta.Rutina;
+import com.example.proyectoalpha.clases.Rutina;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 

@@ -1,6 +1,6 @@
 package com.example.proyectoalpha.controller.Atleta;
 
-import com.example.proyectoalpha.clases.Atleta.Ejercicio;
+import com.example.proyectoalpha.clases.Ejercicio;
 import com.example.proyectoalpha.servicios.ServicioEjercicios;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

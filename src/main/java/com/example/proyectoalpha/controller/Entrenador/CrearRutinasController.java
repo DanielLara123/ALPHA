@@ -1,7 +1,7 @@
 package com.example.proyectoalpha.controller.Entrenador;
 
-import com.example.proyectoalpha.clases.Atleta.Ejercicio;
-import com.example.proyectoalpha.clases.Atleta.Rutina;
+import com.example.proyectoalpha.clases.Ejercicio;
+import com.example.proyectoalpha.clases.Rutina;
 import com.example.proyectoalpha.servicios.ServicioEjercicios;
 import com.example.proyectoalpha.servicios.ServicioRutinas;
 import com.example.proyectoalpha.servicios.servicioUsuario;

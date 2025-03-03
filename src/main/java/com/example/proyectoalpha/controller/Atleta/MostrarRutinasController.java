@@ -1,6 +1,6 @@
 package com.example.proyectoalpha.controller.Atleta;
 
-import com.example.proyectoalpha.clases.Atleta.Rutina;
+import com.example.proyectoalpha.clases.Rutina;
 import com.example.proyectoalpha.controller.ConfirmacionController;
 import com.example.proyectoalpha.servicios.ServicioRutinas;
 import javafx.collections.FXCollections;
@@ -18,8 +18,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 public class MostrarRutinasController {
 

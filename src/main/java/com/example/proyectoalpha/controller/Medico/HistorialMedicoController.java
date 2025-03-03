@@ -1,8 +1,5 @@
 package com.example.proyectoalpha.controller.Medico;
 
-import com.example.proyectoalpha.clases.Atleta.FrecuenciaCardiaca;
-import com.example.proyectoalpha.clases.Atleta.GPS;
-import com.example.proyectoalpha.clases.Atleta.Oxigenacion;
 import com.example.proyectoalpha.servicios.servicioUsuario;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
