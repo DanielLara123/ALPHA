@@ -8,10 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -31,8 +28,9 @@ public class HistorialMedicoController {
     @FXML
     private Button BtnVolver;
 
+    //Por implementar
     @FXML
-    private TextField BuscarTxt;
+    private ChoiceBox<?> ChoiceBoxAtleta;
 
     @FXML
     private Label LblFC;
@@ -77,7 +75,7 @@ public class HistorialMedicoController {
     }
 
     private void mostrarDatosMedicos() {
-        String correo = BuscarTxt.getText();
+        String correo = (String) ChoiceBoxAtleta.getValue();
         if (correo == null || correo.isEmpty()) {
             showAlert("Por favor, introduce un correo.");
             return;

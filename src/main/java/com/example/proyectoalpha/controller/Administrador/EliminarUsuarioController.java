@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import com.example.proyectoalpha.servicios.servicioUsuario;
@@ -32,8 +33,9 @@ public class EliminarUsuarioController {
     @FXML
     private Button BtnVolver;
 
+    // Por implementar
     @FXML
-    private TextField FieldCorreo;
+    private ChoiceBox<?> ChoiceBoxCorreoAtleta;
 
     @FXML
     private Label LblMensaje;
@@ -50,7 +52,7 @@ public class EliminarUsuarioController {
     }
 
     private void manejarContinuar() {
-        String correo = FieldCorreo.getText();
+        String correo = ChoiceBoxCorreoAtleta.getValue().toString();
 
         if (correo.isEmpty()) {
             LblMensaje.setText("Por favor, ingrese un correo");

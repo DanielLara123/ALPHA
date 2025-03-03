@@ -47,6 +47,10 @@ public class CrearUsuarioController {
     @FXML
     private ChoiceBox<String> FieldRol;
 
+    // Por implementar
+    @FXML
+    private ChoiceBox<?> ChoiceBoxGimnasio;
+
     @FXML
     private Label LblMensaje;
 

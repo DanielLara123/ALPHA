@@ -24,6 +24,19 @@ public class MisDatosUsuarioController {
     @FXML
     private Label LblSetDni;
 
+    //Por implementar
+    @FXML
+    private Label LblEntrenador;
+
+    //Por implementar
+    @FXML
+    private Label LblGimnasio;
+
+    //Por implementar
+    @FXML
+    private Label LblMedico;
+
+
     @FXML
     private Button BtnVolver;
 
