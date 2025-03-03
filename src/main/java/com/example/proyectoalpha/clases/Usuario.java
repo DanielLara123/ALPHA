@@ -1,32 +1,50 @@
 package com.example.proyectoalpha.clases;
 
-import com.example.proyectoalpha.clases.Atleta.Ejercicio;
-import com.example.proyectoalpha.clases.Atleta.Rutina;
-
-import java.util.List;
-
 public class Usuario {
-    private String email;
+    private int ID;
+    private String nombre;
+    private String apellidos;
     private String contrasena;
+    private String DNI;
+    private String correo;
     private String tipoUsuario;
-    private String dni;
+    private String gimnasio;
 
     public Usuario() {}
 
-    public Usuario(String mail, String password, String usertype, String dni) {
-        this.email = mail;
-        this.contrasena = password;
-        this.tipoUsuario = usertype;
-        this.dni = dni;
+    public Usuario(int ID, String nombre, String apellidos, String contrasena, String DNI, String correo, String tipoUsuario, String gimnasio) {
+        this.ID = ID;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.contrasena = contrasena;
+        this.DNI = DNI;
+        this.correo = correo;
+        this.tipoUsuario = tipoUsuario;
+        this.gimnasio = gimnasio;
     }
 
-    // Getters and setters
-    public String getCorreo() {
-        return email;
+    public int getID() {
+        return ID;
     }
 
-    public void setCorreo(String correo) {
-        this.email = correo;
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getContrasena() {
@@ -37,6 +55,22 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
+    public String getDNI() {
+        return DNI;
+    }
+
+    public void setDNI(String DNI) {
+        this.DNI = DNI;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
     public String getTipoUsuario() {
         return tipoUsuario;
     }
@@ -45,12 +79,11 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
-    public String getDni() {
-        return dni;
+    public String getGimnasio() {
+        return gimnasio;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
+    public void setGimnasio(String gimnasio) {
+        this.gimnasio = gimnasio;
     }
-
 }

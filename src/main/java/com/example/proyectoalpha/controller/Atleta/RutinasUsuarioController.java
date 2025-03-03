@@ -1,5 +1,5 @@
 package com.example.proyectoalpha.controller.Atleta;
-
+/*
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-
+/*
 public class RutinasUsuarioController {
 
     @FXML
@@ -105,3 +105,5 @@ public class RutinasUsuarioController {
 
     }
 }
+
+ */

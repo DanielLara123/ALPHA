@@ -1,6 +1,5 @@
 package com.example.proyectoalpha.controller.Entrenador;
-
-import com.example.proyectoalpha.controller.Atleta.MenuAtletaController;
+/*
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,6 +13,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 
+/*
 public class OpcionesRutinasController {
 
     @FXML
@@ -103,6 +103,8 @@ public class OpcionesRutinasController {
 }
 
 
+
+ */
 
 
 

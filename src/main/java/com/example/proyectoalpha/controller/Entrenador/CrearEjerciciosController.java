@@ -1,7 +1,6 @@
 package com.example.proyectoalpha.controller.Entrenador;
-
-import com.example.proyectoalpha.clases.Atleta.Ejercicio;
-import com.example.proyectoalpha.servicios.ServicioEjercicios;
+/*
+import com.example.proyectoalpha.clases.Ejercicio;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +16,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 
+/*
 public class CrearEjerciciosController {
 
     @FXML
@@ -101,3 +101,5 @@ public class CrearEjerciciosController {
         BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 }
+
+ */

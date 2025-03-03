@@ -1,28 +1,8 @@
 package com.example.proyectoalpha.controller.Entrenador;
 
-import com.example.proyectoalpha.clases.Atleta.Ejercicio;
-import com.example.proyectoalpha.clases.Atleta.Rutina;
-import com.example.proyectoalpha.servicios.ServicioEjercicios;
-import com.example.proyectoalpha.servicios.ServicioRutinas;
-import com.example.proyectoalpha.servicios.servicioUsuario;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
+/*
 public class CrearRutinasController {
+
 
     @FXML
     private TextField nombreRutinaField;
@@ -232,3 +212,5 @@ public class CrearRutinasController {
         alert.show();
     }
 }
+
+ */

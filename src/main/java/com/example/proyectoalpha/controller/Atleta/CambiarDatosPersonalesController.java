@@ -1,7 +1,6 @@
 package com.example.proyectoalpha.controller.Atleta;
-
+/*
 import com.example.proyectoalpha.controller.ConfirmacionController;
-import com.example.proyectoalpha.servicios.servicioUsuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
+/*
 public class CambiarDatosPersonalesController {
 
     @FXML
@@ -149,3 +149,5 @@ public class CambiarDatosPersonalesController {
         BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 }
+
+ */

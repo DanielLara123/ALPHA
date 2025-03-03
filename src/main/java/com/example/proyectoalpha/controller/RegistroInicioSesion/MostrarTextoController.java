@@ -1,5 +1,5 @@
 package com.example.proyectoalpha.controller.RegistroInicioSesion;
-
+/*
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -54,3 +54,6 @@ public class MostrarTextoController {
         });
     }
 }
+
+
+ */

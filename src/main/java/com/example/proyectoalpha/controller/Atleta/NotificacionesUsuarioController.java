@@ -1,5 +1,5 @@
 package com.example.proyectoalpha.controller.Atleta;
-
+/*
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.Iterator;
-
+/*
 public class NotificacionesUsuarioController {
 
     @FXML
@@ -113,3 +113,5 @@ public class NotificacionesUsuarioController {
         BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 }
+
+ */

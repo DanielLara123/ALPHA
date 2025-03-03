@@ -1,23 +1,19 @@
 package com.example.proyectoalpha.controller.Atleta;
-
-import com.example.proyectoalpha.clases.Atleta.Ejercicio;
+/*
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-
+/*
 public class MostrarEjerciciosController {
 
     @FXML
@@ -72,3 +68,5 @@ public class MostrarEjerciciosController {
         BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 }
+
+ */
