@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 
-/*
 public class MenuAtletaController {
 
     @FXML
@@ -36,6 +35,30 @@ public class MenuAtletaController {
 
     @FXML
     private Button BtnVolver;
+
+    @FXML
+    private Label LblMisDatos;
+
+    @FXML
+    private Label LblNotificaciones;
+
+    @FXML
+    private Label LblConfiguracion;
+
+    @FXML
+    private Label LblEjercicios;
+
+    @FXML
+    private Label LblLogros;
+
+    @FXML
+    private Label LblRutinas;
+
+    @FXML
+    private Button BtnChat;
+
+    @FXML
+    private Label LblChat;
 
     private String dniUsuario;
     private String correoUsuario;
