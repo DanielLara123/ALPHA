@@ -27,7 +27,7 @@
     -fx-text-fill: #293133;
 }
 
-.list-view {
+.listView {
     background-color: #333; /* Gris oscuro */
     border: 2px solid gold; /* Borde dorado */
     padding: 10px;
@@ -38,7 +38,7 @@
     padding: 0;
 }
 
-.list-view li {
+.listView li {
     color: gold; /* Texto dorado */
     font-size: 16px;
     padding: 8px;
@@ -46,7 +46,7 @@
     display: block;
 }
 
-.list-view li:hover {
+.listView li:hover {
     background-color: #444; /* Cambio de color al pasar el mouse */
 }
 
