@@ -27,28 +27,33 @@
     -fx-text-fill: #293133;
 }
 
-.listView {
-    background-color: #333; /* Gris oscuro */
-    border: 2px solid gold; /* Borde dorado */
-    padding: 10px;
-    border-radius: 8px; /* Bordes redondeados */
-    width: 300px; /* Ajusta el ancho según necesites */
-    list-style: none; /* Elimina los estilos de lista */
-    margin: 0;
-    padding: 0;
+.list-view {
+    -fx-background-color: #333; /* Fondo gris oscuro */
+    -fx-border-color: gold; /* Borde dorado */
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
 }
 
-.listView li {
-    color: gold; /* Texto dorado */
-    font-size: 16px;
-    padding: 8px;
-    border-bottom: 1px solid gold; /* Línea divisoria dorada */
-    display: block;
+/* Estilo de los ítems de la lista */
+.list-view .list-cell {
+    -fx-text-fill: gold; /* Texto dorado */
+    -fx-font-size: 16px;
+    -fx-padding: 8px;
+    -fx-border-color: gold; /* Línea divisoria dorada */
+    -fx-border-width: 0 0 1px 0; /* Línea inferior */
+    -fx-background-color: transparent; /* Para evitar que JavaFX sobrescriba el color */
 }
 
-.listView li:hover {
-    background-color: #444; /* Cambio de color al pasar el mouse */
+/* Cambiar el color al pasar el mouse */
+.list-view .list-cell:hover {
+    -fx-background-color: #444;
 }
+
+/* Evitar que los elementos seleccionados cambien de color inesperadamente */
+.list-view .list-cell:selected {
+    -fx-background-color: #555;
+}
+
 
 
 .scroll-pane {
