@@ -27,6 +27,30 @@
     -fx-text-fill: #293133;
 }
 
+.list-view {
+    background-color: #333; /* Gris oscuro */
+    border: 2px solid gold; /* Borde dorado */
+    padding: 10px;
+    border-radius: 8px; /* Bordes redondeados */
+    width: 300px; /* Ajusta el ancho según necesites */
+    list-style: none; /* Elimina los estilos de lista */
+    margin: 0;
+    padding: 0;
+}
+
+.list-view li {
+    color: gold; /* Texto dorado */
+    font-size: 16px;
+    padding: 8px;
+    border-bottom: 1px solid gold; /* Línea divisoria dorada */
+    display: block;
+}
+
+.list-view li:hover {
+    background-color: #444; /* Cambio de color al pasar el mouse */
+}
+
+
 .scroll-pane {
     -fx-background-color: #000000;
     -fx-border-color: #efb810;
