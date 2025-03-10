@@ -52,7 +52,7 @@
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="43.0" prefWidth="131.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Volver" textAlignment="CENTER" />
+                        <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="35.0" prefWidth="11.0" stylesheets="@../../../../css/ModeloAlpha.css" textAlignment="CENTER" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="169.0" prefWidth="649.0">
