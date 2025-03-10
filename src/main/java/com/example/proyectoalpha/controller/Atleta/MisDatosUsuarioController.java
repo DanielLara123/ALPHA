@@ -13,32 +13,37 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 /*
+package com.example.proyectoalpha.controller.Atleta;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+
 public class MisDatosUsuarioController {
 
     @FXML
-    private Label LblSetContrasena;
+    private Button BtnVolver;
 
     @FXML
-    private Label LblSetCorreo;
+    private Label LblApellidos;
+
+    @FXML
+    private Label LblNombre;
 
     @FXML
     private Label LblSetDni;
 
-    //Por implementar
-    @FXML
-    private Label LblEntrenador;
-
-    //Por implementar
     @FXML
     private Label LblGimnasio;
 
-    //Por implementar
     @FXML
-    private Label LblMedico;
-
+    private Label LblCorreo;
 
     @FXML
-    private Button BtnVolver;
+    private Label LblPassword;
+
+    @FXML
+    private Label LblTipoUsuario;
 
     @FXML
     public void initialize() {
