@@ -145,18 +145,17 @@ public class MariaDBController {
         return null;
     }
 
-    // Method to register a new user
-    public boolean registrarUsuario(String nombre, String apellidos, String contrasena, String DNI, String correo, String tipoUsuario, String gimnasio) {
+    public boolean registrarUsuario(Usuario usuario) {
         String sql = "INSERT INTO Usuario (nombre, apellidos, contraseña, DNI, correo, tipoUsuario, gimnasio) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, nombre);
-            pstmt.setString(2, apellidos);
-            pstmt.setString(3, contrasena);
-            pstmt.setString(4, DNI);
-            pstmt.setString(5, correo);
-            pstmt.setString(6, tipoUsuario);
-            pstmt.setString(7, gimnasio);
+            pstmt.setString(1, usuario.getNombre());
+            pstmt.setString(2, usuario.getApellidos());
+            pstmt.setString(3, usuario.getContrasena());
+            pstmt.setString(4, usuario.getDNI());
+            pstmt.setString(5, usuario.getCorreo());
+            pstmt.setString(6, usuario.getTipoUsuario());
+            pstmt.setString(7, usuario.getGimnasio());
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {

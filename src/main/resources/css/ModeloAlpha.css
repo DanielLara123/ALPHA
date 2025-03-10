@@ -19,6 +19,8 @@
     -fx-border-radius: 10px;
 }
 .textfield{
+    border: 1px solid black;
+    border-bottom: 2px solid red;
     -fx-background-color: #293133;
     -fx-text-fill: #efb810;
 }
