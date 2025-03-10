@@ -1,8 +1,7 @@
 package com.example.proyectoalpha.controller.RegistroInicioSesion;
 
-/*
 import com.example.proyectoalpha.clases.Usuario;
-import com.example.proyectoalpha.controller.Entrenador.MenuEntrenadorController;
+import com.example.proyectoalpha.servicios.MariaDBController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,7 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
 
 public class InicioSesionController {
 
@@ -36,12 +34,12 @@ public class InicioSesionController {
     @FXML
     private Button BtnVolver;
 
-    private servicioUsuario servicioUsuario;
+    private MariaDBController mariaDBController;
     private String tipoUsuario;
 
     @FXML
     void initialize() {
-        servicioUsuario = new servicioUsuario();
+        mariaDBController = new MariaDBController();
 
         BtnContinuar.setOnAction(event -> manejarContinuar());
         BtnNoTienesCuenta.setOnAction(event -> manejarNoTienesCuenta());
@@ -56,18 +54,22 @@ public class InicioSesionController {
         String correo = LblCorreo.getText();
         String contrasena = LblContrasena.getText();
 
-
-        Usuario usuario = servicioUsuario.loginUsuario(correo, contrasena);
+        Usuario usuario = mariaDBController.loginUsuario(correo, contrasena);
         if (usuario != null) {
             if (usuario.getTipoUsuario().equalsIgnoreCase(tipoUsuario)) {
-                if (tipoUsuario.equalsIgnoreCase("atleta")) {
-                    MenuAtleta(usuario);
-                } else if (tipoUsuario.equalsIgnoreCase("medico")) {
-                    MenuMedico();
-                } else if (tipoUsuario.equalsIgnoreCase("administrador")) {
-                    MenuAdministrador(usuario);
-                } else {
-                    MenuEntrenador();
+                switch (tipoUsuario.toLowerCase()) {
+                    case "atleta":
+                        MenuAtleta(usuario);
+                        break;
+                    case "medico":
+                        MenuMedico(usuario);
+                        break;
+                    case "administrador":
+                        MenuAdministrador(usuario);
+                        break;
+                    default:
+                        MenuEntrenador(usuario);
+                        break;
                 }
             } else {
                 LblMessage.setText("Tipo de usuario incorrecto");
@@ -77,10 +79,8 @@ public class InicioSesionController {
         }
     }
 
-
     private void manejarNoTienesCuenta() {
-
-        if (!"Atleta".equals(tipoUsuario)) {
+        if (!"Atleta".equalsIgnoreCase(tipoUsuario)) {
             LblMessage.setText("Solo los atletas pueden registrarse");
         } else {
             try {
@@ -112,13 +112,11 @@ public class InicioSesionController {
         }
     }
 
-    private void MenuAtleta(Usuario usuario){
+    private void MenuAtleta(Usuario usuario) {
         try {
-            FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/MenuAtleta.fxml"));
-            Parent root = loader2.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/MenuAtleta.fxml"));
+            Parent root = loader.load();
 
-            MenuAtletaController controller = loader2.getController();
-            controller.setDatosUsuario(usuario.getDni(), usuario.getCorreo(), usuario.getContrasena());
 
             Stage stage = (Stage) BtnContinuar.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -128,47 +126,46 @@ public class InicioSesionController {
         }
     }
 
-    private void MenuMedico(){
+    private void MenuMedico(Usuario usuario) {
         try {
-            FXMLLoader loader3 = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Medico/MenuMedico.fxml"));
-            Parent root2 = loader3.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Medico/MenuMedico.fxml"));
+            Parent root = loader.load();
+
 
             Stage stage = (Stage) BtnContinuar.getScene().getWindow();
-            stage.setScene(new Scene(root2));
+            stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void MenuAdministrador(Usuario usuario){
+    private void MenuAdministrador(Usuario usuario) {
         try {
-            FXMLLoader loader4 = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/MenuAdministrador.fxml"));
-            Parent root3 = loader4.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/MenuAdministrador.fxml"));
+            Parent root = loader.load();
+
 
             Stage stage = (Stage) BtnContinuar.getScene().getWindow();
-            stage.setScene(new Scene(root3));
+            stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void MenuEntrenador(){
+    private void MenuEntrenador(Usuario usuario) {
         try {
-            FXMLLoader loader4 = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Entrenador/MenuEntrenador.fxml"));
-            Parent root3 = loader4.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Entrenador/MenuEntrenador.fxml"));
+            Parent root = loader.load();
 
-            MenuEntrenadorController controller = loader4.getController();
-            controller.setCorreoEntrenador(LblCorreo.getText());
+
 
             Stage stage = (Stage) BtnContinuar.getScene().getWindow();
-            stage.setScene(new Scene(root3));
+            stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
-
- */

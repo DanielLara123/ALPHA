@@ -23,6 +23,16 @@ public class Usuario {
         this.gimnasio = gimnasio;
     }
 
+    public Usuario(String nombre, String apellidos, String contrasena, String DNI, String correo, String tipoUsuario, String gimnasio) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.contrasena = contrasena;
+        this.DNI = DNI;
+        this.correo = correo;
+        this.tipoUsuario = tipoUsuario;
+        this.gimnasio = gimnasio;
+    }
+
     public int getID() {
         return ID;
     }
