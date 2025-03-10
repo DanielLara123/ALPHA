@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Atleta.MisDatosUsuarioController">
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Atleta.MisDatosUsuarioController">
    <children>
       <BorderPane layoutX="182.0" layoutY="116.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -53,9 +53,10 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="LblSetContrasena" prefHeight="58.0" prefWidth="467.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <Label fx:id="LblApellidos" prefHeight="58.0" prefWidth="467.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="2.5" left="25.0" />
                      </GridPane.margin>
@@ -63,7 +64,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="LblSetCorreo" prefHeight="55.0" prefWidth="475.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                  <Label fx:id="LblNombre" prefHeight="55.0" prefWidth="475.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -71,7 +72,7 @@
                         <Insets bottom="2.5" left="25.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="LblSetDni" layoutX="335.0" layoutY="83.0" prefHeight="62.0" prefWidth="369.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <Label fx:id="LblSetDni" layoutX="335.0" layoutY="83.0" prefHeight="62.0" prefWidth="500.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -79,39 +80,67 @@
                         <Insets left="25.0" top="2.5" />
                      </GridPane.margin>
                   </Label>
-                  <ImageView fitHeight="63.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                  <ImageView fitHeight="51.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                      <image>
                         <Image url="@../../../../images/Correo.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="46.0" fitWidth="222.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <ImageView fitHeight="46.0" fitWidth="222.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                      <image>
                         <Image url="@../../../../images/Contraseña.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="68.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <ImageView fitHeight="51.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <image>
                         <Image url="@../../../../images/DNI.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="40.0" fitWidth="187.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                  <ImageView fitHeight="32.0" fitWidth="161.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                      <image>
                         <Image url="@../../../../images/Gimnasio.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                  <Label fx:id="LblGimnasio" alignment="CENTER" contentDisplay="CENTER" prefHeight="62.0" prefWidth="484.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets left="25.0" />
+                     </GridPane.margin></Label>
+                  <Label fx:id="LblCorreo" alignment="CENTER" prefHeight="56.0" prefWidth="486.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+                     <padding>
+                        <Insets left="25.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets left="25.0" />
+                     </GridPane.margin></Label>
+                  <Label fx:id="LblPassword" alignment="CENTER" prefHeight="59.0" prefWidth="475.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5">
+                     <padding>
+                        <Insets left="25.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets left="25.0" />
+                     </GridPane.margin></Label>
+                  <ImageView fitHeight="32.0" fitWidth="161.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../../../../images/EntrenadorLetras.png" />
+                        <Image url="@../../../../images/ImgTipoUsuario.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </ImageView>
+                  <ImageView fitHeight="38.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../../../../images/ImgApellidos.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="66.0" fitWidth="181.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                  <ImageView fitHeight="28.0" fitWidth="121.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../../../../images/MedicoLetras.png" />
+                        <Image url="@../../../../images/ImgNombre.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="LblGimnasio" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="363.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                  <Label fx:id="LblEntrenador" alignment="CENTER" prefHeight="38.0" prefWidth="310.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Label fx:id="LblMedico" alignment="CENTER" prefHeight="40.0" prefWidth="303.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label fx:id="LblTipoUsuario" alignment="CENTER" prefHeight="64.0" prefWidth="468.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6">
+                     <GridPane.margin>
+                        <Insets left="25.0" />
+                     </GridPane.margin>
+                  </Label>
                </children>
             </GridPane>
          </center></BorderPane>
