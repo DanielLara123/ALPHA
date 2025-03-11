@@ -1,5 +1,6 @@
 package com.example.proyectoalpha.controller.Atleta;
-/*
+
+import com.example.proyectoalpha.clases.*;
 import com.example.proyectoalpha.controller.ConfirmacionController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-/*
+
 public class ConfiguracionUsuarioController {
 
     @FXML
@@ -27,9 +28,7 @@ public class ConfiguracionUsuarioController {
     @FXML
     private Button BtnVolver;
 
-    private String dniUsuario;
-    private String correoUsuario;
-    private String contrasenaUsuario;
+    private Usuario usuario;
 
 
     @FXML
@@ -40,10 +39,8 @@ public class ConfiguracionUsuarioController {
         colocarImagenBotones();
     }
 
-    public void setDatosUsuario(String dni, String correo, String contrasena){
-        dniUsuario = dni;
-        correoUsuario = correo;
-        contrasenaUsuario = contrasena;
+    public void setDatosUsuario(Usuario usuario){
+        this.usuario = usuario;
     }
 
 
@@ -69,7 +66,7 @@ public class ConfiguracionUsuarioController {
             Parent root = loader.load();
 
             CambiarDatosPersonalesController controller = loader.getController();
-            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnCambiarDatosPersonales.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -85,7 +82,7 @@ public class ConfiguracionUsuarioController {
             Parent root = loader.load();
 
             MenuAtletaController controller = loader.getController();
-            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -108,32 +105,32 @@ public class ConfiguracionUsuarioController {
             stage.setScene(new Scene(root));
             stage.showAndWait();
 
-            if (confirmacionController.estaConfirmado()) {
-                servicioUsuario servicioUsuario = new servicioUsuario();
-                servicioUsuario.eliminarUsuario(correoUsuario);
-
-                File datosMedicosFile = new File(correoUsuario + "_datosMedicos.json");
-                File historialFile = new File(correoUsuario + "_historial.json");
-                File rutinasFile = new File(correoUsuario + "_rutinas.json");
-
-                if (datosMedicosFile.exists()) {
-                    datosMedicosFile.delete();
-                }
-
-                if (historialFile.exists()) {
-                    historialFile.delete();
-                }
-
-                if (rutinasFile.exists()) {
-                    rutinasFile.delete();
-                }
-
-                FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/TipoUsuario.fxml"));
-                Parent mainRoot = mainLoader.load();
-                Stage mainStage = (Stage) BtnDarseDeBaja.getScene().getWindow();
-                mainStage.setScene(new Scene(mainRoot));
-                mainStage.show();
-            }
+//            if (confirmacionController.estaConfirmado()) {
+//                    servicioUsuario servicioUsuario = new servicioUsuario();
+//                    servicioUsuario.eliminarUsuario(correoUsuario);
+//
+//                    File datosMedicosFile = new File(correoUsuario + "_datosMedicos.json");
+//                    File historialFile = new File(correoUsuario + "_historial.json");
+//                    File rutinasFile = new File(correoUsuario + "_rutinas.json");
+//
+//                    if (datosMedicosFile.exists()) {
+//                        datosMedicosFile.delete();
+//                    }
+//
+//                    if (historialFile.exists()) {
+//                        historialFile.delete();
+//                    }
+//
+//                    if (rutinasFile.exists()) {
+//                        rutinasFile.delete();
+//                    }
+//
+//                    FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/TipoUsuario.fxml"));
+//                    Parent mainRoot = mainLoader.load();
+//                    Stage mainStage = (Stage) BtnDarseDeBaja.getScene().getWindow();
+//                    mainStage.setScene(new Scene(mainRoot));
+//                    mainStage.show();
+//            }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -142,4 +139,3 @@ public class ConfiguracionUsuarioController {
 }
 
 
- */

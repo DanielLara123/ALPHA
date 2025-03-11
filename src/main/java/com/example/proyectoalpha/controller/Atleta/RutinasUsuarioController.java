@@ -1,5 +1,6 @@
 package com.example.proyectoalpha.controller.Atleta;
-/*
+
+import com.example.proyectoalpha.clases.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-/*
+
 public class RutinasUsuarioController {
 
     @FXML
@@ -23,9 +24,7 @@ public class RutinasUsuarioController {
     @FXML
     private Button BtnVolver;
 
-    private String dniUsuario;
-    private String correoUsuario;
-    private String contrasenaUsuario;
+    private Usuario usuario;
 
     @FXML
     public void initialize() {
@@ -35,10 +34,8 @@ public class RutinasUsuarioController {
         colocarImagenBotones();
     }
 
-    public void setDatosUsuario(String dni, String correo, String contrasena) {
-        dniUsuario = dni;
-        correoUsuario = correo;
-        contrasenaUsuario = contrasena;
+    public void setDatosUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     private void mostrarRutinas() {
@@ -47,7 +44,7 @@ public class RutinasUsuarioController {
             Parent root = loader.load();
 
             MostrarRutinasController controller = loader.getController();
-            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnMisRutinas.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -63,7 +60,7 @@ public class RutinasUsuarioController {
             Parent root = loader.load();
 
             CrearRutinasController controller = loader.getController();
-            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnCrearRutina.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -79,7 +76,7 @@ public class RutinasUsuarioController {
             Parent root = loader.load();
 
             MenuAtletaController controller = loader.getController();
-            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -106,4 +103,3 @@ public class RutinasUsuarioController {
     }
 }
 
- */

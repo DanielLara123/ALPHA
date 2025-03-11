@@ -1,5 +1,6 @@
 package com.example.proyectoalpha.controller.Atleta;
-/*
+
+import com.example.proyectoalpha.clases.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -60,9 +61,7 @@ public class MenuAtletaController {
     @FXML
     private Label LblChat;
 
-    private String dniUsuario;
-    private String correoUsuario;
-    private String contrasenaUsuario;
+    private Usuario usuario;
 
     @FXML
     private void initialize(){
@@ -104,10 +103,8 @@ public class MenuAtletaController {
 
     }
 
-    public void setDatosUsuario(String dni, String correo, String contrasena) {
-        dniUsuario = dni;
-        correoUsuario = correo;
-        contrasenaUsuario = contrasena;
+    public void setDatosUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     private void manejarConfiguracion(){
@@ -116,7 +113,7 @@ public class MenuAtletaController {
             Parent root = loader.load();
 
             ConfiguracionUsuarioController controller = loader.getController();
-            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnConfiguracion.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -132,7 +129,7 @@ public class MenuAtletaController {
             Parent root = loader.load();
 
             RutinasUsuarioController controller = loader.getController();
-            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnRutinas.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -149,7 +146,7 @@ public class MenuAtletaController {
             Stage stage = (Stage) BtnNotificaciones.getScene().getWindow();
 
             NotificacionesUsuarioController controller = loader.getController();
-            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+            controller.setDatosUsuario(usuario);
 
             stage.setScene(new Scene(root));
             stage.show();
@@ -164,7 +161,7 @@ public class MenuAtletaController {
             Parent root = loader.load();
 
             MisDatosUsuarioController controller = loader.getController();
-            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnMisDatos.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -180,7 +177,7 @@ public class MenuAtletaController {
             Parent root = loader.load();
 
             LogrosUsuarioController controller = loader.getController();
-            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnLogros.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -196,7 +193,7 @@ public class MenuAtletaController {
             Parent root = loader.load();
 
             EjerciciosUsuarioController controller = loader.getController();
-            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnEjercicios.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -219,4 +216,4 @@ public class MenuAtletaController {
     }
 }
 
- */
+

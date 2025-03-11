@@ -1,5 +1,7 @@
 package com.example.proyectoalpha.controller.Atleta;
-/*
+
+import com.example.proyectoalpha.clases.*;
+import com.example.proyectoalpha.Atleta.*;
 import com.example.proyectoalpha.clases.Ejercicio;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +19,7 @@ import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Set;
-/*
+
 public class LogrosUsuarioController {
 
     @FXML
@@ -35,28 +37,18 @@ public class LogrosUsuarioController {
     @FXML
     private Label LblMensaje;
 
-    private String dniUsuario;
-    private String correoUsuario;
-    private String contrasenaUsuario;
+    private Usuario usuario;
 
-    private ServicioEjercicios servicioEjercicios;
 
     @FXML
     private void initialize() {
-        servicioEjercicios = new ServicioEjercicios();
-        Set<String> gruposMusculares = servicioEjercicios.obtenerGruposMusculares();
-        ChoiceGrupoMuscular.getItems().addAll(gruposMusculares);
-
-        ChoiceGrupoMuscular.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                ObservableList<String> ejercicios = FXCollections.observableArrayList(servicioEjercicios.obtenerEjercicios(newValue).stream().map(Ejercicio::getNombre).toList());
-                ChoiceEjercicio.setItems(ejercicios);
-            }
-        });
-
         BtnBuscar.setOnAction(event -> manejarContinuar());
         BtnVolver.setOnAction(event -> manejarVolver());
         colocarImagenBotones();
+    }
+
+    public void setDatosUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     private void manejarVolver() {
@@ -65,7 +57,7 @@ public class LogrosUsuarioController {
             Parent root = loader.load();
 
             MenuAtletaController controller = loader.getController();
-            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -82,7 +74,7 @@ public class LogrosUsuarioController {
                 Parent root = loader.load();
 
                 MostrarLogrosController controller = loader.getController();
-                controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+                controller.setDatosUsuario(usuario);
                 controller.setEjercicio(ChoiceEjercicio.getValue());
 
                 Stage stage = (Stage) BtnBuscar.getScene().getWindow();
@@ -100,12 +92,6 @@ public class LogrosUsuarioController {
         return ChoiceGrupoMuscular.getValue() != null && ChoiceEjercicio.getValue() != null;
     }
 
-    public void setDatosUsuario(String dniUsuario, String correoUsuario, String contrasenaUsuario) {
-        this.dniUsuario = dniUsuario;
-        this.correoUsuario = correoUsuario;
-        this.contrasenaUsuario = contrasenaUsuario;
-    }
-
     private void colocarImagenBotones() {
         URL volver = getClass().getResource("/images/VolverAtras.png");
 
@@ -115,4 +101,3 @@ public class LogrosUsuarioController {
     }
 }
 
- */

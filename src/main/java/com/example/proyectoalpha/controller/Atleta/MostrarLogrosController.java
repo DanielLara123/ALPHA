@@ -1,5 +1,6 @@
 package com.example.proyectoalpha.controller.Atleta;
-/*
+
+import com.example.proyectoalpha.clases.Usuario;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
@@ -18,7 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.Stack;
-/*
+
 public class MostrarLogrosController {
 
     @FXML
@@ -30,9 +31,7 @@ public class MostrarLogrosController {
     @FXML
     private Label LblMensaje;
 
-    private String dniUsuario;
-    private String correoUsuario;
-    private String contrasenaUsuario;
+    private Usuario usuario;
     private String ejercicio;
 
     @FXML
@@ -43,57 +42,6 @@ public class MostrarLogrosController {
 
     public void setEjercicio(String ejercicio) {
         this.ejercicio = ejercicio;
-        cargarLogros();
-    }
-
-    private void cargarLogros() {
-        String fileName = correoUsuario + "_historial.json";
-        File file = new File(fileName);
-        if (!file.exists()) {
-            LblMensaje.setText("El archivo de historial no se encuentra.");
-        } else {
-            ObjectMapper objectMapper = new ObjectMapper();
-
-            try {
-                JsonNode rootNode = objectMapper.readTree(file);
-                if (rootNode.isArray()) {
-                    boolean found = false;
-                    for (JsonNode exerciseNode : rootNode) {
-                        JsonNode nombreEjercicioNode = exerciseNode.get("nombreEjercicio");
-                        JsonNode historialEjercicios = exerciseNode.get("historialEjercicios");
-
-                        if (nombreEjercicioNode != null && historialEjercicios != null) {
-                            String nombreEjercicio = nombreEjercicioNode.asText();
-                            if (nombreEjercicio.equals(ejercicio)) {
-                                found = true;
-                                Stack<String> stack = new Stack<>();
-                                Iterator<JsonNode> elements = historialEjercicios.elements();
-
-                                while (elements.hasNext()) {
-                                    JsonNode node = elements.next();
-                                    String date = new java.util.Date(node.get("fecha").asLong()).toString();
-                                    int reps = node.get("repeticiones").asInt();
-                                    double weight = node.get("peso").asDouble();
-                                    stack.push("Fecha: " + date + ", Repeticiones: " + reps + ", Peso: " + weight + " kg");
-                                }
-
-                                while (!stack.isEmpty()) {
-                                    ListViewLogros.getItems().add(stack.pop());
-                                }
-                            }
-                        }
-                    }
-                    if (!found) {
-                        LblMensaje.setText("No se encontraron registros para el ejercicio seleccionado.");
-                    }
-                } else {
-                    LblMensaje.setText("El archivo de historial no contiene los datos esperados.");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                LblMensaje.setText("Error al leer el archivo de historial.");
-            }
-        }
     }
 
 
@@ -103,7 +51,7 @@ public class MostrarLogrosController {
             Parent root = loader.load();
 
             MenuAtletaController controller = loader.getController();
-            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -113,10 +61,8 @@ public class MostrarLogrosController {
         }
     }
 
-    public void setDatosUsuario(String dniUsuario, String correoUsuario, String contrasenaUsuario) {
-        this.dniUsuario = dniUsuario;
-        this.correoUsuario = correoUsuario;
-        this.contrasenaUsuario = contrasenaUsuario;
+    public void setDatosUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     private void colocarImagenBotones() {
@@ -127,5 +73,3 @@ public class MostrarLogrosController {
         BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 }
-
- */
