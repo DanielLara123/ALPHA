@@ -1,8 +1,9 @@
 package com.example.proyectoalpha.controller.Atleta;
 
-/*
+
 import com.example.proyectoalpha.clases.Ejercicio;
 import com.example.proyectoalpha.clases.Rutina;
+import com.example.proyectoalpha.clases.Usuario;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
@@ -51,9 +52,7 @@ public class VerRutinasController {
     private Rutina rutina;
     private ObservableList<Ejercicio> ejercicios;
 
-    private String dniUsuario;
-    private String correoUsuario;
-    private String contrasenaUsuario;
+    private Usuario usuario;
 
 
 
@@ -63,7 +62,7 @@ public class VerRutinasController {
     }
 
     private void loadEjercicios() {
-        ejercicios = FXCollections.observableArrayList(rutina.getEjercicios());
+//        ejercicios = FXCollections.observableArrayList(rutina.getEjercicios());
         tableViewEjercicios.setItems(ejercicios);
     }
 
@@ -109,8 +108,8 @@ public class VerRutinasController {
                     pesoResult.ifPresent(pesoInput -> {
                         try {
                             double peso = Double.parseDouble(pesoInput.trim());
-                            HistorialEjercicio historialEjercicio = new HistorialEjercicio(new Date(), peso, repeticiones);
-                            guardarHistorial(selectedEjercicio.getNombre(), historialEjercicio);
+//                            HistorialEjercicio historialEjercicio = new HistorialEjercicio(new Date(), peso, repeticiones);
+//                            guardarHistorial(selectedEjercicio.getNombre(), historialEjercicio);
                         } catch (NumberFormatException e) {
                             showAlert("Error", "Formato incorrecto. Use números para peso.");
                         }
@@ -124,36 +123,36 @@ public class VerRutinasController {
         }
     }
 
-    private void guardarHistorial(String nombreEjercicio, HistorialEjercicio historialEjercicio) {
-        String email = correoUsuario;
-        String fileName = email + "_historial.json";
-        ObjectMapper mapper = new ObjectMapper();
-        File file = new File(fileName);
-        List<HistorialesEjercicios> historialesList;
-
-        try {
-            if (file.exists() && file.length() > 0) {
-                historialesList = mapper.readValue(file, new TypeReference<List<HistorialesEjercicios>>() {});
-            } else {
-                historialesList = new ArrayList<>();
-            }
-
-            // Find the existing HistorialesEjercicios for the given exercise or create a new one
-            HistorialesEjercicios historialesEjercicios = historialesList.stream()
-                    .filter(h -> h.getNombreEjercicio().equals(nombreEjercicio))
-                    .findFirst()
-                    .orElseGet(() -> {
-                        HistorialesEjercicios newHistorial = new HistorialesEjercicios(nombreEjercicio, new ArrayList<>());
-                        historialesList.add(newHistorial);
-                        return newHistorial;
-                    });
-
-            historialesEjercicios.getHistorialEjercicios().add(historialEjercicio);
-            mapper.writeValue(file, historialesList);
-        } catch (IOException e) {
-            showAlert("Error", "No se pudo guardar el historial. Detalles: " + e.getMessage());
-        }
-    }
+//    private void guardarHistorial(String nombreEjercicio, HistorialEjercicio historialEjercicio) {
+//        String email = usuario.getCorreo();
+//        String fileName = email + "_historial.json";
+//        ObjectMapper mapper = new ObjectMapper();
+//        File file = new File(fileName);
+//        List<HistorialesEjercicios> historialesList;
+//
+//        try {
+//            if (file.exists() && file.length() > 0) {
+//                historialesList = mapper.readValue(file, new TypeReference<List<HistorialesEjercicios>>() {});
+//            } else {
+//                historialesList = new ArrayList<>();
+//            }
+//
+//            // Find the existing HistorialesEjercicios for the given exercise or create a new one
+//            HistorialesEjercicios historialesEjercicios = historialesList.stream()
+//                    .filter(h -> h.getNombreEjercicio().equals(nombreEjercicio))
+//                    .findFirst()
+//                    .orElseGet(() -> {
+//                        HistorialesEjercicios newHistorial = new HistorialesEjercicios(nombreEjercicio, new ArrayList<>());
+//                        historialesList.add(newHistorial);
+//                        return newHistorial;
+//                    });
+//
+//            historialesEjercicios.getHistorialEjercicios().add(historialEjercicio);
+//            mapper.writeValue(file, historialesList);
+//        } catch (IOException e) {
+//            showAlert("Error", "No se pudo guardar el historial. Detalles: " + e.getMessage());
+//        }
+//    }
 
     private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -168,7 +167,7 @@ public class VerRutinasController {
             Parent root = loader.load();
 
             MostrarRutinasController controller = loader.getController();
-            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -186,11 +185,8 @@ public class VerRutinasController {
         BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 
-    public void setDatosUsuario(String dniUsuario, String correoUsuario, String contrasenaUsuario) {
-        this.dniUsuario = dniUsuario;
-        this.correoUsuario = correoUsuario;
-        this.contrasenaUsuario = contrasenaUsuario;
+    public void setDatosUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
-}
 
- */
+}

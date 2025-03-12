@@ -1,6 +1,7 @@
 package com.example.proyectoalpha.controller.Atleta;
-/*
+
 import com.example.proyectoalpha.clases.Rutina;
+import com.example.proyectoalpha.clases.Usuario;
 import com.example.proyectoalpha.controller.ConfirmacionController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +18,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-/*
+
 public class MostrarRutinasController {
 
     @FXML
@@ -35,21 +36,14 @@ public class MostrarRutinasController {
     @FXML
     private ListView<String> ListViewRutinas;
 
-    private String dniUsuario;
-    private String correoUsuario;
-    private String contrasenaUsuario;
-
-    private ObservableList<String> rutinaList;
-    private ServicioRutinas servicioRutinas;
+    private Usuario usuario;
 
     @FXML
     public void initialize() {
-        servicioRutinas = new ServicioRutinas();
         BtnVerRutina.setOnAction(event -> manejarVerRutina());
         BtnEliminarRutina.setOnAction(event -> manejarEliminarRutina());
         BtnVolver.setOnAction(event -> manejarVolver());
         colocarImagenBotones();
-
     }
 
     private void manejarVerRutina() {
@@ -60,9 +54,7 @@ public class MostrarRutinasController {
                 Parent root = loader.load();
 
                 VerRutinasController controller = loader.getController();
-                Rutina selectedRutina = servicioRutinas.getRutinaByName(correoUsuario, selectedItem.split(" - ")[0]);
-                controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
-                controller.setRutina(selectedRutina);
+                controller.setDatosUsuario(usuario);
 
                 Stage stage = (Stage) BtnVolver.getScene().getWindow();
                 stage.setScene(new Scene(root));
@@ -90,8 +82,6 @@ public class MostrarRutinasController {
 
                 if (confirmacionController.estaConfirmado()) {
                     String rutinaName = selectedItem.split(" - ")[0];
-                    servicioRutinas.eliminarRutina(correoUsuario, rutinaName);
-                    rutinaList.remove(selectedItem);
                     showMessage("Rutina eliminada correctamente.");
                 } else {
                     showMessage("Eliminación de rutina cancelada.");
@@ -105,25 +95,8 @@ public class MostrarRutinasController {
         }
     }
 
-    public void setDatosUsuario(String dni, String correo, String contrasena) {
-        dniUsuario = dni;
-        correoUsuario = correo;
-        contrasenaUsuario = contrasena;
-        loadRutinas();
-    }
-
-    private void loadRutinas() {
-        try {
-            List<Rutina> rutinas = servicioRutinas.loadRutinas(correoUsuario);
-            rutinaList = FXCollections.observableArrayList();
-            for (Rutina rutina : rutinas) {
-                rutinaList.add(rutina.getNombre() + " - " + rutina.getAutor());
-            }
-            ListViewRutinas.setItems(rutinaList);
-        } catch (IOException e) {
-            e.printStackTrace();
-            showMessage("Error: No se pudieron cargar las rutinas.");
-        }
+    public void setDatosUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     private void manejarVolver() {
@@ -132,7 +105,7 @@ public class MostrarRutinasController {
             Parent root = loader.load();
 
             RutinasUsuarioController controller = loader.getController();
-            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -153,6 +126,5 @@ public class MostrarRutinasController {
     private void showMessage(String message) {
         LblMensaje.setText(message);
     }
-}
 
- */
+}

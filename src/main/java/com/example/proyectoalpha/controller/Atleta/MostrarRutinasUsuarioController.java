@@ -1,5 +1,5 @@
 package com.example.proyectoalpha.controller.Atleta;
-/*
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,7 +19,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-/*
+
 public class MostrarRutinasUsuarioController {
 
     @FXML
@@ -32,25 +32,13 @@ public class MostrarRutinasUsuarioController {
     private Button BtnVolver;
 
     private Map<String, Map<String, Object>> rutinas;
-    private LinkedList<String> rutinaNombres;
-    private static final String JSON_PATH = "rutinas.json";
 
     @FXML
     public void initialize() {
         // Inicializar datos
         BtnVolver.setOnAction(event -> manejarVolver());
         rutinas = new HashMap<>();
-        rutinaNombres = new LinkedList<>();
-        cargarRutinas();
 
-        // Cargar los nombres de rutinas en la lista
-        ObservableList<String> observableRutinas = FXCollections.observableArrayList();
-        for (int i = 0; i < rutinaNombres.size(); i++) {
-            observableRutinas.add(rutinaNombres.obtener(i));
-        }
-        listViewRutinas.setItems(observableRutinas);
-
-        // Personalizar las celdas del ListView
         listViewRutinas.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -143,34 +131,6 @@ public class MostrarRutinasUsuarioController {
     }
 
 
-
-
-
-    private void cargarRutinas() {
-        try {
-            // Leer el archivo JSON
-            String content = new String(Files.readAllBytes(Paths.get(JSON_PATH)));
-
-            // Parsear el contenido manualmente
-            String[] bloques = content.split("\"rutinas\":\\s*\\{")[1].split("}\\s*}\\s*")[0].split("\\},");
-            for (String bloque : bloques) {
-                bloque = bloque.trim().endsWith("}") ? bloque : bloque + "}";
-                String nombre = bloque.split(":")[0].replace("\"", "").trim();
-                String diasString = bloque.split("\"dias\":\\s*\\[")[1].split("]")[0];
-                String[] dias = diasString.replace("\"", "").split(",");
-
-                Map<String, Object> rutina = new HashMap<>();
-                rutina.put("nombre", nombre);
-                rutina.put("dias", dias);
-
-                rutinas.put(nombre, rutina);
-                rutinaNombres.insertarCabeza(nombre); // Añadir a la lista enlazada
-            }
-        } catch (Exception e) {
-            mostrarError("Error al cargar las rutinas: " + e.getMessage());
-        }
-    }
-
     private void mostrarMensaje(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Información");
@@ -200,5 +160,5 @@ public class MostrarRutinasUsuarioController {
     }
 
 }
-*/
+
 

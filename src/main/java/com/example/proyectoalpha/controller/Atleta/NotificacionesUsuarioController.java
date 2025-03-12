@@ -1,5 +1,6 @@
 package com.example.proyectoalpha.controller.Atleta;
-/*
+
+import com.example.proyectoalpha.clases.Usuario;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
@@ -18,7 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.Iterator;
-/*
+
 public class NotificacionesUsuarioController {
 
     @FXML
@@ -27,9 +28,7 @@ public class NotificacionesUsuarioController {
     @FXML
     private Label LblMensaje;
 
-    private String dniUsuario;
-    private String correoUsuario;
-    private String contrasenaUsuario;
+    private Usuario usuario;
 
     @FXML
     private void initialize() {
@@ -37,56 +36,8 @@ public class NotificacionesUsuarioController {
         colocarImagenBotones();
     }
 
-    public void setDatosUsuario(String dni, String correo, String contrasena) {
-        dniUsuario = dni;
-        correoUsuario = correo;
-        contrasenaUsuario = contrasena;
-        cargarNotificaciones();
-    }
-
-    private void cargarNotificaciones() {
-        String fileName = correoUsuario + "_historial.json";
-        File file = new File(fileName);
-        if (!file.exists()) {
-            LblMensaje.setText("El archivo de historial no se encuentra.");
-        } else {
-            ObjectMapper objectMapper = new ObjectMapper();
-
-            try {
-                JsonNode rootNode = objectMapper.readTree(file);
-                long lastDate = 0;
-
-                if (rootNode.isArray()) {
-                    for (JsonNode exerciseNode : rootNode) {
-                        JsonNode historialEjercicios = exerciseNode.get("historialEjercicios");
-
-                        if (historialEjercicios != null) {
-                            Iterator<JsonNode> elements = historialEjercicios.elements();
-
-                            while (elements.hasNext()) {
-                                JsonNode node = elements.next();
-                                long date = node.get("fecha").asLong();
-                                if (date > lastDate) {
-                                    lastDate = date;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if (lastDate > 0) {
-                    long currentTime = System.currentTimeMillis();
-                    long timePassed = currentTime - lastDate;
-                    long daysPassed = timePassed / (1000 * 60 * 60 * 24);
-                    LblMensaje.setText("Han pasado " + daysPassed + " días desde tu último ejercicio.");
-                } else {
-                    LblMensaje.setText("No se encontraron registros de ejercicios.");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                LblMensaje.setText("Error al leer el archivo de historial.");
-            }
-        }
+    public void setDatosUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     private void manejarVolver() {
@@ -95,7 +46,7 @@ public class NotificacionesUsuarioController {
             Parent root = loader.load();
 
             MenuAtletaController controller = loader.getController();
-            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -114,4 +65,3 @@ public class NotificacionesUsuarioController {
     }
 }
 
- */

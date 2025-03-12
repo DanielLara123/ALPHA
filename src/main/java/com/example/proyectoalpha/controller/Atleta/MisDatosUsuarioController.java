@@ -1,5 +1,6 @@
 package com.example.proyectoalpha.controller.Atleta;
-/*
+
+import com.example.proyectoalpha.clases.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,12 +13,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-/*
-package com.example.proyectoalpha.controller.Atleta;
-
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 
 public class MisDatosUsuarioController {
 
@@ -52,11 +47,25 @@ public class MisDatosUsuarioController {
     }
 
     // Setea los datos del usuario en los labels
-    public void setDatosUsuario(String dni, String correo, String contrasena) {
-        LblSetDni.setText(dni);
-        LblSetCorreo.setText(correo);
-        LblSetContrasena.setText(contrasena);
+    public void setDatosUsuario(Usuario usuario) {
+        LblSetDni.setText(usuario.getDNI());
+        LblCorreo.setText(usuario.getCorreo());
+        LblPassword.setText(usuario.getContrasena());
+        LblNombre.setText(usuario.getNombre());
+        LblApellidos.setText(usuario.getApellidos());
+        LblTipoUsuario.setText(usuario.getTipoUsuario());
+        LblGimnasio.setText(usuario.getGimnasio());
     }
+
+    Usuario usuario = new Usuario(
+            LblSetDni.getText(),
+            LblCorreo.getText(),
+            LblPassword.getText(),
+            LblNombre.getText(),
+            LblApellidos.getText(),
+            LblTipoUsuario.getText(),
+            LblGimnasio.getText()
+    );
 
     private void manejarVolver() {
         try {
@@ -64,7 +73,7 @@ public class MisDatosUsuarioController {
             Parent root = loader.load();
 
             MenuAtletaController controller = loader.getController();
-            controller.setDatosUsuario(LblSetDni.getText(), LblSetCorreo.getText(), LblSetContrasena.getText());
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -85,4 +94,3 @@ public class MisDatosUsuarioController {
 }
 
 
- */

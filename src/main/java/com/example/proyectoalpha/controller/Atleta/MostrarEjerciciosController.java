@@ -1,5 +1,6 @@
 package com.example.proyectoalpha.controller.Atleta;
-/*
+
+import com.example.proyectoalpha.clases.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +14,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-/*
+
 public class MostrarEjerciciosController {
 
     @FXML
@@ -23,10 +24,7 @@ public class MostrarEjerciciosController {
     private ListView<String> ListViewEjercicios;
 
 
-    private String dniUsuario;
-    private String correoUsuario;
-    private String contrasenaUsuario;
-
+    private Usuario usuario;
     @FXML
     public void initialize() {
         BtnVolver.setOnAction(event -> manejarVolver());
@@ -38,13 +36,17 @@ public class MostrarEjerciciosController {
         ListViewEjercicios.getItems().addAll(ejercicios);
     }
 
+    public void setDatosUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     private void manejarVolver() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/MenuAtleta.fxml"));
             Parent root = loader.load();
 
             MenuAtletaController controller = loader.getController();
-            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -52,12 +54,6 @@ public class MostrarEjerciciosController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void setDatosUsuario(String dni, String correo, String contrasena) {
-        dniUsuario = dni;
-        correoUsuario = correo;
-        contrasenaUsuario = contrasena;
     }
 
     private void colocarImagenBotones() {
@@ -68,5 +64,3 @@ public class MostrarEjerciciosController {
         BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 }
-
- */

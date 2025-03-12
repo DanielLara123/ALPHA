@@ -1,6 +1,7 @@
 package com.example.proyectoalpha.controller.Atleta;
-/*
+
 import com.example.proyectoalpha.clases.Ejercicio;
+import com.example.proyectoalpha.clases.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/*
+
 public class EjerciciosUsuarioController {
 
     @FXML
@@ -32,52 +33,43 @@ public class EjerciciosUsuarioController {
     @FXML
     private ImageView ImgAlpha;
 
-    private ServicioEjercicios servicioEjercicios;
-
-    private String dniUsuario;
-    private String correoUsuario;
-    private String contrasenaUsuario;
+    private Usuario usuario;
 
     @FXML
     public void initialize() {
-        servicioEjercicios = new ServicioEjercicios();
-        Set<String> gruposMusculares = servicioEjercicios.obtenerGruposMusculares();
-        ChoiceGrupoMuscular.getItems().addAll(gruposMusculares);
         BtnVolver.setOnAction(event -> manejarVolver());
         BtnBuscar.setOnAction(event -> manejarBuscar());
         colocarImagenBotones();
     }
 
-    public void setDatosUsuario(String dni, String correo, String contrasena) {
-        this.dniUsuario = dni;
-        this.correoUsuario = correo;
-        this.contrasenaUsuario = contrasena;
+    public void setDatosUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @FXML
     private void manejarBuscar() {
         String selectedGrupoMuscular = ChoiceGrupoMuscular.getValue();
-        if (selectedGrupoMuscular != null) {
-            List<Ejercicio> ejerciciosFiltrados = servicioEjercicios.obtenerEjercicios(selectedGrupoMuscular);
-            List<String> nombresEjercicios = ejerciciosFiltrados.stream()
-                    .map(Ejercicio::getNombre)
-                    .collect(Collectors.toList());
-
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/MostrarEjercicios.fxml"));
-                Parent root = loader.load();
-                MostrarEjerciciosController controller = loader.getController();
-                controller.setEjercicios(nombresEjercicios);
-
-                controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
-
-                Stage stage = (Stage) BtnBuscar.getScene().getWindow();
-                stage.setScene(new Scene(root));
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//        if (selectedGrupoMuscular != null) {
+//            List<Ejercicio> ejerciciosFiltrados = servicioEjercicios.obtenerEjercicios(selectedGrupoMuscular);
+//            List<String> nombresEjercicios = ejerciciosFiltrados.stream()
+//                    .map(Ejercicio::getNombre)
+//                    .collect(Collectors.toList());
+//
+//            try {
+//                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/MostrarEjercicios.fxml"));
+//                Parent root = loader.load();
+//                MostrarEjerciciosController controller = loader.getController();
+//                controller.setEjercicios(nombresEjercicios);
+//
+//                controller.setDatosUsuario(usuario);
+//
+//                Stage stage = (Stage) BtnBuscar.getScene().getWindow();
+//                stage.setScene(new Scene(root));
+//                stage.show();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     private void manejarVolver() {
@@ -86,7 +78,7 @@ public class EjerciciosUsuarioController {
             Parent root = loader.load();
 
             MenuAtletaController controller = loader.getController();
-            controller.setDatosUsuario(dniUsuario, correoUsuario, contrasenaUsuario);
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -104,5 +96,3 @@ public class EjerciciosUsuarioController {
         BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 }
-
- */
