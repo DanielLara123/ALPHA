@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -50,6 +51,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.valignment="BOTTOM">
@@ -107,11 +109,7 @@
                   <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
                         <Label stylesheets="@../../../../css/ModeloAlpha.css" text="Introduce tu contraseña" />
-                        <TextField fx:id="TextFieldContrasena" prefHeight="25.0" prefWidth="309.0" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css">
-                           <padding>
-                              <Insets right="20.0" />
-                           </padding>
-                        </TextField>
+                        <PasswordField fx:id="PasswordFieldContrasena" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" />
                      </children>
                      <padding>
                         <Insets left="20.0" right="100.0" />
@@ -132,6 +130,7 @@
                   </VBox>
                </children>
             </GridPane>
+            <Label fx:id="LblMessage" stylesheets="@../../../../css/ModeloAlpha.css" />
             <Button fx:id="BtnYaTienesCuenta" alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="318.0" stylesheets="@../../../../css/ModeloAlpha.css" text="¿Ya tienes cuenta? Inicia sesión" />
             <Button fx:id="BtnContinuar" mnemonicParsing="false" prefHeight="89.0" prefWidth="228.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Continuar">
                <VBox.margin>

@@ -23,10 +23,13 @@ public class RegistroController {
     private Button BtnYaTienesCuenta;
 
     @FXML
-    private TextField TextFieldApellidos;
+    private Label LblMessage;
 
     @FXML
-    private PasswordField TextFieldContrasena;
+    private PasswordField PasswordFieldContrasena;
+
+    @FXML
+    private TextField TextFieldApellidos;
 
     @FXML
     private TextField TextFieldCorreo;
@@ -40,88 +43,23 @@ public class RegistroController {
     @FXML
     private TextField TextFieldNombre;
 
-    @FXML
-    private PasswordField TextFieldRepiteContrasena;
-
-    @FXML
-    private Label LblMessage;
-
-    private MariaDBController mariaDBController;
-    private String tipoUsuario;
+    MariaDBController MariaDB = new MariaDBController();
 
     @FXML
     void initialize() {
-        mariaDBController = new MariaDBController();
-
         BtnContinuar.setOnAction(event -> manejarContinuar());
-        BtnYaTienesCuenta.setOnAction(event -> manejarYaTienesCuenta());
         BtnVolver.setOnAction(event -> manejarVolver());
-    }
-
-    public void setTipoUsuario(String tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
-    }
-
-    private void manejarContinuar() {
-        String nombre = TextFieldNombre.getText();
-        String apellidos = TextFieldApellidos.getText();
-        String dni = TextFieldDNI.getText();
-        String correo = TextFieldCorreo.getText();
-        String contrasena = TextFieldContrasena.getText();
-        String repiteContrasena = TextFieldRepiteContrasena.getText();
-        String gimnasio = TextFieldGimnasio.getText();
-
-        if (nombre.isEmpty() || apellidos.isEmpty() || dni.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || repiteContrasena.isEmpty() || gimnasio.isEmpty()) {
-            LblMessage.setText("Necesitas llenar todos los campos");
-            return;
-        }
-
-        if (!correo.endsWith("@gmail.com")) {
-            LblMessage.setText("El correo debe terminar en @gmail.com");
-            return;
-        }
-
-        if (mariaDBController.emailEstaRegistrado(correo)) {
-            LblMessage.setText("El correo ya está registrado");
-            return;
-        }
-
-        if (!"Atleta".equalsIgnoreCase(tipoUsuario)) {
-            LblMessage.setText("Solo los atletas pueden registrarse");
-            return;
-        }
-
-        if (contrasena.equals(repiteContrasena)) {
-            Usuario usuario = new Usuario(nombre, apellidos, contrasena, dni, correo, tipoUsuario, gimnasio);
-            boolean registrado = mariaDBController.registrarUsuario(usuario);
-            if (registrado) {
-                LblMessage.setText("Usuario registrado correctamente");
-                // Show success alert
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Registro Exitoso");
-                alert.setHeaderText(null);
-                alert.setContentText("Usuario registrado correctamente");
-                alert.showAndWait();
-            } else {
-                LblMessage.setText("Error al registrar el usuario");
-                // Show error alert
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error de Registro");
-                alert.setHeaderText(null);
-                alert.setContentText("Error al registrar el usuario");
-                alert.showAndWait();
-            }
-        } else {
-            LblMessage.setText("Las contraseñas no coinciden");
-        }
+        BtnYaTienesCuenta.setOnAction(event -> manejarYaTienesCuenta());
     }
 
     private void manejarYaTienesCuenta() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/RegistroInicioSesion/InicioSesion.fxml"));
             Parent root = loader.load();
-            InicioSesionController inicioSesionController = loader.getController();
-            inicioSesionController.setTipoUsuario(tipoUsuario);
+
+            InicioSesionController controller = loader.getController();
+            controller.setTipoUsuario("Atleta");
+
             Stage stage = (Stage) BtnYaTienesCuenta.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -134,6 +72,7 @@ public class RegistroController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/TipoUsuario.fxml"));
             Parent root = loader.load();
+
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -141,4 +80,38 @@ public class RegistroController {
             e.printStackTrace();
         }
     }
+
+    private void manejarContinuar() {
+        String nombre = TextFieldNombre.getText();
+        String apellidos = TextFieldApellidos.getText();
+        String correo = TextFieldCorreo.getText();
+        String dni = TextFieldDNI.getText();
+        String contrasena = PasswordFieldContrasena.getText();
+        String gimnasio = TextFieldGimnasio.getText();
+
+        if (nombre.isEmpty() || apellidos.isEmpty() || correo.isEmpty() || dni.isEmpty() || contrasena.isEmpty() || gimnasio.isEmpty()) {
+            LblMessage.setText("Por favor, rellene todos los campos");
+        } else if (!correo.endsWith("@gmail.com")) {
+            LblMessage.setText("Por favor, introduzca un correo de Gmail");
+        } else if (MariaDB.emailEstaRegistrado(correo)) {
+            LblMessage.setText("El correo ya esta registrado");
+        } else {
+            Usuario usuario = new Usuario(nombre, apellidos, contrasena, dni, correo, "Atleta", gimnasio);
+            boolean registrado = MariaDB.registrarUsuario(usuario);
+            if (registrado) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Registro exitoso");
+                alert.setHeaderText(null);
+                alert.setContentText("Usuario registrado correctamente");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error al registrar");
+                alert.setHeaderText(null);
+                alert.setContentText("Error al registrar el usuario");
+                alert.showAndWait();
+            }
+        }
+    }
+
 }

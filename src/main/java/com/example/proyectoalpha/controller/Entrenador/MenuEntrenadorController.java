@@ -1,6 +1,6 @@
 package com.example.proyectoalpha.controller.Entrenador;
 
-/*
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -39,8 +39,8 @@ public class MenuEntrenadorController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Entrenador/OpcionesRutinas.fxml"));
             Parent root = loader.load();
 
-            OpcionesRutinasController controller = loader.getController();
-            controller.setCorreoEntrenador(correoEntrenador);
+            //OpcionesRutinasController controller = loader.getController();
+            //controller.setCorreoEntrenador(correoEntrenador);
 
             Stage stage = (Stage) BtnPlanes.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -68,8 +68,8 @@ public class MenuEntrenadorController {
             Parent root = loader.load();
             Stage stage = (Stage) BtnChat.getScene().getWindow();
 
-            ChatEntrenadorController controller = loader.getController();
-            controller.setCorreoEntrenador(correoEntrenador);
+            // Habra que llamar a chat "global" ChatEntrenadorController controller = loader.getController();
+            //controller.setCorreoEntrenador(correoEntrenador);
 
             stage.setScene(new Scene(root));
             stage.show();
@@ -96,4 +96,3 @@ public class MenuEntrenadorController {
     }
 }
 
- */

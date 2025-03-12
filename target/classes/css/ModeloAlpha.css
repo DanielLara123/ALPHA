@@ -19,6 +19,8 @@
     -fx-border-radius: 10px;
 }
 .textfield{
+    border: 1px solid black;
+    border-bottom: 2px solid red;
     -fx-background-color: #293133;
     -fx-text-fill: #efb810;
 }
@@ -26,6 +28,35 @@
     -fx-background-color: #efb810;
     -fx-text-fill: #293133;
 }
+
+.list-view {
+    -fx-background-color: #333; /* Fondo gris oscuro */
+    -fx-border-color: gold; /* Borde dorado */
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+}
+
+/* Estilo de los ítems de la lista */
+.list-view .list-cell {
+    -fx-text-fill: gold; /* Texto dorado */
+    -fx-font-size: 16px;
+    -fx-padding: 8px;
+    -fx-border-color: gold; /* Línea divisoria dorada */
+    -fx-border-width: 0 0 1px 0; /* Línea inferior */
+    -fx-background-color: transparent; /* Para evitar que JavaFX sobrescriba el color */
+}
+
+/* Cambiar el color al pasar el mouse */
+.list-view .list-cell:hover {
+    -fx-background-color: #444;
+}
+
+/* Evitar que los elementos seleccionados cambien de color inesperadamente */
+.list-view .list-cell:selected {
+    -fx-background-color: #555;
+}
+
+
 
 .scroll-pane {
     -fx-background-color: #000000;

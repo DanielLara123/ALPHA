@@ -86,10 +86,6 @@ public class InicioSesionController {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/RegistroInicioSesion/Registro.fxml"));
                 Parent root = loader.load();
-
-                RegistroController registroController = loader.getController();
-                registroController.setTipoUsuario(tipoUsuario);
-
                 Stage stage = (Stage) BtnNoTienesCuenta.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.show();

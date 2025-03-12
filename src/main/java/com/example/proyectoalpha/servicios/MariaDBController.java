@@ -156,9 +156,17 @@ public class MariaDBController {
             pstmt.setString(5, usuario.getCorreo());
             pstmt.setString(6, usuario.getTipoUsuario());
             pstmt.setString(7, usuario.getGimnasio());
+
             int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0;
+            if (rowsAffected > 0) {
+                System.out.println("User registered successfully");
+                return true;
+            } else {
+                System.out.println("No rows affected");
+                return false;
+            }
         } catch (SQLException e) {
+            System.out.println("SQL Exception: " + e.getMessage());
             e.printStackTrace();
             return false;
         }

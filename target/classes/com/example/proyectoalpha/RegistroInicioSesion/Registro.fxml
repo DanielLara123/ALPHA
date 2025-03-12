@@ -2,89 +2,142 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.RegistroInicioSesion.RegistroController">
+<AnchorPane maxWidth="1.7976931348623157E308" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.RegistroInicioSesion.RegistroController">
    <children>
-      <BorderPane prefHeight="454.0" prefWidth="659.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <bottom>
-            <VBox alignment="CENTER" prefHeight="442.0" prefWidth="690.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <GridPane prefHeight="300.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+              </rowConstraints>
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fitHeight="37.0" fitWidth="242.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../images/SeleccioneGimnasio.png" />
-                           </image>
-                        </ImageView>
-                        <ChoiceBox fx:id="ChoiceBoxSeleccionaGimnasio" prefWidth="150.0" stylesheets="@../../../../css/ModeloAlpha.css" />
-                     </children>
-                  </HBox>
-                  <Label fx:id="LblMessage" alignment="CENTER" prefHeight="17.0" prefWidth="484.0" stylesheets="@../../../../css/ModeloAlpha.css" textAlignment="CENTER" textFill="WHITE" />
-                  <TextField fx:id="LblCorreo" prefHeight="39.0" prefWidth="888.0" promptText="Correo electrónico" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin></TextField>
-                  <PasswordField fx:id="LblContrasena" prefHeight="40.0" prefWidth="890.0" promptText="Contraseña" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin></PasswordField>
-                  <PasswordField fx:id="LblRepiteContrasena" prefHeight="47.0" prefWidth="887.0" promptText="Repite la contraseña" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" />
-                  <Button fx:id="BtnContinuar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="68.0" prefWidth="183.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Continuar" textAlignment="CENTER" VBox.vgrow="ALWAYS">
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="BtnYaTienesCuenta" mnemonicParsing="false" prefHeight="25.0" prefWidth="469.0" stylesheets="@../../../../css/ModeloAlpha.css" text="¿Ya tienes cuenta? Inicia sesión">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </Button>
+                  <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="54.0" prefWidth="0.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.valignment="TOP" />
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../../../../images/Registrate.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="166.0" fitWidth="266.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../../../../images/ALPHA.png" />
+                     </image>
+                  </ImageView>
                </children>
-               <BorderPane.margin>
-                  <Insets left="200.0" right="200.0" />
-               </BorderPane.margin>
-            </VBox>
-         </bottom>
-         <center>
-            <ImageView fitHeight="65.0" fitWidth="164.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-               <image>
-                  <Image url="@../../../../images/Registrate.png" />
-               </image>
-               <BorderPane.margin>
-                  <Insets />
-               </BorderPane.margin>
-            </ImageView>
-         </center>
-         <top>
-            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            </GridPane>
+            <GridPane VBox.vgrow="ALWAYS">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
                <children>
-                  <HBox prefHeight="69.0" prefWidth="1080.0">
+                  <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.valignment="BOTTOM">
                      <children>
-                        <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="40.0" prefWidth="16.0" stylesheets="@../../../../css/ModeloAlpha.css" />
+                        <Label stylesheets="@../../../../css/ModeloAlpha.css" text="Introduce tu nombre" />
+                        <TextField fx:id="TextFieldNombre" prefHeight="25.0" prefWidth="309.0" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css">
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
+                        </TextField>
                      </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="181.0" prefWidth="659.0">
+                     <GridPane.margin>
+                        <Insets left="100.0" right="20.0" />
+                     </GridPane.margin>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                      <children>
-                        <ImageView fitHeight="166.0" fitWidth="268.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../images/LogoAlpha.png" />
-                           </image>
-                        </ImageView>
+                        <Label stylesheets="@../../../../css/ModeloAlpha.css" text="Introduce tu correo" />
+                        <TextField fx:id="TextFieldCorreo" prefHeight="25.0" prefWidth="309.0" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css">
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
+                        </TextField>
                      </children>
-                  </HBox>
+                     <padding>
+                        <Insets left="100.0" right="20.0" />
+                     </padding>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                     <children>
+                        <Label stylesheets="@../../../../css/ModeloAlpha.css" text="Introduce tu DNI" />
+                        <TextField fx:id="TextFieldDNI" prefHeight="25.0" prefWidth="309.0" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css">
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
+                        </TextField>
+                     </children>
+                     <GridPane.margin>
+                        <Insets left="100.0" right="20.0" />
+                     </GridPane.margin>
+                  </VBox>
+                  <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                     <children>
+                        <Label stylesheets="@../../../../css/ModeloAlpha.css" text="Introduce tus apellidos" />
+                        <TextField fx:id="TextFieldApellidos" prefHeight="25.0" prefWidth="309.0" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css">
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
+                        </TextField>
+                     </children>
+                     <GridPane.margin>
+                        <Insets left="20.0" right="100.0" />
+                     </GridPane.margin>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <Label stylesheets="@../../../../css/ModeloAlpha.css" text="Introduce tu contraseña" />
+                        <PasswordField fx:id="PasswordFieldContrasena" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" />
+                     </children>
+                     <padding>
+                        <Insets left="20.0" right="100.0" />
+                     </padding>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <children>
+                        <Label stylesheets="@../../../../css/ModeloAlpha.css" text="Introduce tu gimnasio" />
+                        <TextField fx:id="TextFieldGimnasio" prefHeight="25.0" prefWidth="309.0" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css">
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
+                        </TextField>
+                     </children>
+                     <GridPane.margin>
+                        <Insets left="20.0" right="100.0" />
+                     </GridPane.margin>
+                  </VBox>
                </children>
-            </VBox>
-         </top>
-      </BorderPane>
+            </GridPane>
+            <Label fx:id="LblMessage" stylesheets="@../../../../css/ModeloAlpha.css" />
+            <Button fx:id="BtnYaTienesCuenta" alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="318.0" stylesheets="@../../../../css/ModeloAlpha.css" text="¿Ya tienes cuenta? Inicia sesión" />
+            <Button fx:id="BtnContinuar" mnemonicParsing="false" prefHeight="89.0" prefWidth="228.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Continuar">
+               <VBox.margin>
+                  <Insets bottom="15.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
