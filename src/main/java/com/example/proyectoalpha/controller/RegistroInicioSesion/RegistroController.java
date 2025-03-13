@@ -7,9 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class RegistroController {
 
@@ -50,6 +53,7 @@ public class RegistroController {
         BtnContinuar.setOnAction(event -> manejarContinuar());
         BtnVolver.setOnAction(event -> manejarVolver());
         BtnYaTienesCuenta.setOnAction(event -> manejarYaTienesCuenta());
+        setImagenesBotones();
     }
 
     private void manejarYaTienesCuenta() {
@@ -112,6 +116,14 @@ public class RegistroController {
                 alert.showAndWait();
             }
         }
+    }
+
+    public void setImagenesBotones() {
+        URL volver = getClass().getResource("/images/VolverAtras.png");
+
+        Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
+
+        BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 
 }

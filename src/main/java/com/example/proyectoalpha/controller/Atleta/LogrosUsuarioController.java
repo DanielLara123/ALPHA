@@ -1,8 +1,6 @@
 package com.example.proyectoalpha.controller.Atleta;
 
 import com.example.proyectoalpha.clases.*;
-import com.example.proyectoalpha.Atleta.*;
-import com.example.proyectoalpha.clases.Ejercicio;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

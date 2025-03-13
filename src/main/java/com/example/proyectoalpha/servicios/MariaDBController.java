@@ -172,6 +172,19 @@ public class MariaDBController {
         }
     }
 
+    public boolean eliminarUsuario(int userId) {
+        String query = "DELETE FROM Usuario WHERE ID = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, userId);
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public boolean emailEstaRegistrado(String correo) {
         String sql = "SELECT * FROM Usuario WHERE correo = ?";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -179,6 +192,22 @@ public class MariaDBController {
             pstmt.setString(1, correo);
             ResultSet rs = pstmt.executeQuery();
             return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean actualizarDatosUsuario(int userId, String correo, String contrasena, String gimnasio) {
+        String query = "UPDATE Usuario SET correo = ?, contraseña = ?, gimnasio = ? WHERE ID = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, correo);
+            pstmt.setString(2, contrasena);
+            pstmt.setString(3, gimnasio);
+            pstmt.setInt(4, userId);
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

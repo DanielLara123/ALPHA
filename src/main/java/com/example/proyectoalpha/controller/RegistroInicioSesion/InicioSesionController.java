@@ -1,6 +1,10 @@
 package com.example.proyectoalpha.controller.RegistroInicioSesion;
 
 import com.example.proyectoalpha.clases.Usuario;
+import com.example.proyectoalpha.controller.Administrador.MenuAdminController;
+import com.example.proyectoalpha.controller.Atleta.MenuAtletaController;
+import com.example.proyectoalpha.controller.Entrenador.MenuEntrenadorController;
+import com.example.proyectoalpha.controller.Medico.MenuMedicoController;
 import com.example.proyectoalpha.servicios.MariaDBController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,9 +14,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class InicioSesionController {
 
@@ -44,6 +51,7 @@ public class InicioSesionController {
         BtnContinuar.setOnAction(event -> manejarContinuar());
         BtnNoTienesCuenta.setOnAction(event -> manejarNoTienesCuenta());
         BtnVolver.setOnAction(event -> manejarVolver());
+        setImagenesBotones();
     }
 
     public void setTipoUsuario(String tipoUsuario) {
@@ -113,6 +121,8 @@ public class InicioSesionController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/MenuAtleta.fxml"));
             Parent root = loader.load();
 
+            MenuAtletaController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnContinuar.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -127,6 +137,8 @@ public class InicioSesionController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Medico/MenuMedico.fxml"));
             Parent root = loader.load();
 
+            MenuMedicoController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnContinuar.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -141,6 +153,8 @@ public class InicioSesionController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/MenuAdministrador.fxml"));
             Parent root = loader.load();
 
+            MenuAdminController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnContinuar.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -155,7 +169,8 @@ public class InicioSesionController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Entrenador/MenuEntrenador.fxml"));
             Parent root = loader.load();
 
-
+            MenuEntrenadorController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnContinuar.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -163,5 +178,13 @@ public class InicioSesionController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setImagenesBotones() {
+        URL volver = getClass().getResource("/images/VolverAtras.png");
+
+        Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
+
+        BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 }

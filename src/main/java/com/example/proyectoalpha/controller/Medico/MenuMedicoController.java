@@ -1,5 +1,6 @@
 package com.example.proyectoalpha.controller.Medico;
 
+import com.example.proyectoalpha.clases.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,6 +25,7 @@ public class MenuMedicoController {
     @FXML
     private Button BtnCerrarSesion;
 
+    private Usuario usuario;
 
 
     @FXML
@@ -32,6 +34,10 @@ public class MenuMedicoController {
         BtnEstadisticasMedicasMedico.setOnAction(event -> HistorialMedico());
         BtnEmisionDeRecomendacionesMedico.setOnAction(event -> manejarChat());
         BtnCerrarSesion.setOnAction(event -> manejarCerrarSesion());
+    }
+
+    public void setDatosUsuario(Usuario usuario){
+        this.usuario = usuario;
     }
 
     public void HistorialMedico(){

@@ -3,6 +3,8 @@ package com.example.proyectoalpha.controller.Administrador;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.example.proyectoalpha.clases.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,6 +31,8 @@ public class MenuAdminController {
     @FXML
     private Button BtnGestionUsuarios;
 
+    private Usuario usuario;
+
     @FXML
     void initialize() {
         BtnCerrarSesion.setOnAction(event -> manejarCerrarSesion());
@@ -36,6 +40,10 @@ public class MenuAdminController {
         BtnControlAfluencia.setOnAction(event -> manejarControlAfluencia());
 
         colocarImagenBotones();
+    }
+
+    public void setDatosUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     private void manejarCerrarSesion() {
@@ -76,4 +84,6 @@ public class MenuAdminController {
             System.err.println("Error al cargar la imagen: " + rutaImagen);
         }
     }
+
+
 }

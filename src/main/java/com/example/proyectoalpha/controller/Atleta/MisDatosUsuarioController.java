@@ -40,14 +40,20 @@ public class MisDatosUsuarioController {
     @FXML
     private Label LblTipoUsuario;
 
+    private Usuario usuario;
+
     @FXML
     public void initialize() {
         BtnVolver.setOnAction(event -> manejarVolver());
         colocarImagenBotones();
     }
 
-    // Setea los datos del usuario en los labels
     public void setDatosUsuario(Usuario usuario) {
+        this.usuario = usuario;
+        mostrarDatosUsuario(usuario);
+    }
+    // Setea los datos del usuario en los labels
+    public void mostrarDatosUsuario(Usuario usuario) {
         LblSetDni.setText(usuario.getDNI());
         LblCorreo.setText(usuario.getCorreo());
         LblPassword.setText(usuario.getContrasena());
@@ -57,15 +63,6 @@ public class MisDatosUsuarioController {
         LblGimnasio.setText(usuario.getGimnasio());
     }
 
-    Usuario usuario = new Usuario(
-            LblSetDni.getText(),
-            LblCorreo.getText(),
-            LblPassword.getText(),
-            LblNombre.getText(),
-            LblApellidos.getText(),
-            LblTipoUsuario.getText(),
-            LblGimnasio.getText()
-    );
 
     private void manejarVolver() {
         try {

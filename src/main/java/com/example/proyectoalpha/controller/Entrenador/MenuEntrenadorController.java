@@ -1,6 +1,7 @@
 package com.example.proyectoalpha.controller.Entrenador;
 
 
+import com.example.proyectoalpha.clases.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,6 +26,7 @@ public class MenuEntrenadorController {
     private Button BtnPlanes;
 
     private String correoEntrenador;
+    private Usuario usuario;
 
     @FXML
     void initialize() {
@@ -32,6 +34,10 @@ public class MenuEntrenadorController {
         BtnCerrarSesion.setOnAction(event -> manejarCerrarSesion());
         colocarImagenBotones();
         BtnChat.setOnAction(event -> manejarChat());
+    }
+
+    public void setDatosUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     void manejarPlanes(){
@@ -94,5 +100,7 @@ public class MenuEntrenadorController {
     public void setCorreoEntrenador(String text) {
         this.correoEntrenador = text;
     }
+
+
 }
 

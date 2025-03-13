@@ -10,6 +10,8 @@ module com.example.proyectoalpha {
     exports com.example.proyectoalpha.controller;
     opens com.example.proyectoalpha.controller to javafx.fxml;
     exports com.example.proyectoalpha.clases;
+    opens com.example.proyectoalpha.controller.Atleta to javafx.fxml;
+    exports com.example.proyectoalpha.controller.Atleta;
     exports com.example.proyectoalpha.controller.Administrador;
     opens com.example.proyectoalpha.controller.Administrador to javafx.fxml;
     exports com.example.proyectoalpha.controller.Medico;
