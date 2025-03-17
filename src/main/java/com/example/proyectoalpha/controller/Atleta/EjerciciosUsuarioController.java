@@ -2,6 +2,7 @@ package com.example.proyectoalpha.controller.Atleta;
 
 import com.example.proyectoalpha.clases.Ejercicio;
 import com.example.proyectoalpha.clases.Usuario;
+import com.example.proyectoalpha.servicios.MariaDBController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,9 +16,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
-
 
 public class EjerciciosUsuarioController {
 
@@ -30,16 +29,20 @@ public class EjerciciosUsuarioController {
     @FXML
     private ChoiceBox<String> ChoiceGrupoMuscular;
 
-    @FXML
-    private ImageView ImgAlpha;
-
     private Usuario usuario;
+    private MariaDBController mariaDBController = new MariaDBController();
 
     @FXML
     public void initialize() {
         BtnVolver.setOnAction(event -> manejarVolver());
         BtnBuscar.setOnAction(event -> manejarBuscar());
+        llenarChoiceBox();
         colocarImagenBotones();
+    }
+
+    private void llenarChoiceBox() {
+        List<String> gruposMusculares = mariaDBController.obtenerGruposMusculares();
+        ChoiceGrupoMuscular.getItems().addAll(gruposMusculares);
     }
 
     public void setDatosUsuario(Usuario usuario) {
@@ -49,27 +52,26 @@ public class EjerciciosUsuarioController {
     @FXML
     private void manejarBuscar() {
         String selectedGrupoMuscular = ChoiceGrupoMuscular.getValue();
-//        if (selectedGrupoMuscular != null) {
-//            List<Ejercicio> ejerciciosFiltrados = servicioEjercicios.obtenerEjercicios(selectedGrupoMuscular);
-//            List<String> nombresEjercicios = ejerciciosFiltrados.stream()
-//                    .map(Ejercicio::getNombre)
-//                    .collect(Collectors.toList());
-//
-//            try {
-//                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/MostrarEjercicios.fxml"));
-//                Parent root = loader.load();
-//                MostrarEjerciciosController controller = loader.getController();
-//                controller.setEjercicios(nombresEjercicios);
-//
-//                controller.setDatosUsuario(usuario);
-//
-//                Stage stage = (Stage) BtnBuscar.getScene().getWindow();
-//                stage.setScene(new Scene(root));
-//                stage.show();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        if (selectedGrupoMuscular != null) {
+            List<Ejercicio> ejerciciosFiltrados = mariaDBController.obtenerEjerciciosPorGrupoMuscular(selectedGrupoMuscular);
+            List<String> nombresEjercicios = ejerciciosFiltrados.stream()
+                    .map(Ejercicio::getNombre)
+                    .collect(Collectors.toList());
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/MostrarEjercicios.fxml"));
+                Parent root = loader.load();
+                MostrarEjerciciosController controller = loader.getController();
+                controller.setEjercicios(nombresEjercicios);
+                controller.setDatosUsuario(usuario);
+
+                Stage stage = (Stage) BtnBuscar.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void manejarVolver() {
