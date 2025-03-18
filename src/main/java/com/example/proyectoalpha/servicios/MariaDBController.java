@@ -151,6 +151,27 @@ public class MariaDBController {
         return null;
     }
 
+    public List<Usuario> obtenerUsuarios() {
+        List<Usuario> usuarios = new ArrayList<>();
+        String query = "SELECT * FROM Usuario";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setID(rs.getInt("ID"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setApellidos(rs.getString("apellidos"));
+                usuario.setCorreo(rs.getString("correo"));
+                // Add other fields as necessary
+                usuarios.add(usuario);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usuarios;
+    }
+
     public boolean registrarUsuario(Usuario usuario) {
         String sql = "INSERT INTO Usuario (nombre, apellidos, contraseña, DNI, correo, tipoUsuario, gimnasio) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -330,6 +351,19 @@ public class MariaDBController {
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, rutinaId);
             pstmt.setInt(2, usuarioId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void guardarChat(String contenido, int idUsuario1, int idUsuario2) {
+        String sql = "INSERT INTO Chat (contenido, fecha, ID_usuario1, ID_usuario2) VALUES (?, NOW(), ?, ?)";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, contenido);
+            pstmt.setInt(2, idUsuario1);
+            pstmt.setInt(3, idUsuario2);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

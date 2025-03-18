@@ -2,6 +2,7 @@ package com.example.proyectoalpha.controller.Chat;
 
 import com.example.proyectoalpha.clases.Usuario;
 import com.example.proyectoalpha.controller.Atleta.MenuAtletaController;
+import com.example.proyectoalpha.servicios.MariaDBController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +30,9 @@ public class ClienteController {
     private ListView<String> ListViewMensajes;
 
     @FXML
+    private Label LblDestinatario;
+
+    @FXML
     private void initialize(){
         BtnEnviar.setOnAction(e -> enviarMensaje());
         BtnVolver.setOnAction(e -> manejarVolver());
@@ -48,6 +52,7 @@ public class ClienteController {
         this.usuario2 = usuario2;
         this.usuarioActual = usuario.getNombre();
         this.usuarioDestino = usuario2.getNombre();
+        LblDestinatario.setText(usuario2.getNombre());
     }
 
     public void inicializarCliente(String servidor, int puerto) {
@@ -79,21 +84,32 @@ public class ClienteController {
 
     @FXML
     private void enviarMensaje() {
+        if (salida == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Connection Error");
+            alert.setContentText("Error: Conexión fallida.");
+            alert.showAndWait();
+            return;
+        }
+
         String mensaje = TxtMensaje.getText();
         if (!mensaje.isEmpty()) {
-            String destinatario = usuarioDestino; // Ajusta el destinatario según la lógica
+            String destinatario = usuarioDestino; // Adjust the recipient according to the logic
             salida.println(destinatario + ":" + mensaje);
             ListViewMensajes.getItems().add("Tú: " + mensaje);
             TxtMensaje.clear();
         }
+        MariaDBController mariaDBController = new MariaDBController();
+        mariaDBController.guardarChat(mensaje, usuario.getID(), usuario2.getID());
     }
 
     private void manejarVolver() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/MenuAtleta.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Chat/ElegirDestinatario.fxml"));
             Parent root = loader.load();
 
-            MenuAtletaController controller = loader.getController();
+            ElegirDestinatarioController controller = loader.getController();
             controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
