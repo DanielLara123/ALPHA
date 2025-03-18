@@ -20,4 +20,6 @@ module com.example.proyectoalpha {
     opens com.example.proyectoalpha.controller.Entrenador to javafx.fxml;
     exports com.example.proyectoalpha.controller.RegistroInicioSesion;
     opens com.example.proyectoalpha.controller.RegistroInicioSesion to javafx.fxml;
+    opens com.example.proyectoalpha.controller.Chat to javafx.fxml;
+    exports com.example.proyectoalpha.controller.Chat;
 }

@@ -1,8 +1,8 @@
 package com.example.proyectoalpha.controller.Atleta;
 
-import com.example.proyectoalpha.clases.*;
+import com.example.proyectoalpha.clases.Ejercicio;
+import com.example.proyectoalpha.clases.Usuario;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -16,9 +16,14 @@ import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Set;
+import java.sql.*;
+import java.util.*;
 
 public class LogrosUsuarioController {
+
+    private static final String DB_URL = "jdbc:mariadb://localhost:3306/tubasedatos";
+    private static final String USER = "tuusuario";
+    private static final String PASS = "tucontraseña";
 
     @FXML
     private Button BtnBuscar;
@@ -37,12 +42,19 @@ public class LogrosUsuarioController {
 
     private Usuario usuario;
 
-
     @FXML
     private void initialize() {
         BtnBuscar.setOnAction(event -> manejarContinuar());
         BtnVolver.setOnAction(event -> manejarVolver());
         colocarImagenBotones();
+        cargarGruposMusculares();
+
+        // Agregar listener para cargar ejercicios cuando se seleccione un grupo muscular
+        ChoiceGrupoMuscular.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                cargarEjerciciosPorGrupo(newValue);
+            }
+        });
     }
 
     public void setDatosUsuario(Usuario usuario) {
@@ -97,5 +109,58 @@ public class LogrosUsuarioController {
 
         BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
-}
 
+    // 🔥 Cargar los grupos musculares en el ChoiceBox
+    private void cargarGruposMusculares() {
+        System.out.println("🔎 Cargando grupos musculares...");
+
+        Set<String> gruposMusculares = new HashSet<>();
+        String query = "SELECT DISTINCT grupo_muscular FROM Ejercicio";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                String grupo = rs.getString("grupo_muscular");
+                gruposMusculares.add(grupo);
+                System.out.println("✅ Grupo muscular encontrado: " + grupo);
+            }
+
+            // Cargar datos en el ChoiceBox
+            ChoiceGrupoMuscular.setItems(FXCollections.observableArrayList(gruposMusculares));
+
+        } catch (SQLException e) {
+            System.err.println("❌ Error al cargar grupos musculares");
+            e.printStackTrace();
+        }
+    }
+
+    // 🔥 Cargar los ejercicios en el ChoiceBox según el grupo muscular seleccionado
+    private void cargarEjerciciosPorGrupo(String grupoMuscular) {
+        System.out.println("🔄 Cargando ejercicios para el grupo muscular: " + grupoMuscular);
+
+        List<String> nombresEjercicios = new ArrayList<>();
+        String query = "SELECT nombre FROM Ejercicio WHERE grupo_muscular = ?";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, grupoMuscular);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                String nombreEjercicio = rs.getString("nombre");
+                nombresEjercicios.add(nombreEjercicio);
+                System.out.println("✅ Ejercicio encontrado: " + nombreEjercicio);
+            }
+
+            // Cargar datos en el ChoiceBox
+            ChoiceEjercicio.setItems(FXCollections.observableArrayList(nombresEjercicios));
+
+        } catch (SQLException e) {
+            System.err.println("❌ Error al cargar ejercicios");
+            e.printStackTrace();
+        }
+    }
+}
