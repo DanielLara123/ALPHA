@@ -1,11 +1,9 @@
 package com.example.proyectoalpha.controller.Atleta;
 
-
 import com.example.proyectoalpha.clases.Ejercicio;
 import com.example.proyectoalpha.clases.Rutina;
 import com.example.proyectoalpha.clases.Usuario;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.proyectoalpha.servicios.MariaDBController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,11 +16,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,8 +48,7 @@ public class VerRutinasController {
     private ObservableList<Ejercicio> ejercicios;
 
     private Usuario usuario;
-
-
+    private MariaDBController mariaDBController = new MariaDBController();
 
     public void setRutina(Rutina selectedRutina) {
         this.rutina = selectedRutina;
@@ -62,8 +56,14 @@ public class VerRutinasController {
     }
 
     private void loadEjercicios() {
-//        ejercicios = FXCollections.observableArrayList(rutina.getEjercicios());
-        tableViewEjercicios.setItems(ejercicios);
+        List<Ejercicio> ejerciciosList = mariaDBController.obtenerEjerciciosPorRutina(rutina.getID_rutina());
+        if (ejerciciosList != null) {
+            ejercicios = FXCollections.observableArrayList(ejerciciosList);
+            tableViewEjercicios.setItems(ejercicios);
+            System.out.println("Ejercicios loaded: " + ejercicios.size());
+        } else {
+            System.out.println("No ejercicios found for rutina ID: " + rutina.getID_rutina());
+        }
     }
 
     @FXML
@@ -108,8 +108,7 @@ public class VerRutinasController {
                     pesoResult.ifPresent(pesoInput -> {
                         try {
                             double peso = Double.parseDouble(pesoInput.trim());
-//                            HistorialEjercicio historialEjercicio = new HistorialEjercicio(new Date(), peso, repeticiones);
-//                            guardarHistorial(selectedEjercicio.getNombre(), historialEjercicio);
+                            // Save the series to the database or perform other actions
                         } catch (NumberFormatException e) {
                             showAlert("Error", "Formato incorrecto. Use números para peso.");
                         }
@@ -122,37 +121,6 @@ public class VerRutinasController {
             showAlert("Error", "Seleccione un ejercicio.");
         }
     }
-
-//    private void guardarHistorial(String nombreEjercicio, HistorialEjercicio historialEjercicio) {
-//        String email = usuario.getCorreo();
-//        String fileName = email + "_historial.json";
-//        ObjectMapper mapper = new ObjectMapper();
-//        File file = new File(fileName);
-//        List<HistorialesEjercicios> historialesList;
-//
-//        try {
-//            if (file.exists() && file.length() > 0) {
-//                historialesList = mapper.readValue(file, new TypeReference<List<HistorialesEjercicios>>() {});
-//            } else {
-//                historialesList = new ArrayList<>();
-//            }
-//
-//            // Find the existing HistorialesEjercicios for the given exercise or create a new one
-//            HistorialesEjercicios historialesEjercicios = historialesList.stream()
-//                    .filter(h -> h.getNombreEjercicio().equals(nombreEjercicio))
-//                    .findFirst()
-//                    .orElseGet(() -> {
-//                        HistorialesEjercicios newHistorial = new HistorialesEjercicios(nombreEjercicio, new ArrayList<>());
-//                        historialesList.add(newHistorial);
-//                        return newHistorial;
-//                    });
-//
-//            historialesEjercicios.getHistorialEjercicios().add(historialEjercicio);
-//            mapper.writeValue(file, historialesList);
-//        } catch (IOException e) {
-//            showAlert("Error", "No se pudo guardar el historial. Detalles: " + e.getMessage());
-//        }
-//    }
 
     private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -188,5 +156,4 @@ public class VerRutinasController {
     public void setDatosUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-
 }

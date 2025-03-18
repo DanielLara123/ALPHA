@@ -15,6 +15,11 @@ public class Rutina {
         this.dias = dias;
     }
 
+    public Rutina(String nombreRutina, int id) {
+        this.nombre = nombreRutina;
+        this.ID_rutina = id;
+    }
+
     public int getID_rutina() {
         return ID_rutina;
     }

@@ -22,6 +22,15 @@ public class Ejercicio {
         this.descanso = descanso;
     }
 
+    public Ejercicio(String nombre, String grupoMuscular, int peso, int series, int repeticiones, int descanso) {
+        this.nombre = nombre;
+        this.grupoMuscular = grupoMuscular;
+        this.peso = peso;
+        this.series = series;
+        this.repeticiones = repeticiones;
+        this.descanso = descanso;
+    }
+
     public int getID_ejercicio() {
         return ID_ejercicio;
     }
@@ -76,6 +85,11 @@ public class Ejercicio {
 
     public void setDescanso(int descanso) {
         this.descanso = descanso;
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
     }
 }
 

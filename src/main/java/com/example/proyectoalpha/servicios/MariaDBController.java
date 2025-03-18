@@ -5,10 +5,7 @@ import com.example.proyectoalpha.clases.Rutina;
 import com.example.proyectoalpha.clases.Usuario;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MariaDBController {
 
@@ -221,7 +218,7 @@ public class MariaDBController {
     }
 
     public List<Ejercicio> obtenerEjerciciosPorGrupoMuscular(String grupoMuscular) {
-        List<Ejercicio> ejercicios = new ArrayList<>();
+        Set<Ejercicio> ejercicios = new HashSet<>();
         String query = "SELECT * FROM Ejercicio WHERE grupo_muscular = ?";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -241,7 +238,7 @@ public class MariaDBController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return ejercicios;
+        return new ArrayList<>(ejercicios);
     }
 
     public List<String> obtenerGruposMusculares() {
@@ -283,19 +280,20 @@ public class MariaDBController {
         return ejerciciosMap;
     }
 
-    public boolean guardarRutina(Rutina rutina, int usuarioId) {
-        String query = "INSERT INTO Rutina (nombre) VALUES (?)";
+    public boolean guardarRutina(Rutina rutina, int usuarioId, List<Ejercicio> ejercicios) {
+        String query = "INSERT INTO Rutina (nombre, dias) VALUES (?, ?)";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, rutina.getNombre());
+            pstmt.setInt(2, rutina.getDias());
             int affectedRows = pstmt.executeUpdate();
 
             if (affectedRows > 0) {
                 try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         int rutinaId = generatedKeys.getInt(1);
-                        //guardarEjerciciosRutina(rutinaId, rutina.getEjercicios());
                         asociarRutinaConUsuario(rutinaId, usuarioId);
+                        guardarEjerciciosRutina(rutinaId, ejercicios);
                         return true;
                     }
                 }
@@ -307,16 +305,33 @@ public class MariaDBController {
     }
 
     private void guardarEjerciciosRutina(int rutinaId, List<Ejercicio> ejercicios) {
-        String query = "INSERT INTO RutinaEjercicio (rutina_id, ejercicio_id, repeticiones, series, descanso) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Rutina_Ejercicio (ID_rutina, ID_ejercicio) VALUES (?, ?)";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             for (Ejercicio ejercicio : ejercicios) {
-                pstmt.setInt(1, rutinaId);
-                pstmt.setInt(2, ejercicio.getID_ejercicio());
-                pstmt.setInt(3, ejercicio.getRepeticiones());
-                pstmt.setInt(4, ejercicio.getSeries());
-                pstmt.setInt(5, ejercicio.getDescanso());
-                pstmt.addBatch();
+                // First, insert the exercise into the Ejercicio table
+                String ejercicioQuery = "INSERT INTO Ejercicio (nombre, grupo_muscular, peso, series, repeticiones, descanso) VALUES (?, ?, ?, ?, ?, ?)";
+                try (PreparedStatement ejercicioStmt = conn.prepareStatement(ejercicioQuery, Statement.RETURN_GENERATED_KEYS)) {
+                    ejercicioStmt.setString(1, ejercicio.getNombre());
+                    ejercicioStmt.setString(2, ejercicio.getGrupoMuscular());
+                    ejercicioStmt.setDouble(3, ejercicio.getPeso());
+                    ejercicioStmt.setInt(4, ejercicio.getSeries());
+                    ejercicioStmt.setInt(5, ejercicio.getRepeticiones());
+                    ejercicioStmt.setInt(6, ejercicio.getDescanso());
+                    ejercicioStmt.executeUpdate();
+
+                    // Get the generated ID for the inserted exercise
+                    try (ResultSet generatedKeys = ejercicioStmt.getGeneratedKeys()) {
+                        if (generatedKeys.next()) {
+                            int ejercicioId = generatedKeys.getInt(1);
+
+                            // Then, insert the relationship into the Rutina_Ejercicio table
+                            pstmt.setInt(1, rutinaId);
+                            pstmt.setInt(2, ejercicioId);
+                            pstmt.addBatch();
+                        }
+                    }
+                }
             }
             pstmt.executeBatch();
         } catch (SQLException e) {
@@ -335,4 +350,113 @@ public class MariaDBController {
             e.printStackTrace();
         }
     }
+
+    public boolean eliminarRutinaPorNombre(String rutinaName, int id) {
+        String query = "DELETE FROM Rutina WHERE nombre = ? AND ID_rutina IN (SELECT ID_rutina FROM Rutina_Usuario WHERE ID_usuario = ?)";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, rutinaName);
+            pstmt.setInt(2, id);
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<Rutina> obtenerRutinasPorUsuario(int id) {
+        List<Rutina> rutinas = new ArrayList<>();
+        String query = "SELECT r.ID_rutina, r.nombre, r.dias FROM Rutina r " +
+                "JOIN Rutina_Usuario ru ON r.ID_rutina = ru.ID_rutina " +
+                "WHERE ru.ID_usuario = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Rutina rutina = new Rutina();
+                rutina.setID_rutina(rs.getInt("ID_rutina"));
+                rutina.setNombre(rs.getString("nombre"));
+                rutina.setDias(rs.getInt("dias"));
+                rutinas.add(rutina);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rutinas;
+    }
+
+    public Rutina obtenerRutinaPorNombre(String rutinaSeleccionada, int id) {
+        String query = "SELECT r.ID_rutina, r.nombre, r.dias FROM Rutina r " +
+                "JOIN Rutina_Usuario ru ON r.ID_rutina = ru.ID_rutina " +
+                "WHERE r.nombre = ? AND ru.ID_usuario = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, rutinaSeleccionada);
+            pstmt.setInt(2, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                Rutina rutina = new Rutina();
+                rutina.setID_rutina(rs.getInt("ID_rutina"));
+                rutina.setNombre(rs.getString("nombre"));
+                rutina.setDias(rs.getInt("dias"));
+                return rutina;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Ejercicio> obtenerEjerciciosPorRutina(int idRutina) {
+        List<Ejercicio> ejercicios = new ArrayList<>();
+        String query = "SELECT e.ID_ejercicio, e.nombre, e.grupo_muscular, e.peso, e.series, e.repeticiones, e.descanso " +
+                "FROM Ejercicio e " +
+                "JOIN Rutina_Ejercicio re ON e.ID_ejercicio = re.ID_ejercicio " +
+                "WHERE re.ID_rutina = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, idRutina);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Ejercicio ejercicio = new Ejercicio();
+                ejercicio.setID_ejercicio(rs.getInt("ID_ejercicio"));
+                ejercicio.setNombre(rs.getString("nombre"));
+                ejercicio.setGrupoMuscular(rs.getString("grupo_muscular"));
+                ejercicio.setPeso(rs.getDouble("peso"));
+                ejercicio.setSeries(rs.getInt("series"));
+                ejercicio.setRepeticiones(rs.getInt("repeticiones"));
+                ejercicio.setDescanso(rs.getInt("descanso"));
+                ejercicios.add(ejercicio);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ejercicios;
+    }
+
+    public Ejercicio obtenerEjercicioPorNombre(String nombreEjercicio) {
+        String query = "SELECT * FROM Ejercicio WHERE nombre = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, nombreEjercicio);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                Ejercicio ejercicio = new Ejercicio();
+                ejercicio.setID_ejercicio(rs.getInt("ID_ejercicio"));
+                ejercicio.setNombre(rs.getString("nombre"));
+                ejercicio.setGrupoMuscular(rs.getString("grupo_muscular"));
+                ejercicio.setPeso(rs.getDouble("peso"));
+                ejercicio.setSeries(rs.getInt("series"));
+                ejercicio.setRepeticiones(rs.getInt("repeticiones"));
+                ejercicio.setDescanso(rs.getInt("descanso"));
+                return ejercicio;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
+

@@ -2,7 +2,7 @@ package com.example.proyectoalpha.controller.Atleta;
 
 import com.example.proyectoalpha.clases.Rutina;
 import com.example.proyectoalpha.clases.Usuario;
-import com.example.proyectoalpha.controller.ConfirmacionController;
+import com.example.proyectoalpha.servicios.MariaDBController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -37,6 +36,7 @@ public class MostrarRutinasController {
     private ListView<String> ListViewRutinas;
 
     private Usuario usuario;
+    private MariaDBController mariaDBController = new MariaDBController();
 
     @FXML
     public void initialize() {
@@ -44,6 +44,20 @@ public class MostrarRutinasController {
         BtnEliminarRutina.setOnAction(event -> manejarEliminarRutina());
         BtnVolver.setOnAction(event -> manejarVolver());
         colocarImagenBotones();
+    }
+
+    public void setDatosUsuario(Usuario usuario) {
+        this.usuario = usuario;
+        cargarRutinas();
+    }
+
+    private void cargarRutinas() {
+        List<Rutina> rutinas = mariaDBController.obtenerRutinasPorUsuario(usuario.getID());
+        ObservableList<String> items = FXCollections.observableArrayList();
+        for (Rutina rutina : rutinas) {
+            items.add(rutina.getNombre());
+        }
+        ListViewRutinas.setItems(items);
     }
 
     private void manejarVerRutina() {
@@ -55,6 +69,11 @@ public class MostrarRutinasController {
 
                 VerRutinasController controller = loader.getController();
                 controller.setDatosUsuario(usuario);
+
+                Rutina rutina = mariaDBController.obtenerRutinaPorNombre(selectedItem, usuario.getID());
+                if (rutina != null) {
+                    controller.setRutina(rutina);
+                }
 
                 Stage stage = (Stage) BtnVolver.getScene().getWindow();
                 stage.setScene(new Scene(root));
@@ -70,33 +89,27 @@ public class MostrarRutinasController {
     private void manejarEliminarRutina() {
         String selectedItem = ListViewRutinas.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Confirmacion.fxml"));
-                Parent root = loader.load();
-                ConfirmacionController confirmacionController = loader.getController();
-                confirmacionController.setMensaje("¿Está seguro de que quiere eliminar la rutina?");
-                Stage stage = new Stage();
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setScene(new Scene(root));
-                stage.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmación");
+            alert.setHeaderText("¿Está seguro de que quiere eliminar la rutina?");
+            alert.setContentText("Esta acción no se puede deshacer.");
 
-                if (confirmacionController.estaConfirmado()) {
-                    String rutinaName = selectedItem.split(" - ")[0];
-                    showMessage("Rutina eliminada correctamente.");
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    boolean success = mariaDBController.eliminarRutinaPorNombre(selectedItem, usuario.getID());
+                    if (success) {
+                        showMessage("Rutina eliminada correctamente.");
+                        cargarRutinas();
+                    } else {
+                        showMessage("Error al eliminar la rutina.");
+                    }
                 } else {
                     showMessage("Eliminación de rutina cancelada.");
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-                showMessage("Error al mostrar la confirmación.");
-            }
+            });
         } else {
             showMessage("Por favor, seleccione una rutina para eliminar.");
         }
-    }
-
-    public void setDatosUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     private void manejarVolver() {
@@ -126,5 +139,4 @@ public class MostrarRutinasController {
     private void showMessage(String message) {
         LblMensaje.setText(message);
     }
-
 }
