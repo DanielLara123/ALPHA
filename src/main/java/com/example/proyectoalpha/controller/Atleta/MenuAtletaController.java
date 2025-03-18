@@ -1,6 +1,8 @@
 package com.example.proyectoalpha.controller.Atleta;
 
 import com.example.proyectoalpha.clases.Usuario;
+import com.example.proyectoalpha.controller.Chat.ClienteController;
+import com.example.proyectoalpha.controller.Chat.ElegirDestinatarioController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -72,6 +74,7 @@ public class MenuAtletaController {
         BtnLogros.setOnAction(event -> manejarLogros());
         BtnRutinas.setOnAction(event -> manejarRutinas());
         BtnMisDatos.setOnAction(event -> manejarMisDatos());
+        BtnChat.setOnAction(event -> manejarChat());
         colocarImagenBotones();
     }
 
@@ -83,15 +86,17 @@ public class MenuAtletaController {
         URL rutinas = getClass().getResource("/images/RutinasAtleta.png");
         URL notificaciones = getClass().getResource("/images/NotificacionesAtleta.png");
         URL volver = getClass().getResource("/images/VolverAtras.png");
+        URL chat = getClass().getResource("/images/ImgChat.jpg");
 
 
-        Image imagenDatos = new Image(String.valueOf(misDatos), 200, 200, false, true);
-        Image imagenConfiguracion = new Image(String.valueOf(configuracion), 200, 200, false, true);
-        Image imagenEjercicios = new Image(String.valueOf(ejercicios), 200, 200, false, true);
-        Image imagenLogros = new Image(String.valueOf(logros), 200, 200, false, true);
-        Image imagenRutinas = new Image(String.valueOf(rutinas), 200, 200, false, true);
-        Image imagenNotificaciones = new Image(String.valueOf(notificaciones), 200, 200, false, true);
+        Image imagenDatos = new Image(String.valueOf(misDatos), 150, 150, false, true);
+        Image imagenConfiguracion = new Image(String.valueOf(configuracion), 150, 150, false, true);
+        Image imagenEjercicios = new Image(String.valueOf(ejercicios), 150, 150, false, true);
+        Image imagenLogros = new Image(String.valueOf(logros), 150, 150, false, true);
+        Image imagenRutinas = new Image(String.valueOf(rutinas), 150, 150, false, true);
+        Image imagenNotificaciones = new Image(String.valueOf(notificaciones), 150, 150, false, true);
         Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
+        Image imagenChat = new Image(String.valueOf(chat), 150, 150, false, true);
 
         BtnMisDatos.setGraphic(new ImageView(imagenDatos));
         BtnConfiguracion.setGraphic(new ImageView(imagenConfiguracion));
@@ -100,6 +105,7 @@ public class MenuAtletaController {
         BtnRutinas.setGraphic(new ImageView(imagenRutinas));
         BtnNotificaciones.setGraphic(new ImageView(imagenNotificaciones));
         BtnVolver.setGraphic(new ImageView(imagenVolver));
+        BtnChat.setGraphic(new ImageView(imagenChat));
 
     }
 
@@ -208,6 +214,22 @@ public class MenuAtletaController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/TipoUsuario.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void manejarChat(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Chat/ElegirDestinatario.fxml"));
+            Parent root = loader.load();
+
+            ElegirDestinatarioController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
+
+            Stage stage = (Stage) BtnChat.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException ex) {
