@@ -521,5 +521,50 @@ public class MariaDBController {
             e.printStackTrace();
         }
     }
+
+    public List<String> cargarChat(int idUsuario1, int idUsuario2) {
+        List<String> mensajes = new ArrayList<>();
+        String sql = "SELECT contenido, fecha FROM Chat WHERE (ID_usuario1 = ? AND ID_usuario2 = ?) OR (ID_usuario1 = ? AND ID_usuario2 = ?) ORDER BY fecha";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, idUsuario1);
+            pstmt.setInt(2, idUsuario2);
+            pstmt.setInt(3, idUsuario2);
+            pstmt.setInt(4, idUsuario1);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                String mensaje = rs.getString("contenido");
+                mensajes.add(mensaje);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return mensajes;
+    }
+
+    public List<Usuario> obtenerUsuarios() {
+        List<Usuario> usuarios = new ArrayList<>();
+        String sql = "SELECT * FROM Usuario";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                Usuario usuario = new Usuario(
+                        rs.getInt("ID"),
+                        rs.getString("nombre"),
+                        rs.getString("apellidos"),
+                        rs.getString("contraseña"),
+                        rs.getString("DNI"),
+                        rs.getString("correo"),
+                        rs.getString("tipoUsuario"),
+                        rs.getString("gimnasio")
+                );
+                usuarios.add(usuario);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usuarios;
+    }
 }
 

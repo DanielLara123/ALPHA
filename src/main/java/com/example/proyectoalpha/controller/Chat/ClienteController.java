@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.*;
+import java.util.List;
 
 public class ClienteController {
     @FXML
@@ -55,7 +56,23 @@ public class ClienteController {
         LblDestinatario.setText(usuario2.getNombre());
     }
 
+    private void cargarMensajesAnteriores() {
+        MariaDBController mariaDBController = new MariaDBController();
+        List<String> mensajes = mariaDBController.cargarChat(usuario.getID(), usuario2.getID());
+        for (String mensaje : mensajes) {
+            if (mensaje.startsWith(usuarioActual + ":")) {
+                ListViewMensajes.getItems().add("Tú: " + mensaje.substring(usuarioActual.length() + 1));
+            } else {
+                ListViewMensajes.getItems().add(mensaje);
+            }
+        }
+    }
+
     public void inicializarCliente(String servidor, int puerto) {
+        if (usuario == null || usuario2 == null) {
+            throw new IllegalStateException("Usuarios no están inicializados");
+        }
+
         try {
             socket = new Socket(servidor, puerto);
             salida = new PrintWriter(socket.getOutputStream(), true);
@@ -63,6 +80,9 @@ public class ClienteController {
 
             // Enviar nombre de usuario al servidor
             salida.println(usuarioActual);
+
+            // Cargar mensajes anteriores
+            cargarMensajesAnteriores();
 
             // Hilo para recibir mensajes
             new Thread(() -> {
@@ -81,6 +101,7 @@ public class ClienteController {
             e.printStackTrace();
         }
     }
+
 
     @FXML
     private void enviarMensaje() {
