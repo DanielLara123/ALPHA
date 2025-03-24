@@ -1,4 +1,5 @@
 package com.example.proyectoalpha.controller.Chat;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -10,6 +11,10 @@ public class ServidorController {
 
     public ServidorController() throws IOException {
         serverSocket = new ServerSocket(PUERTO);
+    }
+
+    public static int getPuerto() {
+        return PUERTO;
     }
 
     public void iniciar() {

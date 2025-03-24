@@ -33,6 +33,16 @@ public class Usuario {
         this.gimnasio = gimnasio;
     }
 
+    public Usuario(int ID, String nombre) {
+        this.ID = ID;
+        this.nombre = nombre;
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
     public int getID() {
         return ID;
     }
