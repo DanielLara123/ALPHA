@@ -61,18 +61,20 @@ public class ClienteController {
         List<String> mensajes = mariaDBController.cargarChat(usuario.getID(), usuario2.getID());
         for (String mensaje : mensajes) {
             Label label = new Label();
-            if (mensaje.startsWith(usuario.getNombre() + ":")) {
+            String remitente = mariaDBController.obtenerRemitenteMensaje(mensaje, usuario.getID(), usuario2.getID());
+            if (remitente.equals("Usuario1")) {
                 label.getStyleClass().add("mensaje-derecha");
-                label.setText("Tú: " + mensaje.substring((usuario.getID() + ":").length()));
-            } else if (mensaje.startsWith(usuario2.getNombre() + ":")) {
+                label.setText("Tú: " + mensaje);
+            } else if (remitente.equals("Usuario2")) {
                 label.getStyleClass().add("mensaje-izquierda");
-                label.setText(usuario2.getNombre() + ": " + mensaje.substring((usuario2.getID() + ":").length()));
+                label.setText(usuario2.getNombre() + ": " + mensaje);
             } else {
                 label.setText("Desconocido: " + mensaje);
             }
             ListViewMensajes.getItems().add(label);
         }
     }
+
     public void inicializarCliente(String servidor, int puerto) {
         if (usuario == null || usuario2 == null) {
             throw new IllegalStateException("Usuarios no están inicializados");

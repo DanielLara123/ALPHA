@@ -629,5 +629,30 @@ public class MariaDBController {
         }
         return null;
     }
+
+    public String obtenerRemitenteMensaje(String contenido, int idUsuario1, int idUsuario2) {
+        String sql = "SELECT ID_usuario1, ID_usuario2 FROM Chat WHERE contenido = ? AND ((ID_usuario1 = ? AND ID_usuario2 = ?) OR (ID_usuario1 = ? AND ID_usuario2 = ?))";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, contenido);
+            pstmt.setInt(2, idUsuario1);
+            pstmt.setInt(3, idUsuario2);
+            pstmt.setInt(4, idUsuario2);
+            pstmt.setInt(5, idUsuario1);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int senderId = rs.getInt("ID_usuario1");
+                if (senderId == idUsuario1) {
+                    return "Usuario1";
+                } else {
+                    return "Usuario2";
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "Desconocido";
+    }
 }
+
 
