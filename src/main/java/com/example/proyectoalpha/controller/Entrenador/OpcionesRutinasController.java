@@ -1,5 +1,6 @@
 package com.example.proyectoalpha.controller.Entrenador;
-/*
+
+import com.example.proyectoalpha.clases.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +14,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 
-/*
+
 public class OpcionesRutinasController {
 
     @FXML
@@ -26,6 +27,7 @@ public class OpcionesRutinasController {
     private Button BtnVolver;
 
     private String correoEntrenador;
+    private Usuario usuario;
 
     public void setCorreoEntrenador(String correoEntrenador){
         this.correoEntrenador = correoEntrenador;
@@ -45,7 +47,7 @@ public class OpcionesRutinasController {
             Parent root = loader.load();
 
             MenuEntrenadorController controller = loader.getController();
-            controller.setCorreoEntrenador(correoEntrenador);
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -61,7 +63,7 @@ public class OpcionesRutinasController {
             Parent root = loader.load();
 
             CrearRutinasController controller = loader.getController();
-            controller.setCorreoEntrenador(correoEntrenador);
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnCrearRutinas.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -77,7 +79,7 @@ public class OpcionesRutinasController {
             Parent root = loader.load();
 
             CrearEjerciciosController controller = loader.getController();
-            controller.setCorreoEntrenador(correoEntrenador);
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnCrearEjercicio.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -100,11 +102,14 @@ public class OpcionesRutinasController {
         BtnCrearRutinas.setGraphic(new ImageView(imagenCrearRutina));
         BtnCrearEjercicio.setGraphic(new ImageView(imagenCrearEjercicio));
     }
+
+    public void setDatosUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }
 
 
 
- */
 
 
 

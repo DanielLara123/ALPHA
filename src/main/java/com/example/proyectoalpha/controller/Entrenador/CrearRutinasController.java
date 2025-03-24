@@ -1,8 +1,29 @@
 package com.example.proyectoalpha.controller.Entrenador;
 
-/*
-public class CrearRutinasController {
+import com.example.proyectoalpha.clases.Ejercicio;
+import com.example.proyectoalpha.clases.Rutina;
+import com.example.proyectoalpha.clases.Usuario;
+import com.example.proyectoalpha.controller.Atleta.RutinasUsuarioController;
+import com.example.proyectoalpha.servicios.MariaDBController;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+public class CrearRutinasController {
 
     @FXML
     private TextField nombreRutinaField;
@@ -20,24 +41,31 @@ public class CrearRutinasController {
     private Button BtnCrearRutina;
 
     @FXML
-    private ChoiceBox<String> ChoiceBoxAtleta;
-
-    private final ServicioRutinas servicioRutinas = new ServicioRutinas();
-    private final ServicioEjercicios servicioEjercicios = new ServicioEjercicios();
-    private final servicioUsuario servicioUsuarios = new servicioUsuario();
-
-    private String correoEntrenador;
+    private Button BtnBuscarAtleta;
 
     @FXML
-    private void initialize(){
+    private TextField TextFieldCorreoAtleta;
+
+    private Usuario atleta;
+    private MariaDBController mariaDBController = new MariaDBController();
+
+    @FXML
+    private void initialize() {
         colocarImagenBotones();
         BtnVolver.setOnAction(e -> manejarVolver());
         BtnAñadirEjercicio.setOnAction(e -> onAnadirEjercicio());
         BtnCrearRutina.setOnAction(e -> onCrearRutina());
+        BtnBuscarAtleta.setOnAction(e -> buscarAtleta());
+    }
 
-        // Populate ChoiceBoxAtleta with user emails
-        List<String> usuariosEmails = servicioUsuarios.obtenerEmailsAtletas();
-        ChoiceBoxAtleta.getItems().addAll(usuariosEmails);
+    private void buscarAtleta() {
+        String correoAtleta = TextFieldCorreoAtleta.getText();
+        atleta = mariaDBController.obtenerUsuarioPorCorreo(correoAtleta);
+        if (atleta == null) {
+            showAlert(Alert.AlertType.ERROR, "No se encontró un atleta con el correo proporcionado.");
+        } else {
+            showAlert(Alert.AlertType.INFORMATION, "Atleta encontrado: " + atleta.getNombre());
+        }
     }
 
     private void onAnadirEjercicio() {
@@ -48,8 +76,7 @@ public class CrearRutinasController {
         contenido.setSpacing(10);
         contenido.setStyle("-fx-padding: 10;");
 
-        // Obtener los grupos musculares del mapa ejercicios
-        Map<String, List<Ejercicio>> ejerciciosMap = servicioEjercicios.obtenerMapaEjercicios();
+        Map<String, List<Ejercicio>> ejerciciosMap = mariaDBController.obtenerMapaEjercicios();
         if (ejerciciosMap == null || ejerciciosMap.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "No hay datos de ejercicios disponibles.");
             return;
@@ -57,20 +84,15 @@ public class CrearRutinasController {
 
         List<String> gruposMusculares = new ArrayList<>(ejerciciosMap.keySet());
 
-        // Menú desplegable para seleccionar grupo muscular
         ChoiceBox<String> choiceBoxGruposMusculares = new ChoiceBox<>();
-        choiceBoxGruposMusculares.getItems().add("Selecciona un grupo muscular"); // Placeholder
+        choiceBoxGruposMusculares.getItems().add("Selecciona un grupo muscular");
         choiceBoxGruposMusculares.getItems().addAll(gruposMusculares);
-        choiceBoxGruposMusculares.getSelectionModel().selectFirst(); // Seleccionar el placeholder al inicio
+        choiceBoxGruposMusculares.getSelectionModel().selectFirst();
 
-        // Menú desplegable para seleccionar ejercicio
         ChoiceBox<Ejercicio> choiceBoxEjercicios = new ChoiceBox<>();
-        choiceBoxEjercicios.getItems().add(
-                new Ejercicio("Selecciona un ejercicio", "placeholder", 0, 0, 0)
-        ); // Placeholder
-        choiceBoxEjercicios.getSelectionModel().selectFirst(); // Seleccionar el placeholder al inicio
+        choiceBoxEjercicios.getItems().add(new Ejercicio("Selecciona un ejercicio", "placeholder", 0, 0, 0, 0));
+        choiceBoxEjercicios.getSelectionModel().selectFirst();
 
-        // Actualizar la lista de ejercicios al seleccionar un grupo muscular
         choiceBoxGruposMusculares.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (!"Selecciona un grupo muscular".equals(newValue)) {
                 choiceBoxEjercicios.getItems().clear();
@@ -78,14 +100,11 @@ public class CrearRutinasController {
                 if (ejercicios != null && !ejercicios.isEmpty()) {
                     choiceBoxEjercicios.getItems().addAll(ejercicios);
                 } else {
-                    choiceBoxEjercicios.getItems().add(
-                            new Ejercicio("No hay ejercicios disponibles", "placeholder", 0, 0, 0)
-                    );
+                    choiceBoxEjercicios.getItems().add(new Ejercicio("No hay ejercicios disponibles", "placeholder", 0, 0, 0, 0));
                 }
             }
         });
 
-        // Campos de entrada para repeticiones, series y descanso
         TextField repeticionesField = new TextField();
         repeticionesField.setPromptText("Repeticiones");
 
@@ -105,9 +124,6 @@ public class CrearRutinasController {
 
         dialogoEjercicio.getDialogPane().setContent(contenido);
         dialogoEjercicio.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
-        // Apply CSS to the dialog
-        dialogoEjercicio.getDialogPane().getStylesheets().add(getClass().getResource("/css/ModeloAlpha.css").toExternalForm());
 
         dialogoEjercicio.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
@@ -132,48 +148,48 @@ public class CrearRutinasController {
     }
 
     private void onCrearRutina() {
-        String nombreRutina = nombreRutinaField.getText();
-        String correoUsuario = ChoiceBoxAtleta.getValue();
+        if (atleta == null) {
+            showAlert(Alert.AlertType.ERROR, "Por favor, busque y seleccione un atleta antes de crear una rutina.");
+            return;
+        }
 
-        boolean valid = true;
+        String nombreRutina = nombreRutinaField.getText();
 
         if (nombreRutina.isEmpty()) {
             showAlert(Alert.AlertType.WARNING, "Por favor, introduce un nombre para la rutina.");
-            valid = false;
+            return;
         }
 
-        if (correoUsuario == null || correoUsuario.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Por favor, selecciona un atleta.");
-            valid = false;
-        }
+        List<Ejercicio> ejerciciosList = new ArrayList<>();
+        for (HBox dia : listViewEjercicios.getItems()) {
+            Label ejercicioLabel = (Label) dia.getChildren().get(0);
+            String[] parts = ejercicioLabel.getText().split(" - ");
+            String nombreEjercicio = parts[0];
+            String[] detalles = parts[1].split(", ");
+            int repeticiones = Integer.parseInt(detalles[0].split(": ")[1]);
+            int series = Integer.parseInt(detalles[1].split(": ")[1]);
+            int descanso = Integer.parseInt(detalles[2].split(": ")[1].split(" ")[0]);
 
-        if (valid) {
-            List<Ejercicio> ejerciciosList = new ArrayList<>();
-            for (HBox dia : listViewEjercicios.getItems()) {
-                Label ejercicioLabel = (Label) dia.getChildren().get(0);
-                String[] parts = ejercicioLabel.getText().split(" - ");
-                String nombreEjercicio = parts[0];
-                String[] detalles = parts[1].split(", ");
-                int repeticiones = Integer.parseInt(detalles[0].split(": ")[1]);
-                int series = Integer.parseInt(detalles[1].split(": ")[1]);
-                int descanso = Integer.parseInt(detalles[2].split(": ")[1].split(" ")[0]);
-
-                Ejercicio ejercicioData = new Ejercicio(nombreEjercicio, "", descanso, series, repeticiones, 0);
+            // Retrieve the existing Ejercicio from the database
+            Ejercicio ejercicioData = mariaDBController.obtenerEjercicioPorNombre(nombreEjercicio);
+            if (ejercicioData != null) {
+                ejercicioData.setSeries(series);
+                ejercicioData.setRepeticiones(repeticiones);
+                ejercicioData.setDescanso(descanso);
                 ejerciciosList.add(ejercicioData);
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error al obtener el ejercicio: " + nombreEjercicio);
+                return;
             }
+        }
 
-            Rutina nuevaRutina = new Rutina(nombreRutina, ejerciciosList, correoEntrenador);
+        Rutina nuevaRutina = new Rutina(nombreRutina, 0); // Assuming 'dias' is not used here
 
-            try {
-                List<Rutina> rutinas = servicioRutinas.loadRutinas(correoUsuario);
-                rutinas.add(nuevaRutina);
-                servicioRutinas.saveRutinas(correoUsuario, rutinas);
-
-                showAlert(Alert.AlertType.INFORMATION, "Rutina guardada exitosamente en " + correoUsuario + "_rutinas.json.");
-            } catch (IOException e) {
-                e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Error al guardar la rutina.");
-            }
+        boolean success = mariaDBController.guardarRutina(nuevaRutina, atleta.getID(), ejerciciosList);
+        if (success) {
+            showAlert(Alert.AlertType.INFORMATION, "Rutina guardada exitosamente.");
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Error al guardar la rutina.");
         }
     }
 
@@ -183,7 +199,7 @@ public class CrearRutinasController {
             Parent root = loader.load();
 
             OpcionesRutinasController controller = loader.getController();
-            controller.setCorreoEntrenador(correoEntrenador);
+            controller.setDatosUsuario(atleta);
 
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -193,11 +209,7 @@ public class CrearRutinasController {
         }
     }
 
-    public void setCorreoEntrenador(String correoEntrenador) {
-        this.correoEntrenador = correoEntrenador;
-    }
-
-    private void colocarImagenBotones(){
+    private void colocarImagenBotones() {
         URL volver = getClass().getResource("/images/VolverAtras.png");
 
         Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
@@ -211,6 +223,8 @@ public class CrearRutinasController {
         dialogPane.getStylesheets().add(getClass().getResource("/css/ModeloAlpha.css").toExternalForm());
         alert.show();
     }
-}
 
- */
+    public void setDatosUsuario(Usuario usuario) {
+        this.atleta = usuario;
+    }
+}

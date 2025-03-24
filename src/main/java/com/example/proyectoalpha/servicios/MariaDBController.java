@@ -6,14 +6,16 @@ import com.example.proyectoalpha.clases.Rutina;
 import com.example.proyectoalpha.clases.Usuario;
 
 import java.sql.*;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.*;
 
 public class MariaDBController {
 
     // Database credentials
-    private static final String USER = "root";
-    private static final String PASS = "";
-    private static final String DB_URL = "jdbc:mariadb://127.0.0.1/alpha";
+    private static final String USER = "pii2_Alpha";
+    private static final String PASS = "secure_password";
+    private static final String DB_URL = "jdbc:mariadb://195.235.211.197/pii2_Alpha";
 
     // Method to create the Usuario table
     public void crearUsuario() {
@@ -565,6 +567,67 @@ public class MariaDBController {
             e.printStackTrace();
         }
         return usuarios;
+    }
+
+    public Usuario obtenerUsuarioPorCorreo(String correoAtleta) {
+        String query = "SELECT * FROM Usuario WHERE correo = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, correoAtleta);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return new Usuario(
+                        rs.getInt("ID"),
+                        rs.getString("nombre"),
+                        rs.getString("apellidos"),
+                        rs.getString("contraseña"),
+                        rs.getString("DNI"),
+                        rs.getString("correo"),
+                        rs.getString("tipoUsuario"),
+                        rs.getString("gimnasio")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean guardarEjercicio(Ejercicio nuevoEjercicio) {
+        String query = "INSERT INTO Ejercicio (nombre, grupo_muscular, peso, series, repeticiones, descanso) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, nuevoEjercicio.getNombre());
+            pstmt.setString(2, nuevoEjercicio.getGrupoMuscular());
+            pstmt.setDouble(3, nuevoEjercicio.getPeso());
+            pstmt.setInt(4, nuevoEjercicio.getSeries());
+            pstmt.setInt(5, nuevoEjercicio.getRepeticiones());
+            pstmt.setInt(6, nuevoEjercicio.getDescanso());
+
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public LocalDate obtenerFechaUltimoEntrenamiento(int usuarioID) {
+        String query = "SELECT MAX(fecha) AS ultima_fecha FROM Entrenamiento WHERE usuario_id = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, usuarioID);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                Date fecha = rs.getDate("ultima_fecha");
+                if (fecha != null) {
+                    return fecha.toLocalDate();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
 

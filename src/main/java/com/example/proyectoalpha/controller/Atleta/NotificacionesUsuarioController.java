@@ -1,8 +1,7 @@
 package com.example.proyectoalpha.controller.Atleta;
 
 import com.example.proyectoalpha.clases.Usuario;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.proyectoalpha.servicios.MariaDBController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,12 +12,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
-import java.util.Iterator;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class NotificacionesUsuarioController {
 
@@ -29,11 +26,13 @@ public class NotificacionesUsuarioController {
     private Label LblMensaje;
 
     private Usuario usuario;
+    private MariaDBController mariaDBController = new MariaDBController();
 
     @FXML
     private void initialize() {
         BtnVolver.setOnAction(event -> manejarVolver());
         colocarImagenBotones();
+        mostrarDiasDesdeUltimoEntrenamiento();
     }
 
     public void setDatosUsuario(Usuario usuario) {
@@ -59,9 +58,18 @@ public class NotificacionesUsuarioController {
     private void colocarImagenBotones() {
         URL volver = getClass().getResource("/images/VolverAtras.png");
 
-        javafx.scene.image.Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
+        Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
 
         BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
-}
 
+    private void mostrarDiasDesdeUltimoEntrenamiento() {
+        LocalDate fechaUltimoEntrenamiento = mariaDBController.obtenerFechaUltimoEntrenamiento(usuario.getID());
+        if (fechaUltimoEntrenamiento != null) {
+            long diasPasados = ChronoUnit.DAYS.between(fechaUltimoEntrenamiento, LocalDate.now());
+            LblMensaje.setText("Han pasado " + diasPasados + " días desde tu último entrenamiento.");
+        } else {
+            LblMensaje.setText("No se encontró información sobre tu último entrenamiento.");
+        }
+    }
+}
