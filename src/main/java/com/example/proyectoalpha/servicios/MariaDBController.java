@@ -1,6 +1,7 @@
 package com.example.proyectoalpha.servicios;
 
 import com.example.proyectoalpha.clases.Ejercicio;
+import com.example.proyectoalpha.clases.Entrenamiento;
 import com.example.proyectoalpha.clases.Rutina;
 import com.example.proyectoalpha.clases.Usuario;
 
@@ -107,7 +108,9 @@ public class MariaDBController {
                 "repeticiones INT, " +
                 "descanso INT, " +
                 "ID_usuario INT, " +
-                "FOREIGN KEY (ID_usuario) REFERENCES Usuario(ID) ON DELETE CASCADE);";
+                "ID_ejercicio INT, " + // New attribute
+                "FOREIGN KEY (ID_usuario) REFERENCES Usuario(ID) ON DELETE CASCADE, " +
+                "FOREIGN KEY (ID_ejercicio) REFERENCES Ejercicio(ID_ejercicio) ON DELETE CASCADE);";
         executeUpdate(sql, "Tabla Entrenamiento creada o ya existente.");
     }
 
@@ -218,27 +221,25 @@ public class MariaDBController {
     }
 
     public List<Ejercicio> obtenerEjerciciosPorGrupoMuscular(String grupoMuscular) {
-        Set<Ejercicio> ejercicios = new HashSet<>();
-        String query = "SELECT * FROM Ejercicio WHERE grupo_muscular = ?";
+        Set<String> nombresEjercicios = new HashSet<>();
+        List<Ejercicio> ejercicios = new ArrayList<>();
+        String query = "SELECT DISTINCT nombre FROM Ejercicio WHERE grupo_muscular = ?";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, grupoMuscular);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                Ejercicio ejercicio = new Ejercicio();
-                ejercicio.setID_ejercicio(rs.getInt("ID_ejercicio"));
-                ejercicio.setNombre(rs.getString("nombre"));
-                ejercicio.setGrupoMuscular(rs.getString("grupo_muscular"));
-                ejercicio.setPeso(rs.getDouble("peso"));
-                ejercicio.setSeries(rs.getInt("series"));
-                ejercicio.setRepeticiones(rs.getInt("repeticiones"));
-                ejercicio.setDescanso(rs.getInt("descanso"));
-                ejercicios.add(ejercicio);
+                String nombre = rs.getString("nombre");
+                if (nombresEjercicios.add(nombre)) {
+                    Ejercicio ejercicio = new Ejercicio();
+                    ejercicio.setNombre(nombre);
+                    ejercicios.add(ejercicio);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return new ArrayList<>(ejercicios);
+        return ejercicios;
     }
 
     public List<String> obtenerGruposMusculares() {
@@ -457,6 +458,55 @@ public class MariaDBController {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public boolean guardarEntrenamiento(Entrenamiento entrenamiento) {
+        String sql = "INSERT INTO Entrenamiento (fecha, peso, series, repeticiones, descanso, ID_usuario, ID_ejercicio) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setDate(1, entrenamiento.getFechaEntrenamiento());
+            pstmt.setDouble(2, entrenamiento.getPeso());
+            pstmt.setInt(3, entrenamiento.getSeries());
+            pstmt.setInt(4, entrenamiento.getRepeticiones());
+            pstmt.setInt(5, entrenamiento.getDescanso());
+            pstmt.setInt(6, entrenamiento.getID_usuario());
+            pstmt.setInt(7, entrenamiento.getID_ejercicio());
+
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<Entrenamiento> obtenerLogros(String ejercicio, String grupoMuscular, int usuarioId) {
+        List<Entrenamiento> logros = new ArrayList<>();
+        String sql = "SELECT * FROM Entrenamiento e " +
+                "JOIN Ejercicio ej ON e.ID_ejercicio = ej.ID_ejercicio " +
+                "WHERE ej.nombre = ? AND ej.grupo_muscular = ? AND e.ID_usuario = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, ejercicio);
+            pstmt.setString(2, grupoMuscular);
+            pstmt.setInt(3, usuarioId);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Entrenamiento entrenamiento = new Entrenamiento();
+                entrenamiento.setID_entrenamiento(rs.getInt("ID_entrenamiento"));
+                entrenamiento.setFechaEntrenamiento(rs.getDate("fecha"));
+                entrenamiento.setPeso(rs.getDouble("peso"));
+                entrenamiento.setSeries(rs.getInt("series"));
+                entrenamiento.setRepeticiones(rs.getInt("repeticiones"));
+                entrenamiento.setDescanso(rs.getInt("descanso"));
+                entrenamiento.setID_usuario(rs.getInt("ID_usuario"));
+                entrenamiento.setID_ejercicio(rs.getInt("ID_ejercicio"));
+                logros.add(entrenamiento);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return logros;
     }
 }
 

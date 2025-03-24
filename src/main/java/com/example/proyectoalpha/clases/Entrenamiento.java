@@ -1,6 +1,5 @@
 package com.example.proyectoalpha.clases;
 
-
 import java.sql.Date;
 
 public class Entrenamiento {
@@ -11,11 +10,12 @@ public class Entrenamiento {
     private int series;
     private int descanso;
     private int ID_usuario;
+    private int ID_ejercicio;
 
     // Constructor sin argumentos (requerido para deserialización)
     public Entrenamiento() {}
 
-    public Entrenamiento(int ID_entrenamiento, Date fechaEntrenamiento, double peso, int repeticiones, int series, int descanso, int ID_usuario) {
+    public Entrenamiento(int ID_entrenamiento, Date fechaEntrenamiento, double peso, int repeticiones, int series, int descanso, int ID_usuario, int ID_ejercicio) {
         this.ID_entrenamiento = ID_entrenamiento;
         this.fechaEntrenamiento = fechaEntrenamiento;
         this.peso = peso;
@@ -23,6 +23,7 @@ public class Entrenamiento {
         this.series = series;
         this.descanso = descanso;
         this.ID_usuario = ID_usuario;
+        this.ID_ejercicio = ID_ejercicio;
     }
 
     public int getID_entrenamiento() {
@@ -79,5 +80,22 @@ public class Entrenamiento {
 
     public void setID_usuario(int ID_usuario) {
         this.ID_usuario = ID_usuario;
+    }
+
+    public int getID_ejercicio() {
+        return ID_ejercicio;
+    }
+
+    public void setID_ejercicio(int ID_ejercicio) {
+        this.ID_ejercicio = ID_ejercicio;
+    }
+
+    @Override
+    public String toString() {
+        return fechaEntrenamiento +
+                ", peso: " + peso + " kg" +
+                ", series: " + series +
+                ", repeticiones: " + repeticiones +
+                ", descanso: " + descanso + "s";
     }
 }
