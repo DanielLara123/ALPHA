@@ -2,6 +2,7 @@ package com.example.proyectoalpha.controller.Entrenador;
 
 
 import com.example.proyectoalpha.clases.Usuario;
+import com.example.proyectoalpha.controller.Chat.ElegirDestinatarioController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,7 +26,6 @@ public class MenuEntrenadorController {
     @FXML
     private Button BtnPlanes;
 
-    private String correoEntrenador;
     private Usuario usuario;
 
     @FXML
@@ -45,8 +45,9 @@ public class MenuEntrenadorController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Entrenador/OpcionesRutinas.fxml"));
             Parent root = loader.load();
 
-            //OpcionesRutinasController controller = loader.getController();
-            //controller.setCorreoEntrenador(correoEntrenador);
+            OpcionesRutinasController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
+
 
             Stage stage = (Stage) BtnPlanes.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -70,12 +71,12 @@ public class MenuEntrenadorController {
 
     void manejarChat(){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Entrenador/ChatEntrenador.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Chat/ElegirDestinatario.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) BtnChat.getScene().getWindow();
 
-            // Habra que llamar a chat "global" ChatEntrenadorController controller = loader.getController();
-            //controller.setCorreoEntrenador(correoEntrenador);
+            ElegirDestinatarioController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
 
             stage.setScene(new Scene(root));
             stage.show();
@@ -97,9 +98,6 @@ public class MenuEntrenadorController {
         BtnChat.setGraphic(new ImageView(imagenChat));
     }
 
-    public void setCorreoEntrenador(String text) {
-        this.correoEntrenador = text;
-    }
 
 
 }

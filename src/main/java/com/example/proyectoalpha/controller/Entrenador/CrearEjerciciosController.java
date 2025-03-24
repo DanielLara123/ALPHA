@@ -1,6 +1,8 @@
 package com.example.proyectoalpha.controller.Entrenador;
-/*
+
 import com.example.proyectoalpha.clases.Ejercicio;
+import com.example.proyectoalpha.clases.Usuario;
+import com.example.proyectoalpha.servicios.MariaDBController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,8 +17,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 
-/*
 public class CrearEjerciciosController {
 
     @FXML
@@ -30,37 +32,24 @@ public class CrearEjerciciosController {
 
     @FXML
     private TextField TextFieldEjercicio;
+    private Usuario usuario;
 
-    private String correoEntrenador;
-
-    private ServicioEjercicios servicioEjercicios = new ServicioEjercicios();
-
-    public void setCorreoEntrenador(String correoEntrenador) {
-        this.correoEntrenador = correoEntrenador;
-    }
+    private MariaDBController mariaDBController = new MariaDBController();
 
     @FXML
     private void initialize() {
+        cargarGruposMusculares();
+        BtnCrearEjercicio.setOnAction(e -> crearEjercicio());
+        BtnVolver.setOnAction(e -> manejarVolver());
         colocarImagenBotones();
-        BtnVolver.setOnAction(event -> volver());
-        BtnCrearEjercicio.setOnAction(event -> crearEjercicio());
-        ChoiceBoxGrupoMuscular.getItems().addAll(servicioEjercicios.obtenerGruposMusculares());
     }
 
-    private void volver() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/com/example/proyectoalpha/Entrenador/OpcionesRutinas.fxml"));
-            Parent root = loader.load();
-
-            OpcionesRutinasController controller = loader.getController();
-            controller.setCorreoEntrenador(correoEntrenador);
-
-            Stage stage = (Stage) BtnVolver.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+    private void cargarGruposMusculares() {
+        List<String> gruposMusculares = mariaDBController.obtenerGruposMusculares();
+        if (gruposMusculares != null && !gruposMusculares.isEmpty()) {
+            ChoiceBoxGrupoMuscular.getItems().addAll(gruposMusculares);
+        } else {
+            showAlert(Alert.AlertType.ERROR, "No hay datos de grupos musculares disponibles.");
         }
     }
 
@@ -69,28 +58,41 @@ public class CrearEjerciciosController {
         String nombreEjercicio = TextFieldEjercicio.getText();
 
         if (grupoMuscular == null || grupoMuscular.isEmpty()) {
-            showAlert("Por favor, selecciona un grupo muscular.");
+            showAlert(Alert.AlertType.WARNING, "Por favor, selecciona un grupo muscular.");
             return;
         }
 
         if (nombreEjercicio == null || nombreEjercicio.isEmpty()) {
-            showAlert("Por favor, introduce el nombre del ejercicio.");
+            showAlert(Alert.AlertType.WARNING, "Por favor, introduce un nombre para el ejercicio.");
             return;
         }
 
-        try {
-            Ejercicio nuevoEjercicio = new Ejercicio(nombreEjercicio, grupoMuscular, 0, 0, 0, 0.0);
-            servicioEjercicios.agregarEjercicio(grupoMuscular, nuevoEjercicio);
-            showAlert("Ejercicio creado exitosamente.");
-        } catch (Exception e) {
-            showAlert("Error al crear el ejercicio: " + e.getMessage());
-            e.printStackTrace();
+        Ejercicio nuevoEjercicio = new Ejercicio();
+        nuevoEjercicio.setGrupoMuscular(grupoMuscular);
+        nuevoEjercicio.setNombre(nombreEjercicio);
+
+        boolean success = mariaDBController.guardarEjercicio(nuevoEjercicio);
+        if (success) {
+            showAlert(Alert.AlertType.INFORMATION, "Ejercicio guardado exitosamente.");
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Error al guardar el ejercicio.");
         }
     }
 
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, message);
-        alert.showAndWait();
+    private void manejarVolver() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Entrenador/MenuEntrenador.fxml"));
+            Parent root = loader.load();
+
+            MenuEntrenadorController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
+
+            Stage stage = (Stage) BtnVolver.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void colocarImagenBotones() {
@@ -100,6 +102,13 @@ public class CrearEjerciciosController {
 
         BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
-}
 
- */
+    private void showAlert(Alert.AlertType alertType, String message) {
+        Alert alert = new Alert(alertType, message);
+        alert.show();
+    }
+
+    public void setDatosUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+}
