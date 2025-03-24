@@ -28,7 +28,7 @@ public class ClienteController {
     private Button BtnEnviar;
 
     @FXML
-    private ListView<String> ListViewMensajes;
+    private ListView<Object> ListViewMensajes;
 
     @FXML
     private Label LblDestinatario;
@@ -60,14 +60,19 @@ public class ClienteController {
         MariaDBController mariaDBController = new MariaDBController();
         List<String> mensajes = mariaDBController.cargarChat(usuario.getID(), usuario2.getID());
         for (String mensaje : mensajes) {
-            if (mensaje.startsWith(usuarioActual + ":")) {
-                ListViewMensajes.getItems().add("Tú: " + mensaje.substring(usuarioActual.length() + 1));
+            Label label = new Label();
+            if (mensaje.startsWith(usuario.getNombre() + ":")) {
+                label.getStyleClass().add("mensaje-derecha");
+                label.setText("Tú: " + mensaje.substring((usuario.getID() + ":").length()));
+            } else if (mensaje.startsWith(usuario2.getNombre() + ":")) {
+                label.getStyleClass().add("mensaje-izquierda");
+                label.setText(usuario2.getNombre() + ": " + mensaje.substring((usuario2.getID() + ":").length()));
             } else {
-                ListViewMensajes.getItems().add(mensaje);
+                label.setText("Desconocido: " + mensaje);
             }
+            ListViewMensajes.getItems().add(label);
         }
     }
-
     public void inicializarCliente(String servidor, int puerto) {
         if (usuario == null || usuario2 == null) {
             throw new IllegalStateException("Usuarios no están inicializados");
@@ -102,7 +107,6 @@ public class ClienteController {
         }
     }
 
-
     @FXML
     private void enviarMensaje() {
         if (salida == null) {
@@ -116,9 +120,13 @@ public class ClienteController {
 
         String mensaje = TxtMensaje.getText();
         if (!mensaje.isEmpty()) {
-            String destinatario = usuarioDestino; // Adjust the recipient according to the logic
+            String destinatario = usuarioDestino;
             salida.println(destinatario + ":" + mensaje);
-            ListViewMensajes.getItems().add("Tú: " + mensaje);
+
+            Label label = new Label("Tú: " + mensaje);
+            label.getStyleClass().add("mensaje-derecha");
+            ListViewMensajes.getItems().add(label);
+
             TxtMensaje.clear();
         }
         MariaDBController mariaDBController = new MariaDBController();
