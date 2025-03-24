@@ -508,5 +508,18 @@ public class MariaDBController {
         }
         return logros;
     }
+
+    public void guardarChat(String contenido, int idUsuario1, int idUsuario2) {
+        String sql = "INSERT INTO Chat (contenido, fecha, ID_usuario1, ID_usuario2) VALUES (?, NOW(), ?, ?)";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, contenido);
+            pstmt.setInt(2, idUsuario1);
+            pstmt.setInt(3, idUsuario2);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
