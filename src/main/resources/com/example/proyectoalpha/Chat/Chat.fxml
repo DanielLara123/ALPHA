@@ -37,7 +37,7 @@
                         <Image url="@../../../../images/ALPHA.png" />
                      </image>
                   </ImageView>
-                  <ListView fx:id="ListViewMensajes" prefHeight="200.0" prefWidth="200.0" styleClass="listView" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ListView fx:id="ListViewMensajes" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../../css/ModeloAlpha.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label fx:id="LblDestinatario" style="-fx-text-fill: #FFD700;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
                         <Font name="System Bold Italic" size="36.0" />
