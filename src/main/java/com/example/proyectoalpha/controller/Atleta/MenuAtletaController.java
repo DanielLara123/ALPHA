@@ -145,19 +145,19 @@ public class MenuAtletaController {
         }
     }
 
-    private void manejarNotificaciones(){
+    private void manejarNotificaciones() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Atleta/NotificacionesUsuario.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) BtnNotificaciones.getScene().getWindow();
 
             NotificacionesUsuarioController controller = loader.getController();
             controller.setDatosUsuario(usuario);
 
+            Stage stage = (Stage) BtnNotificaciones.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

@@ -613,7 +613,7 @@ public class MariaDBController {
     }
 
     public LocalDate obtenerFechaUltimoEntrenamiento(int usuarioID) {
-        String query = "SELECT MAX(fecha) AS ultima_fecha FROM Entrenamiento WHERE usuario_id = ?";
+        String query = "SELECT MAX(fecha) AS ultima_fecha FROM Entrenamiento WHERE ID_usuario = ?";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, usuarioID);
