@@ -613,7 +613,7 @@ public class MariaDBController {
     }
 
     public LocalDate obtenerFechaUltimoEntrenamiento(int usuarioID) {
-        String query = "SELECT MAX(fecha) AS ultima_fecha FROM Entrenamiento WHERE ID_usuario = ?";
+        String query = "SELECT MAX(fecha) AS ultima_fecha FROM Entrenamiento WHERE usuario_id = ?";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, usuarioID);
@@ -654,14 +654,39 @@ public class MariaDBController {
         return "Desconocido";
     }
 
-    public byte[] obtenerImagenPorId(int id) {
-        String query = "SELECT img_data FROM Imagenes WHERE id = ?";
+    public List<String> obtenerContactosRecientes(int usuarioID) {
+        List<String> contactos = new ArrayList<>();
+        String query = "SELECT correo FROM usuario WHERE usuarioID = ? ORDER BY fechaReciente DESC";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setInt(1, id);
+            pstmt.setInt(1, usuarioID);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                contactos.add(rs.getString("correo"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return contactos;
+    }
+
+    public Usuario obtenerUsuarioPorEmail(String correoAtleta) {
+        String query = "SELECT * FROM Usuario WHERE correo = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, correoAtleta);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                return rs.getBytes("img_data");
+                return new Usuario(
+                        rs.getInt("ID"),
+                        rs.getString("nombre"),
+                        rs.getString("apellidos"),
+                        rs.getString("contraseña"),
+                        rs.getString("DNI"),
+                        rs.getString("correo"),
+                        rs.getString("tipoUsuario"),
+                        rs.getString("gimnasio")
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
