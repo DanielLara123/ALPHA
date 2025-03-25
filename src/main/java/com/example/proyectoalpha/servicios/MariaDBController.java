@@ -653,6 +653,21 @@ public class MariaDBController {
         }
         return "Desconocido";
     }
+
+    public byte[] obtenerImagenPorId(int id) {
+        String query = "SELECT img_data FROM Imagenes WHERE id = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getBytes("img_data");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
 
 

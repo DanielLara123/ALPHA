@@ -1,9 +1,11 @@
 package com.example.proyectoalpha.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import com.example.proyectoalpha.controller.RegistroInicioSesion.InicioSesionController;
+import com.example.proyectoalpha.servicios.MariaDBController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,6 +33,9 @@ public class TipoUsuarioController {
     private Button BtnEntrenador;
 
     @FXML
+    private ImageView LogoImageView;
+
+    @FXML
     private Button BtnMedico;
 
     @FXML
@@ -39,6 +44,16 @@ public class TipoUsuarioController {
         BtnAtleta.setOnAction(event -> loadInicioSesion("Atleta"));
         BtnEntrenador.setOnAction(event -> loadInicioSesion("Entrenador"));
         BtnMedico.setOnAction(event -> loadInicioSesion("Medico"));
+
+        MariaDBController dbController = new MariaDBController();
+        byte[] imageData = dbController.obtenerImagenPorId(4); // Assuming the logo has id = 4
+
+        if (imageData != null) {
+            Image logoImage = new Image(new ByteArrayInputStream(imageData));
+            LogoImageView.setImage(logoImage);
+        } else {
+            System.out.println("Image not found in the database.");
+        }
 
         colocarImagenBotones();
     }
