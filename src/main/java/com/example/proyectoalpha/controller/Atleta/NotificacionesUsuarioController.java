@@ -3,14 +3,14 @@ package com.example.proyectoalpha.controller.Atleta;
 import com.example.proyectoalpha.clases.Usuario;
 import com.example.proyectoalpha.servicios.MariaDBController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,14 +29,14 @@ public class NotificacionesUsuarioController {
     private MariaDBController mariaDBController = new MariaDBController();
 
     @FXML
-    private void initialize() {
+    public void initialize() {
         BtnVolver.setOnAction(event -> manejarVolver());
         colocarImagenBotones();
-        mostrarDiasDesdeUltimoEntrenamiento();
     }
 
     public void setDatosUsuario(Usuario usuario) {
         this.usuario = usuario;
+        mostrarDiasDesdeUltimoEntrenamiento();
     }
 
     private void manejarVolver() {
@@ -64,12 +64,16 @@ public class NotificacionesUsuarioController {
     }
 
     private void mostrarDiasDesdeUltimoEntrenamiento() {
-        LocalDate fechaUltimoEntrenamiento = mariaDBController.obtenerFechaUltimoEntrenamiento(usuario.getID());
-        if (fechaUltimoEntrenamiento != null) {
-            long diasPasados = ChronoUnit.DAYS.between(fechaUltimoEntrenamiento, LocalDate.now());
-            LblMensaje.setText("Han pasado " + diasPasados + " días desde tu último entrenamiento.");
+        if (usuario != null) {
+            LocalDate fechaUltimoEntrenamiento = mariaDBController.obtenerFechaUltimoEntrenamiento(this.usuario.getID());
+            if (fechaUltimoEntrenamiento != null) {
+                long diasPasados = ChronoUnit.DAYS.between(fechaUltimoEntrenamiento, LocalDate.now());
+                LblMensaje.setText("Han pasado " + diasPasados + " días desde tu último entrenamiento.");
+            } else {
+                LblMensaje.setText("No se encontró información sobre tu último entrenamiento.");
+            }
         } else {
-            LblMensaje.setText("No se encontró información sobre tu último entrenamiento.");
+            LblMensaje.setText("Usuario no está definido.");
         }
     }
 }
