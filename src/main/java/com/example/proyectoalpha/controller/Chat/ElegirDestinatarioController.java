@@ -62,8 +62,8 @@ public class ElegirDestinatarioController {
             Parent root = loader.load();
 
             ClienteController chatController = loader.getController();
+            chatController.setUsuario(usuario, usuario2); // Initialize usuario and usuario2
             chatController.inicializarCliente("localhost", 12345);
-            chatController.setUsuario(usuario, usuario2);
 
             Stage stage = (Stage) BtnAbrir.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -72,7 +72,6 @@ public class ElegirDestinatarioController {
             e.printStackTrace();
         }
     }
-
     public void setDatosUsuario(Usuario usuario) {
         this.usuario = usuario;
     }

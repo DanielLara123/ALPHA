@@ -86,7 +86,7 @@ public class MenuEntrenadorController {
     }
     private void colocarImagenBotones(){
         URL PlanesDeEntrenamiento = getClass().getResource("/images/PlanesDeEntrenamiento.png");
-        URL Chat = getClass().getResource("/images/FotoChat.png");
+        URL Chat = getClass().getResource("/images/ImgChat.jpg");
 
 
 
