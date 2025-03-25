@@ -67,11 +67,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <ImageView fitHeight="294.0" fitWidth="467.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BASELINE">
-                     <image>
-                        <Image url="@../../../images/LogoAlpha.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fx:id="LogoImageView" fitHeight="294.0" fitWidth="467.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BASELINE" />
                   <ImageView fitHeight="129.0" fitWidth="239.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                           <image>
                              <Image url="@../../../images/EligeTuRol.png" />
