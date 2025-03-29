@@ -6,19 +6,10 @@ public class Sensor {
     private int ID_sensor;
     private String tipoDato;
     private Date fecha;
-    private double valor;
+    private String valor; // Cambiado a String
     private int ID_usuario;
 
-    public Sensor() {}
-
-    public Sensor(int ID_sensor, String tipoDato, Date fecha, double valor, int ID_usuario) {
-        this.ID_sensor = ID_sensor;
-        this.tipoDato = tipoDato;
-        this.fecha = fecha;
-        this.valor = valor;
-        this.ID_usuario = ID_usuario;
-    }
-
+    // Getters y setters
     public int getID_sensor() {
         return ID_sensor;
     }
@@ -43,11 +34,11 @@ public class Sensor {
         this.fecha = fecha;
     }
 
-    public double getValor() {
+    public String getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(String valor) {
         this.valor = valor;
     }
 

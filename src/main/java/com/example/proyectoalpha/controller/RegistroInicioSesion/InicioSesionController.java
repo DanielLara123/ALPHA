@@ -20,6 +20,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.Normalizer;
+import java.util.regex.Pattern;
 
 public class InicioSesionController {
 
@@ -64,8 +66,8 @@ public class InicioSesionController {
 
         Usuario usuario = mariaDBController.loginUsuario(correo, contrasena);
         if (usuario != null) {
-            if (usuario.getTipoUsuario().equalsIgnoreCase(tipoUsuario)) {
-                switch (tipoUsuario.toLowerCase()) {
+            if (normalize(usuario.getTipoUsuario()).equalsIgnoreCase(normalize(tipoUsuario))) {
+                switch (normalize(tipoUsuario).toLowerCase()) {
                     case "atleta":
                         MenuAtleta(usuario);
                         break;
@@ -186,5 +188,11 @@ public class InicioSesionController {
         Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
 
         BtnVolver.setGraphic(new ImageView(imagenVolver));
+    }
+
+    private String normalize(String input) {
+        String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(normalized).replaceAll("");
     }
 }

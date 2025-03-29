@@ -2,8 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" styleClass="parent" stylesheets="@../../../../css/ModeloAlpha.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Medico.HistorialMedicoController">
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" styleClass="parent" stylesheets="@../../../../css/ModeloAlpha.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Medico.HistorialMedicoController">
    <children>
       <BorderPane layoutX="184.0" layoutY="70.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -98,11 +98,14 @@
             </Button>
          </right>
          <left>
-            <ChoiceBox fx:id="ChoiceBoxAtleta" prefHeight="42.0" prefWidth="197.0" BorderPane.alignment="CENTER">
+            <TextField fx:id="TextFieldAtleta" prefHeight="34.0" prefWidth="207.0" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css" BorderPane.alignment="CENTER">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
                <BorderPane.margin>
-                  <Insets left="100.0" />
+                  <Insets left="50.0" />
                </BorderPane.margin>
-            </ChoiceBox>
+            </TextField>
          </left>
       </BorderPane>
       <Button fx:id="BtnVolver" mnemonicParsing="false" prefHeight="23.0" prefWidth="8.0" />

@@ -1,9 +1,6 @@
 package com.example.proyectoalpha.servicios;
 
-import com.example.proyectoalpha.clases.Ejercicio;
-import com.example.proyectoalpha.clases.Entrenamiento;
-import com.example.proyectoalpha.clases.Rutina;
-import com.example.proyectoalpha.clases.Usuario;
+import com.example.proyectoalpha.clases.*;
 
 import java.sql.*;
 import java.sql.Date;
@@ -613,7 +610,7 @@ public class MariaDBController {
     }
 
     public LocalDate obtenerFechaUltimoEntrenamiento(int usuarioID) {
-        String query = "SELECT MAX(fecha) AS ultima_fecha FROM Entrenamiento WHERE usuario_id = ?";
+        String query = "SELECT MAX(fecha) AS ultima_fecha FROM Entrenamiento WHERE ID_usuario= ?";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, usuarioID);
@@ -692,6 +689,42 @@ public class MariaDBController {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public byte[] obtenerImagenPorId(int id) {
+        String query = "SELECT img_data FROM Imagenes WHERE id = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getBytes("img_data");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Sensor> obtenerDatosSensorPorUsuario(int ID_usuario) {
+        String query = "SELECT tipo_dato, MAX(fecha) as fecha, valor FROM Sensores WHERE ID_usuario = ? GROUP BY tipo_dato";
+        List<Sensor> sensores = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, ID_usuario);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Sensor sensor = new Sensor();
+                sensor.setTipoDato(rs.getString("tipo_dato"));
+                sensor.setFecha(rs.getDate("fecha"));
+                sensor.setValor(rs.getString("valor"));
+                sensor.setID_usuario(ID_usuario);
+                sensores.add(sensor);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sensores;
     }
 }
 

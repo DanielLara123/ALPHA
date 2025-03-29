@@ -1,6 +1,7 @@
 package com.example.proyectoalpha.controller.Medico;
 
 import com.example.proyectoalpha.clases.Usuario;
+import com.example.proyectoalpha.controller.Chat.ElegirDestinatarioController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -44,6 +45,10 @@ public class MenuMedicoController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Medico/HistorialMedico.fxml"));
             Parent root = loader.load();
+
+            HistorialMedicoController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
+
             Stage stage = (Stage) BtnEstadisticasMedicasMedico.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -66,8 +71,12 @@ public class MenuMedicoController {
 
     void manejarChat(){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Medico/ChatMedico.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Chat/ElegirDestinatario.fxml"));
             Parent root = loader.load();
+
+            ElegirDestinatarioController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
+
             Stage stage = (Stage) BtnEmisionDeRecomendacionesMedico.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

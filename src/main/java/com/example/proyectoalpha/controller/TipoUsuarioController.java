@@ -46,7 +46,7 @@ public class TipoUsuarioController {
         BtnMedico.setOnAction(event -> loadInicioSesion("Medico"));
 
         MariaDBController dbController = new MariaDBController();
-        byte[] imageData = dbController.obtenerImagenPorId(4); // Assuming the logo has id = 4
+        byte[] imageData = dbController.obtenerImagenPorId(4); // Imagen obtenida por la base de datos
 
         if (imageData != null) {
             Image logoImage = new Image(new ByteArrayInputStream(imageData));
