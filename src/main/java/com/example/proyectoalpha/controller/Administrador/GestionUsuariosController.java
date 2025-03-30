@@ -3,6 +3,9 @@ package com.example.proyectoalpha.controller.Administrador;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.example.proyectoalpha.clases.Usuario;
+import com.example.proyectoalpha.controller.Medico.MenuMedicoController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -35,6 +38,8 @@ public class GestionUsuariosController {
     @FXML
     private Button BtnVolver;
 
+    private Usuario usuario;
+
     @FXML
     void initialize() {
         BtnActualizarUsuarios.setOnAction(event -> manejarActualizarUsuarios());
@@ -46,37 +51,87 @@ public class GestionUsuariosController {
         colocarImagenBotones();
     }
 
+    private void manejarVolver() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/MenuAdmin.fxml"));
+            Parent root = loader.load();
+
+            MenuAdminController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
+
+            Stage stage = (Stage) BtnVolver.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private void manejarVerUsuarios() {
-        cargarEscena("/com/example/proyectoalpha/Administrador/VerUsuarios.fxml", BtnVerUsuarios);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/VerUsuarios.fxml"));
+            Parent root = loader.load();
+
+            VerUsuariosController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
+
+            Stage stage = (Stage) BtnVerUsuarios.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void manejarEliminarUsuario() {
-        cargarEscena("/com/example/proyectoalpha/Administrador/EliminarUsuario.fxml", BtnEliminarUsuario);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/EliminarUsuario.fxml"));
+            Parent root = loader.load();
+
+            EliminarUsuarioController controller = loader.getController();
+            controller.setUsuario(usuario);
+
+            Stage stage = (Stage) BtnEliminarUsuario.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void manejarCrearUsuario() {
-        cargarEscena("/com/example/proyectoalpha/Administrador/CrearUsuario.fxml", BtnCrearUsuario);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/CrearUsuario.fxml"));
+            Parent root = loader.load();
+
+            CrearUsuarioController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
+
+            Stage stage = (Stage) BtnCrearUsuario.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void manejarActualizarUsuarios() {
-        cargarEscena("/com/example/proyectoalpha/Administrador/ActualizarUsuarios.fxml", BtnActualizarUsuarios);
-    }
-
-    private void manejarVolver() {
-        cargarEscena("/com/example/proyectoalpha/Administrador/MenuAdministrador.fxml", BtnVolver);
-    }
-
-    private void cargarEscena(String rutaFXML, Button boton) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(rutaFXML));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/ActualizarUsuarios.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) boton.getScene().getWindow();
+
+            ActualizarUsuariosController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
+
+            Stage stage = (Stage) BtnActualizarUsuarios.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
 
     private void colocarImagenBotones() {
         colocarImagenBoton(BtnCrearUsuario, "/images/FotoAñadirUsuario.png", 200, 200);
@@ -94,5 +149,9 @@ public class GestionUsuariosController {
         } else {
             System.err.println("Error al cargar la imagen: " + rutaImagen);
         }
+    }
+
+    public void setDatosUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

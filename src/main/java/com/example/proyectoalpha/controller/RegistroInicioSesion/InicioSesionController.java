@@ -152,7 +152,7 @@ public class InicioSesionController {
 
     private void MenuAdministrador(Usuario usuario) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/MenuAdministrador.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/MenuAdmin.fxml"));
             Parent root = loader.load();
 
             MenuAdminController controller = loader.getController();

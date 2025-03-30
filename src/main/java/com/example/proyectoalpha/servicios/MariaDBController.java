@@ -726,6 +726,63 @@ public class MariaDBController {
         }
         return sensores;
     }
+
+    public List<Usuario> obtenerUsuariosPorGimnasio(String gimnasio) {
+        String query = "SELECT * FROM Usuario WHERE gimnasio = ?";
+        List<Usuario> usuarios = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, gimnasio);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setID(rs.getInt("ID"));
+                usuario.setCorreo(rs.getString("correo"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setTipoUsuario(rs.getString("tipoUsuario"));
+                usuario.setGimnasio(rs.getString("gimnasio"));
+                usuarios.add(usuario);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usuarios;
+    }
+
+
+    public boolean actualizarDatosUsuario(int id, String nuevoNombre, String nuevoApellidos, String nuevoCorreo, String nuevaContrasena, String nuevoGimnasio, String nuevoRol, String nuevoDNI) {
+        String query = "UPDATE Usuario SET nombre = ?, apellidos = ?, correo = ?, contraseña = ?, gimnasio = ?, tipoUsuario = ?, DNI = ? WHERE ID = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, nuevoNombre);
+            pstmt.setString(2, nuevoApellidos);
+            pstmt.setString(3, nuevoCorreo);
+            pstmt.setString(4, nuevaContrasena);
+            pstmt.setString(5, nuevoGimnasio);
+            pstmt.setString(6, nuevoRol);
+            pstmt.setString(7, nuevoDNI);
+            pstmt.setInt(8, id);
+
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean eliminarUsuarioPorCorreo(String correoSeleccionado) {
+        String query = "DELETE FROM Usuario WHERE correo = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, correoSeleccionado);
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
 
 

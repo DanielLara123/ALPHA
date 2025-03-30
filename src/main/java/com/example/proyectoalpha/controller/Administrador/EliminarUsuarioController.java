@@ -1,29 +1,22 @@
 package com.example.proyectoalpha.controller.Administrador;
-/*
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+
+import com.example.proyectoalpha.clases.Usuario;
+import com.example.proyectoalpha.servicios.MariaDBController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import com.example.proyectoalpha.controller.ConfirmacionController;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-/*
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.Optional;
+
 public class EliminarUsuarioController {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private Button BtnContinuar;
@@ -31,95 +24,93 @@ public class EliminarUsuarioController {
     @FXML
     private Button BtnVolver;
 
-    // Por implementar
     @FXML
-    private ChoiceBox<?> ChoiceBoxCorreoAtleta;
+    private ChoiceBox<String> ChoiceBoxCorreoAtleta;
 
     @FXML
     private Label LblMensaje;
 
-    private servicioUsuario servicioUsuario = new servicioUsuario();
+    private Usuario usuario;
+    MariaDBController mariaDBController = new MariaDBController();
 
-    @FXML
-    void initialize() {
-       servicioUsuario = new servicioUsuario();
-
-       BtnContinuar.setOnAction(event -> manejarContinuar());
-       BtnVolver.setOnAction(event -> manejarVolver());
-       colocarImagenBotones();
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+        cargarUsuarios();
     }
 
-    private void manejarContinuar() {
-        String correo = ChoiceBoxCorreoAtleta.getValue().toString();
+    private void cargarUsuarios() {
+        if (usuario != null) {
 
-        if (correo.isEmpty()) {
-            LblMensaje.setText("Por favor, ingrese un correo");
-        } else if (!servicioUsuario.emailEstaRegistrado(correo)) {
-            LblMensaje.setText("El correo ingresado no está registrado");
-        } else {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Confirmacion.fxml"));
-                Parent root = loader.load();
-                ConfirmacionController confirmacionController = loader.getController();
-                confirmacionController.setMensaje("¿Está seguro de que quiere eliminar el usuario?");
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.showAndWait();
-
-                if (confirmacionController.estaConfirmado()) {
-                    servicioUsuario.eliminarUsuario(correo);
-
-                    File saludFile = new File(correo + "_datosMedicos.json");
-                    File historialFile = new File(correo + "_historial.json");
-                    File rutinasFile = new File(correo + "_rutinas.json");
-
-                    if (saludFile.exists()) {
-                        saludFile.delete();
-                    }
-
-                    if (historialFile.exists()) {
-                        historialFile.delete();
-                    }
-
-                    if (rutinasFile.exists()) {
-                        rutinasFile.delete();
-                    }
-
-                    LblMensaje.setText("Usuario eliminado correctamente");
-                } else {
-                    LblMensaje.setText("Eliminación de usuario cancelada");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                LblMensaje.setText("Error al mostrar la confirmación");
+            List<Usuario> usuarios = mariaDBController.obtenerUsuariosPorGimnasio(usuario.getGimnasio());
+            for (Usuario usuario : usuarios) {
+                ChoiceBoxCorreoAtleta.getItems().add(usuario.getCorreo());
             }
         }
     }
 
-    private void manejarVolver(){
+    @FXML
+    public void initialize() {
+        BtnContinuar.setOnAction(event -> manejarContinuar());
+        BtnVolver.setOnAction(event -> manejarVolver());
+        colocarImagenBotones();
+    }
+
+    private void manejarVolver() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/GestionUsuarios.fxml"));
             Parent root = loader.load();
+
+            GestionUsuariosController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
+
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            LblMensaje.setText("Error al volver al menú");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void manejarContinuar() {
+        String correoSeleccionado = ChoiceBoxCorreoAtleta.getValue();
+        if (correoSeleccionado != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmación");
+            alert.setHeaderText(null);
+            alert.setContentText("¿Estás seguro de que deseas eliminar al usuario con correo: " + correoSeleccionado + "?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                boolean exito = mariaDBController.eliminarUsuarioPorCorreo(correoSeleccionado);
+                if (exito) {
+                    Alert exitoAlert = new Alert(Alert.AlertType.INFORMATION);
+                    exitoAlert.setTitle("Éxito");
+                    exitoAlert.setHeaderText(null);
+                    exitoAlert.setContentText("Usuario eliminado correctamente");
+                    exitoAlert.showAndWait();
+                    cargarUsuarios(); // Recargar la lista de usuarios
+                } else {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setTitle("Error");
+                    errorAlert.setHeaderText(null);
+                    errorAlert.setContentText("Error al eliminar el usuario");
+                    errorAlert.showAndWait();
+                }
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setHeaderText(null);
+            alert.setContentText("Por favor, selecciona un usuario para eliminar.");
+            alert.showAndWait();
         }
     }
 
     private void colocarImagenBotones() {
         URL volver = getClass().getResource("/images/VolverAtras.png");
 
-        if (volver != null) {
-            Image imagenVolver = new Image(volver.toString(), 50, 50, false, true);
-            BtnVolver.setGraphic(new ImageView(imagenVolver));
-        } else {
-            LblMensaje.setText("Error al cargar la imagen de volver");
-        }
+        Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
+
+        BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 
 }
-
- */

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxWidth="1.7976931348623157E308" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.RegistroInicioSesion.RegistroController">
+<AnchorPane maxWidth="1.7976931348623157E308" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectoalpha.controller.Administrador.NuevosDatosUsuarioController">
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -87,17 +87,21 @@
                      </padding>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2" GridPane.valignment="TOP">
-                     <children>
-                        <Label stylesheets="@../../../../css/ModeloAlpha.css" text="Introduce el DNI del usuario" />
-                        <TextField fx:id="TextFieldDNI" prefHeight="25.0" prefWidth="309.0" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css">
-                           <padding>
-                              <Insets right="20.0" />
-                           </padding>
-                        </TextField>
-                     </children>
                      <GridPane.margin>
                         <Insets left="100.0" right="20.0" />
                      </GridPane.margin>
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label stylesheets="@../../../../css/ModeloAlpha.css" text="Introduce el DNI del usuario" />
+                              <TextField fx:id="TextFieldDNI" prefHeight="25.0" prefWidth="309.0" styleClass="textfield" stylesheets="@../../../../css/ModeloAlpha.css">
+                                 <padding>
+                                    <Insets right="20.0" />
+                                 </padding>
+                              </TextField>
+                           </children>
+                        </VBox>
+                     </children>
                   </VBox>
                   <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                      <children>
@@ -143,12 +147,11 @@
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Label stylesheets="@../../../../css/ModeloAlpha.css" text="Introduce el rol del usuario  " />
-                  <ChoiceBox fx:id="ChoiceBoxRol" prefWidth="150.0" stylesheets="@../../../../css/ModeloAlpha.css" />
-               </children>
-            </HBox>
-            <Button fx:id="BtnContinuar" mnemonicParsing="false" prefHeight="89.0" prefWidth="228.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Continuar">
+                  <ChoiceBox fx:id="ChoiceBoxRol" prefHeight="27.0" prefWidth="179.0" stylesheets="@../../../../css/ModeloAlpha.css" />
+               </children></HBox>
+            <Button fx:id="BtnContinuar" mnemonicParsing="false" prefHeight="84.0" prefWidth="223.0" stylesheets="@../../../../css/ModeloAlpha.css" text="Continuar">
                <VBox.margin>
-                  <Insets bottom="15.0" top="10.0" />
+                  <Insets bottom="40.0" top="10.0" />
                </VBox.margin>
             </Button>
          </children>

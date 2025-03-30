@@ -4,8 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.ResourceBundle;
+
+import com.example.proyectoalpha.clases.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,12 +20,6 @@ import javafx.stage.Stage;
 public class ControlAfluenciaController {
 
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
     private Button BtnVolver;
 
     @FXML
@@ -36,6 +31,8 @@ public class ControlAfluenciaController {
     @FXML
     private Label LblPorcentajeAforo;
 
+    private Usuario usuario;
+
     @FXML
     void initialize() {
         BtnVolver.setOnAction(event -> manejarVolver());
@@ -45,8 +42,11 @@ public class ControlAfluenciaController {
 
     private void manejarVolver() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/MenuAdministrador.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/MenuAdmin.fxml"));
             Parent root = loader.load();
+
+            MenuAdminController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
 
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -86,5 +86,9 @@ public class ControlAfluenciaController {
         } else {
             System.out.println("No se encontró la imagen");
         }
+    }
+
+    public void setDatosUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

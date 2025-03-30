@@ -123,7 +123,7 @@ public class ElegirDestinatarioController {
                 stage.setScene(new Scene(root));
                 stage.show();
             } else if (usuario.getTipoUsuario().equalsIgnoreCase("Administrador")) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/MenuAdministrador.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/MenuAdmin.fxml"));
                 Parent root = loader.load();
 
                 MenuAdminController controller = loader.getController();

@@ -1,8 +1,7 @@
 package com.example.proyectoalpha.controller.Administrador;
-/*
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+
+import com.example.proyectoalpha.clases.Usuario;
+import com.example.proyectoalpha.servicios.MariaDBController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,18 +11,13 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import com.example.proyectoalpha.clases.Usuario;
 
-/*
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+
 public class VerUsuariosController {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private Button BtnContinuar;
@@ -31,48 +25,54 @@ public class VerUsuariosController {
     @FXML
     private Button BtnVolver;
 
-    // Por implementar
     @FXML
-    private ChoiceBox<?> ChoiceBoxCorreo;
+    private ChoiceBox<String> ChoiceBoxCorreo;
 
     @FXML
     private Label LblMensaje;
 
-    private servicioUsuario servicioUsuario;
+    private Usuario usuario;
+    private MariaDBController mariaDBController = new MariaDBController();
 
     @FXML
-    void initialize() {
-        servicioUsuario = new servicioUsuario();
-
-        BtnContinuar.setOnAction(event -> manejarVerUsuario());
+    public void initialize() {
+        BtnContinuar.setOnAction(event -> manejarContinuar());
         BtnVolver.setOnAction(event -> manejarVolver());
         colocarImagenBotones();
     }
 
-    private void manejarVerUsuario() {
-        String correo = ChoiceBoxCorreo.getValue().toString();
 
-        if (correo.isEmpty()) {
-            LblMensaje.setText("El campo correo es obligatorio");
-        } else {
-            Usuario usuario = servicioUsuario.obtenerUsuarioPorCorreo(correo);
-            if (usuario == null) {
-                LblMensaje.setText("El correo no está registrado");
-            } else {
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/MostrarUsuario.fxml"));
-                    Parent root = loader.load();
-                    MostrarUsuarioController mostrarUsuarioController = loader.getController();
-                    mostrarUsuarioController.setUsuario(usuario);
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(root));
-                    stage.initModality(Modality.APPLICATION_MODAL);
-                    stage.showAndWait();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    LblMensaje.setText("Error al mostrar la ventana de usuario");
-                }
+    public void setDatosUsuario(Usuario usuario) {
+        this.usuario = usuario;
+        cargarUsuarios();
+    }
+
+    private void cargarUsuarios() {
+        if (usuario != null) {
+            List<Usuario> usuarios = mariaDBController.obtenerUsuariosPorGimnasio(usuario.getGimnasio());
+            for (Usuario usuario : usuarios) {
+                ChoiceBoxCorreo.getItems().add(usuario.getCorreo());
             }
+        }
+    }
+
+    private void manejarContinuar() {
+        try {
+            String correoSeleccionado = ChoiceBoxCorreo.getValue();
+            Usuario usuarioSeleccionado = mariaDBController.obtenerUsuarioPorCorreo(correoSeleccionado);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/MostrarUsuario.fxml"));
+            Parent root = loader.load();
+
+            MostrarUsuarioController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
+            controller.setCorreoUsuarioAVer(usuarioSeleccionado);
+
+            Stage stage = (Stage) BtnContinuar.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -80,25 +80,24 @@ public class VerUsuariosController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/GestionUsuarios.fxml"));
             Parent root = loader.load();
+
+            GestionUsuariosController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
+
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            LblMensaje.setText("Error al volver al menú principal");
         }
     }
+
 
     private void colocarImagenBotones() {
         URL volver = getClass().getResource("/images/VolverAtras.png");
 
-        if (volver != null) {
-            Image imagenVolver = new Image(volver.toString(), 50, 50, false, true);
-            BtnVolver.setGraphic(new ImageView(imagenVolver));
-        } else {
-            LblMensaje.setText("Error al cargar la imagen de volver");
-        }
+        Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
+
+        BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 }
-
- */

@@ -1,9 +1,8 @@
 package com.example.proyectoalpha.controller.Administrador;
-/*
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+
+import com.example.proyectoalpha.clases.Usuario;
+import com.example.proyectoalpha.controller.Medico.MenuMedicoController;
+import com.example.proyectoalpha.servicios.MariaDBController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,17 +12,13 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-/*
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+
 public class ActualizarUsuariosController {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private Button BtnContinuar;
@@ -31,70 +26,51 @@ public class ActualizarUsuariosController {
     @FXML
     private Button BtnVolver;
 
-    // Por implementar
     @FXML
-    private ChoiceBox<?> ChoiceBoxCorreoAtleta;
+    private ChoiceBox<String> ChoiceBoxCorreoAtleta;
 
     @FXML
     private Label LblMensaje;
 
-    private servicioUsuario servicioUsuario;
+    private Usuario usuario;
+    private MariaDBController mariaDBController = new MariaDBController();
 
     @FXML
-    void initialize() {
-        servicioUsuario = new servicioUsuario();
-
+    public void initialize() {
         BtnContinuar.setOnAction(event -> manejarContinuar());
         BtnVolver.setOnAction(event -> manejarVolver());
         colocarImagenBotones();
     }
 
-    private void manejarContinuar() {
-        String correo = ChoiceBoxCorreoAtleta.getValue().toString();
 
-        if (correo.isEmpty()) {
-            LblMensaje.setText("El campo correo es obligatorio");
-        } else if (!servicioUsuario.emailEstaRegistrado(correo)) {
-            LblMensaje.setText("El correo no está registrado");
-        } else {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/NuevosDatosUsuario.fxml"));
-                Parent root = loader.load();
-                NuevosDatosUsuarioController datosController = loader.getController();
-                datosController.setCorreo(correo);
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.showAndWait();
+    public void setDatosUsuario(Usuario usuario) {
+        this.usuario = usuario;
+        cargarUsuarios();
+    }
 
-                if (datosController.isDatosConfirmados()) {
-                    String nuevoCorreo = datosController.getNuevoCorreo();
-
-                    // Rename JSON files if they exist
-                    File saludFile = new File(correo + "_datosMedicos.json");
-                    File historialFile = new File(correo + "_historial.json");
-                    File rutinasFile = new File(correo + "_rutinas.json");
-
-                    if (saludFile.exists()) {
-                        saludFile.renameTo(new File(nuevoCorreo + "_datosMedicos.json"));
-                    }
-
-                    if (historialFile.exists()) {
-                        historialFile.renameTo(new File(nuevoCorreo + "_historial.json"));
-                    }
-
-                    if (rutinasFile.exists()) {
-                        rutinasFile.renameTo(new File(nuevoCorreo + "_rutinas.json"));
-                    }
-
-                    LblMensaje.setText("Usuario actualizado correctamente");
-                } else {
-                    LblMensaje.setText("Actualización de usuario cancelada");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                LblMensaje.setText("Error al mostrar la ventana de datos");
+    private void cargarUsuarios() {
+        if (usuario != null) {
+            List<Usuario> usuarios = mariaDBController.obtenerUsuariosPorGimnasio(usuario.getGimnasio());
+            for (Usuario usuario : usuarios) {
+                ChoiceBoxCorreoAtleta.getItems().add(usuario.getCorreo());
             }
+        }
+    }
+
+    private void manejarContinuar() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/NuevosDatosUsuario.fxml"));
+            Parent root = loader.load();
+
+            NuevosDatosUsuarioController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
+            controller.setCorreoUsuarioAActualizar(ChoiceBoxCorreoAtleta.getValue());
+
+            Stage stage = (Stage) BtnContinuar.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -102,25 +78,24 @@ public class ActualizarUsuariosController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/GestionUsuarios.fxml"));
             Parent root = loader.load();
+
+            GestionUsuariosController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
+
             Stage stage = (Stage) BtnVolver.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            LblMensaje.setText("Error al volver al menú");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
 
     private void colocarImagenBotones() {
         URL volver = getClass().getResource("/images/VolverAtras.png");
 
-        if (volver != null) {
-            Image imagenVolver = new Image(volver.toString(), 50, 50, false, true);
-            BtnVolver.setGraphic(new ImageView(imagenVolver));
-        } else {
-            LblMensaje.setText("Error al cargar la imagen de volver");
-        }
+        Image imagenVolver = new Image(String.valueOf(volver), 50, 50, false, true);
+
+        BtnVolver.setGraphic(new ImageView(imagenVolver));
     }
 }
-
- */

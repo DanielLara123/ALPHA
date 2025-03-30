@@ -17,12 +17,6 @@ import javafx.stage.Stage;
 public class MenuAdminController {
 
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
     private Button BtnCerrarSesion;
 
     @FXML
@@ -42,31 +36,51 @@ public class MenuAdminController {
         colocarImagenBotones();
     }
 
+    private void manejarControlAfluencia() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/ControlAfluencia.fxml"));
+            Parent root = loader.load();
+
+            ControlAfluenciaController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
+
+            Stage stage = (Stage) BtnControlAfluencia.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void manejarGestionUsuarios() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/Administrador/GestionUsuarios.fxml"));
+            Parent root = loader.load();
+
+            GestionUsuariosController controller = loader.getController();
+            controller.setDatosUsuario(usuario);
+
+            Stage stage = (Stage) BtnGestionUsuarios.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setDatosUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
     private void manejarCerrarSesion() {
-        cargarEscena("/com/example/proyectoalpha/TipoUsuario.fxml", BtnCerrarSesion);
-    }
-
-    private void manejarGestionUsuarios() {
-        cargarEscena("/com/example/proyectoalpha/Administrador/GestionUsuarios.fxml", BtnGestionUsuarios);
-    }
-
-    private void manejarControlAfluencia() {
-        cargarEscena("/com/example/proyectoalpha/Administrador/ControlAfluencia.fxml", BtnControlAfluencia);
-    }
-
-    private void cargarEscena(String rutaFXML, Button boton) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(rutaFXML));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectoalpha/TipoUsuario.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) boton.getScene().getWindow();
+            Stage stage = (Stage) BtnCerrarSesion.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
