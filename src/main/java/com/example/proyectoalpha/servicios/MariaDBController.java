@@ -783,6 +783,26 @@ public class MariaDBController {
             return false;
         }
     }
+
+    public List<String> obtenerUsuariosRecientes(int usuarioID) {
+        List<String> correos = new ArrayList<>();
+        String query = "SELECT DISTINCT u.correo FROM Chat c " +
+                "JOIN Usuario u ON (c.ID_usuario1 = u.id OR c.ID_usuario2 = u.id) " +
+                "WHERE (c.ID_usuario1 = ? OR c.ID_usuario2 = ?) " +
+                "ORDER BY c.fecha DESC";
+        try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, usuarioID);
+            statement.setInt(2, usuarioID);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                correos.add(resultSet.getString("correo"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return correos;
+    }
 }
 
 
