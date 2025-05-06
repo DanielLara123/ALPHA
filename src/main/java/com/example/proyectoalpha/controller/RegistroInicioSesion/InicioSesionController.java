@@ -20,6 +20,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.Normalizer;
 import java.util.regex.Pattern;
 
@@ -62,30 +64,51 @@ public class InicioSesionController {
 
     private void manejarContinuar() {
         String correo = LblCorreo.getText();
-        String contrasena = LblContrasena.getText();
+        String contrasenaIngresada = LblContrasena.getText();
 
-        Usuario usuario = mariaDBController.loginUsuario(correo, contrasena);
+        Usuario usuario = mariaDBController.obtenerUsuarioPorEmail(correo);
         if (usuario != null) {
-            if (normalize(usuario.getTipoUsuario()).equalsIgnoreCase(normalize(tipoUsuario))) {
-                switch (normalize(tipoUsuario).toLowerCase()) {
-                    case "atleta":
-                        MenuAtleta(usuario);
-                        break;
-                    case "medico":
-                        MenuMedico(usuario);
-                        break;
-                    case "administrador":
-                        MenuAdministrador(usuario);
-                        break;
-                    default:
-                        MenuEntrenador(usuario);
-                        break;
+            // Comparar la contraseña ingresada con el hash almacenado
+            if (hashPassword(contrasenaIngresada).equals(usuario.getContrasena())) {
+                if (normalize(usuario.getTipoUsuario()).equalsIgnoreCase(normalize(tipoUsuario))) {
+                    switch (normalize(tipoUsuario).toLowerCase()) {
+                        case "atleta":
+                            MenuAtleta(usuario);
+                            break;
+                        case "medico":
+                            MenuMedico(usuario);
+                            break;
+                        case "administrador":
+                            MenuAdministrador(usuario);
+                            break;
+                        default:
+                            MenuEntrenador(usuario);
+                            break;
+                    }
+                } else {
+                    LblMessage.setText("Tipo de usuario incorrecto");
                 }
             } else {
-                LblMessage.setText("Tipo de usuario incorrecto");
+                LblMessage.setText("Correo o contraseña incorrectos");
             }
         } else {
             LblMessage.setText("Correo o contraseña incorrectos");
+        }
+    }
+
+    private String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = digest.digest(password.getBytes());
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hashBytes) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error al generar el hash de la contraseña", e);
         }
     }
 

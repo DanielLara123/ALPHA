@@ -1,7 +1,8 @@
 package com.example.proyectoalpha.servicios;
 
 import com.example.proyectoalpha.clases.*;
-
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -151,12 +152,16 @@ public class MariaDBController {
     }
 
     public boolean registrarUsuario(Usuario usuario) {
-        String sql = "INSERT INTO Usuario (nombre, apellidos, contraseña, DNI, correo, tipoUsuario, gimnasio) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Usuario (nombre, apellidos, contraseña, DNI, correo, tipoUsuario, gimnasio, estado) VALUES (?, ?, ?, ?, ?, ?, ?, 'activo')";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // Hash the password
+            String hashedPassword = hashPassword(usuario.getContrasena());
+
             pstmt.setString(1, usuario.getNombre());
             pstmt.setString(2, usuario.getApellidos());
-            pstmt.setString(3, usuario.getContrasena());
+            pstmt.setString(3, hashedPassword); // Use the hashed password
             pstmt.setString(4, usuario.getDNI());
             pstmt.setString(5, usuario.getCorreo());
             pstmt.setString(6, usuario.getTipoUsuario());
@@ -177,8 +182,24 @@ public class MariaDBController {
         }
     }
 
+    private String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = digest.digest(password.getBytes());
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hashBytes) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error hashing password", e);
+        }
+    }
+
     public boolean eliminarUsuario(int userId) {
-        String query = "DELETE FROM Usuario WHERE ID = ?";
+        String query = "UPDATE Usuario SET estado = 'dado de baja' WHERE ID = ?";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, userId);
@@ -772,7 +793,7 @@ public class MariaDBController {
     }
 
     public boolean eliminarUsuarioPorCorreo(String correoSeleccionado) {
-        String query = "DELETE FROM Usuario WHERE correo = ?";
+        String query = "UPDATE Usuario SET estado = 'dado de baja' WHERE correo = ?";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, correoSeleccionado);

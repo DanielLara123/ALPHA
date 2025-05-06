@@ -35,9 +35,6 @@ public class MisDatosUsuarioController {
     private Label LblCorreo;
 
     @FXML
-    private Label LblPassword;
-
-    @FXML
     private Label LblTipoUsuario;
 
     private Usuario usuario;
@@ -56,7 +53,6 @@ public class MisDatosUsuarioController {
     public void mostrarDatosUsuario(Usuario usuario) {
         LblSetDni.setText(usuario.getDNI());
         LblCorreo.setText(usuario.getCorreo());
-        LblPassword.setText(usuario.getContrasena());
         LblNombre.setText(usuario.getNombre());
         LblApellidos.setText(usuario.getApellidos());
         LblTipoUsuario.setText(usuario.getTipoUsuario());
