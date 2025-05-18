@@ -728,11 +728,21 @@ public class MariaDBController {
     }
 
     public List<Sensor> obtenerDatosSensorPorUsuario(int ID_usuario) {
-        String query = "SELECT tipo_dato, MAX(fecha) as fecha, valor FROM Sensores WHERE ID_usuario = ? GROUP BY tipo_dato";
+        String query = "SELECT s.tipo_dato, s.fecha, s.valor " +
+                "FROM Sensores s " +
+                "JOIN ( " +
+                "    SELECT tipo_dato, MAX(fecha) AS max_fecha " +
+                "    FROM Sensores " +
+                "    WHERE ID_usuario = ? " +
+                "    GROUP BY tipo_dato " +
+                ") subquery " +
+                "ON s.tipo_dato = subquery.tipo_dato AND s.fecha = subquery.max_fecha " +
+                "WHERE s.ID_usuario = ?";
         List<Sensor> sensores = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, ID_usuario);
+            pstmt.setInt(2, ID_usuario);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 Sensor sensor = new Sensor();

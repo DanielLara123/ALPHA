@@ -75,13 +75,13 @@ public class HistorialMedicoController {
             if (!sensores.isEmpty()) {
                 for (Sensor sensor : sensores) {
                     switch (sensor.getTipoDato()) {
-                        case "Frecuencia Cardíaca":
+                        case "Frecuencia Cardiaca":
                             LblFC.setText(sensor.getValor());
                             break;
-                        case "Oxigenación en Sangre":
+                        case "Oxigenacion en Sangre":
                             LblO2.setText(sensor.getValor());
                             break;
-                        case "Ubicación":
+                        case "Ubicacion":
                             LblGpsData.setText(sensor.getValor());
                             break;
                     }

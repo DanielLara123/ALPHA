@@ -52,6 +52,7 @@ public class ElegirDestinatarioController {
     private void initialize() {
         BtnAbrir.setOnAction(event -> manejarAbrir());
         BtnVolver.setOnAction(event -> manejarVolver());
+        colocarImagenBotones();
     }
 
     private void manejarAbrir() {
